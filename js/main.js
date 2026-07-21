@@ -57,6 +57,15 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
   const NODE_REPEL_RADIUS = 48;
   const NODE_REPEL_STRENGTH = 0.5;
 
+  // Repulsión suave en los bordes: nunca llegan a "cortarse" contra el borde
+  const BORDER_MARGIN = 70;
+  const BORDER_STRENGTH = 1.1;
+
+  // Distancia máxima entre nodos para poder enviarse un impulso: tiene que
+  // coincidir con una línea claramente visible (opacidad alta), no cualquiera.
+  const LINE_MAX_DIST = 150;
+  const PULSE_MAX_DIST = 70;
+
   // Escuchamos en .hero (no en el canvas): el texto encima tiene una caja
   // invisible que ocupa todo el ancho y, si escucháramos solo en el canvas,
   // bloquearía el mousemove en gran parte del área.
@@ -107,7 +116,7 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
   function maybeSpawnPulse() {
     if (Math.random() < PULSE_RATE && nodes.length) {
       const a = nodes[Math.floor(Math.random() * nodes.length)];
-      let best = null, bestD = 170;
+      let best = null, bestD = PULSE_MAX_DIST;
       for (const b of nodes) {
         if (b === a) continue;
         const d = Math.hypot(a.x - b.x, a.y - b.y);
@@ -123,8 +132,13 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
     for (const n of nodes) {
       n.x += n.vx;
       n.y += n.vy;
-      if (n.x < 0 || n.x > W) n.vx *= -1;
-      if (n.y < 0 || n.y > H) n.vy *= -1;
+
+      if (n.x < BORDER_MARGIN) n.x += (BORDER_MARGIN - n.x) / BORDER_MARGIN * BORDER_STRENGTH;
+      if (n.x > W - BORDER_MARGIN) n.x -= (BORDER_MARGIN - (W - n.x)) / BORDER_MARGIN * BORDER_STRENGTH;
+      if (n.y < BORDER_MARGIN) n.y += (BORDER_MARGIN - n.y) / BORDER_MARGIN * BORDER_STRENGTH;
+      if (n.y > H - BORDER_MARGIN) n.y -= (BORDER_MARGIN - (H - n.y)) / BORDER_MARGIN * BORDER_STRENGTH;
+      n.x = Math.max(0, Math.min(W, n.x));
+      n.y = Math.max(0, Math.min(H, n.y));
 
       if (mouseX !== null) {
         const dx = n.x - mouseX;
@@ -146,8 +160,8 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
         const dx = a.x - b.x, dy = a.y - b.y;
         const d = Math.hypot(dx, dy);
 
-        if (d < 150) {
-          ctx.strokeStyle = 'rgba(20,33,61,' + (0.32 * (1 - d / 150)) + ')';
+        if (d < LINE_MAX_DIST) {
+          ctx.strokeStyle = 'rgba(20,33,61,' + (0.32 * (1 - d / LINE_MAX_DIST)) + ')';
           ctx.lineWidth = 1.4;
           ctx.beginPath();
           ctx.moveTo(a.x, a.y);
@@ -176,15 +190,17 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
     maybeSpawnPulse();
     for (let i = pulses.length - 1; i >= 0; i--) {
       const p = pulses[i];
-      p.t += 0.018 * SPEED;
+      p.t += 0.008 * SPEED;
       if (p.t >= 1) { pulses.splice(i, 1); continue; }
       const x = p.a.x + (p.b.x - p.a.x) * p.t;
       const y = p.a.y + (p.b.y - p.a.y) * p.t;
+      // pequeña -> grande -> pequeña a lo largo del camino
+      const pulseR = 1.5 + Math.sin(Math.PI * p.t) * 4;
       ctx.beginPath();
       ctx.fillStyle = '#3a86ff';
       ctx.shadowColor = '#3a86ff';
       ctx.shadowBlur = 12;
-      ctx.arc(x, y, 4.2, 0, Math.PI * 2);
+      ctx.arc(x, y, pulseR, 0, Math.PI * 2);
       ctx.fill();
       ctx.shadowBlur = 0;
     }
