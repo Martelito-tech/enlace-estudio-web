@@ -39,12 +39,17 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
   const ctx = canvas.getContext('2d');
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  // Parámetros de prueba vía URL: ?net_speed=slow|normal|fast  &  ?net_pulses=few|normal|many
+  const params = new URLSearchParams(window.location.search);
+  const SPEED = { slow: 0.5, normal: 1, fast: 2.2 }[params.get('net_speed')] || 1;
+  const PULSE_RATE = { few: 0.006, normal: 0.016, many: 0.036 }[params.get('net_pulses')] || 0.016;
+
   let W = 0, H = 0, dpr = 1;
   let nodes = [];
   const pulses = [];
 
   function nodeCount() {
-    return W < 760 ? 22 : 40;
+    return W < 760 ? 24 : 42;
   }
 
   function resize() {
@@ -69,16 +74,16 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
       nodes.push({
         x: Math.min(x, W),
         y: Math.random() * H,
-        vx: (Math.random() - 0.5) * 0.22,
-        vy: (Math.random() - 0.5) * 0.22,
-        r: Math.random() < 0.15 ? 3.2 : 1.7,
+        vx: (Math.random() - 0.5) * 0.28 * SPEED,
+        vy: (Math.random() - 0.5) * 0.28 * SPEED,
+        r: Math.random() < 0.18 ? 4.4 : 2.6,
         blue: Math.random() < 0.45
       });
     }
   }
 
   function maybeSpawnPulse() {
-    if (Math.random() < 0.012 && nodes.length) {
+    if (Math.random() < PULSE_RATE && nodes.length) {
       const a = nodes[Math.floor(Math.random() * nodes.length)];
       let best = null, bestD = 170;
       for (const b of nodes) {
@@ -104,9 +109,9 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
       for (let j = i + 1; j < nodes.length; j++) {
         const a = nodes[i], b = nodes[j];
         const d = Math.hypot(a.x - b.x, a.y - b.y);
-        if (d < 140) {
-          ctx.strokeStyle = 'rgba(20,33,61,' + (0.16 * (1 - d / 140)) + ')';
-          ctx.lineWidth = 1;
+        if (d < 150) {
+          ctx.strokeStyle = 'rgba(20,33,61,' + (0.32 * (1 - d / 150)) + ')';
+          ctx.lineWidth = 1.4;
           ctx.beginPath();
           ctx.moveTo(a.x, a.y);
           ctx.lineTo(b.x, b.y);
@@ -118,7 +123,7 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
     for (const n of nodes) {
       ctx.beginPath();
       ctx.fillStyle = n.blue ? '#3a86ff' : '#14213d';
-      ctx.globalAlpha = n.blue ? 0.75 : 0.5;
+      ctx.globalAlpha = n.blue ? 1 : 0.8;
       ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
       ctx.fill();
       ctx.globalAlpha = 1;
@@ -127,15 +132,15 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
     maybeSpawnPulse();
     for (let i = pulses.length - 1; i >= 0; i--) {
       const p = pulses[i];
-      p.t += 0.018;
+      p.t += 0.018 * SPEED;
       if (p.t >= 1) { pulses.splice(i, 1); continue; }
       const x = p.a.x + (p.b.x - p.a.x) * p.t;
       const y = p.a.y + (p.b.y - p.a.y) * p.t;
       ctx.beginPath();
       ctx.fillStyle = '#3a86ff';
       ctx.shadowColor = '#3a86ff';
-      ctx.shadowBlur = 8;
-      ctx.arc(x, y, 3, 0, Math.PI * 2);
+      ctx.shadowBlur = 12;
+      ctx.arc(x, y, 4.2, 0, Math.PI * 2);
       ctx.fill();
       ctx.shadowBlur = 0;
     }
