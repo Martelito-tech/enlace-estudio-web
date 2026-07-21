@@ -48,6 +48,21 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
   let nodes = [];
   const pulses = [];
 
+  // Interacción con el cursor: repulsión suave, sin líneas hacia el ratón
+  const REPEL_RADIUS = 130;
+  const REPEL_STRENGTH = 2.6;
+  let mouseX = null, mouseY = null;
+
+  canvas.addEventListener('mousemove', (e) => {
+    const rect = canvas.getBoundingClientRect();
+    mouseX = e.clientX - rect.left;
+    mouseY = e.clientY - rect.top;
+  });
+  canvas.addEventListener('mouseleave', () => {
+    mouseX = null;
+    mouseY = null;
+  });
+
   function nodeCount() {
     return W < 760 ? 24 : 42;
   }
@@ -103,6 +118,19 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
       n.y += n.vy;
       if (n.x < 0 || n.x > W) n.vx *= -1;
       if (n.y < 0 || n.y > H) n.vy *= -1;
+
+      if (mouseX !== null) {
+        const dx = n.x - mouseX;
+        const dy = n.y - mouseY;
+        const dist = Math.hypot(dx, dy);
+        if (dist < REPEL_RADIUS && dist > 0.01) {
+          const force = Math.pow(1 - dist / REPEL_RADIUS, 2) * REPEL_STRENGTH;
+          n.x += (dx / dist) * force;
+          n.y += (dy / dist) * force;
+          n.x = Math.max(0, Math.min(W, n.x));
+          n.y = Math.max(0, Math.min(H, n.y));
+        }
+      }
     }
 
     for (let i = 0; i < nodes.length; i++) {
