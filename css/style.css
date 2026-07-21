@@ -222,7 +222,7 @@ em {
 /* ---------- Hero: red de conexión ---------- */
 .hero--network {
   min-height: 88vh;
-  padding: 150px 0 140px;
+  padding: 96px 0 170px;
   box-sizing: border-box;
 }
 .hero--network::before { display: none; }
@@ -257,7 +257,7 @@ em {
 @media (max-width: 960px) {
   .hero--network {
     min-height: 100svh;
-    padding: 130px 0 60px;
+    padding: 96px 0 60px;
   }
   .hero-network {
     -webkit-mask-image: linear-gradient(180deg, transparent 0%, transparent 58%, black 78%, black 100%);
