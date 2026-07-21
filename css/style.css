@@ -700,6 +700,16 @@ em {
   font-weight: 700;
 }
 
+.case-stats-img {
+  max-width: 320px;
+  margin: 20px 0;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  box-shadow: 0 20px 40px -24px rgba(20,33,61,.25);
+}
+.case-stats-img img { width: 100%; display: block; }
+
 .case-gallery {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
