@@ -133,10 +133,22 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
       n.x += n.vx;
       n.y += n.vy;
 
-      if (n.x < BORDER_MARGIN) n.x += (BORDER_MARGIN - n.x) / BORDER_MARGIN * BORDER_STRENGTH;
-      if (n.x > W - BORDER_MARGIN) n.x -= (BORDER_MARGIN - (W - n.x)) / BORDER_MARGIN * BORDER_STRENGTH;
-      if (n.y < BORDER_MARGIN) n.y += (BORDER_MARGIN - n.y) / BORDER_MARGIN * BORDER_STRENGTH;
-      if (n.y > H - BORDER_MARGIN) n.y -= (BORDER_MARGIN - (H - n.y)) / BORDER_MARGIN * BORDER_STRENGTH;
+      if (n.x < BORDER_MARGIN) {
+        n.x += (BORDER_MARGIN - n.x) / BORDER_MARGIN * BORDER_STRENGTH;
+        if (n.vx < 0) n.vx = -n.vx;
+      }
+      if (n.x > W - BORDER_MARGIN) {
+        n.x -= (BORDER_MARGIN - (W - n.x)) / BORDER_MARGIN * BORDER_STRENGTH;
+        if (n.vx > 0) n.vx = -n.vx;
+      }
+      if (n.y < BORDER_MARGIN) {
+        n.y += (BORDER_MARGIN - n.y) / BORDER_MARGIN * BORDER_STRENGTH;
+        if (n.vy < 0) n.vy = -n.vy;
+      }
+      if (n.y > H - BORDER_MARGIN) {
+        n.y -= (BORDER_MARGIN - (H - n.y)) / BORDER_MARGIN * BORDER_STRENGTH;
+        if (n.vy > 0) n.vy = -n.vy;
+      }
       n.x = Math.max(0, Math.min(W, n.x));
       n.y = Math.max(0, Math.min(H, n.y));
 
