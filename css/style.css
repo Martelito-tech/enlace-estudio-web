@@ -356,21 +356,47 @@ em {
   margin-top: 18px;
   margin-bottom: 52px;
 }
-.section-lead:has(+ .section-note) { margin-bottom: 20px; }
-
-.section-note {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-size: .88rem;
-  font-weight: 700;
-  color: var(--navy);
+.ownership-block {
+  display: flex;
+  align-items: flex-start;
+  gap: 22px;
+  margin-top: 48px;
+  padding: 32px;
   background: var(--blue-soft);
   border: 1px solid #cfe0ff;
-  padding: 10px 18px;
-  border-radius: 999px;
-  margin-bottom: 40px;
+  border-radius: var(--radius);
 }
+.ownership-icon {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  color: var(--blue);
+  margin-top: 2px;
+}
+.ownership-block h3 {
+  color: var(--navy);
+  font-size: 1.2rem;
+  margin-bottom: .3em;
+}
+.ownership-block p { color: var(--ink); margin: 0; max-width: 62ch; }
+
+.included-block { margin-top: 28px; }
+.included-block h3 {
+  color: var(--navy);
+  font-size: 1.05rem;
+  margin-bottom: 20px;
+}
+.included-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+.included-title {
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: .3em;
+}
+.included-grid p:not(.included-title) { color: var(--muted); margin: 0; font-size: .92rem; }
 
 /* ---------- Pricing ---------- */
 .pricing-grid {
@@ -905,6 +931,8 @@ em {
   .hero-art { order: -1; height: 220px; }
   .hero-logo { width: 180px; }
   .pricing-grid { grid-template-columns: 1fr; }
+  .ownership-block { flex-direction: column; }
+  .included-grid { grid-template-columns: 1fr; }
   .work-feature { grid-template-columns: 1fr; }
   .work-feature-thumb { min-height: 220px; }
   .work-feature-body { padding: 32px 24px; }
