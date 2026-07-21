@@ -53,12 +53,19 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
   const REPEL_STRENGTH = 2.6;
   let mouseX = null, mouseY = null;
 
-  canvas.addEventListener('mousemove', (e) => {
+  // Interacción entre nodos: se apartan si se acercan demasiado
+  const NODE_REPEL_RADIUS = 48;
+  const NODE_REPEL_STRENGTH = 0.5;
+
+  // Escuchamos en .hero (no en el canvas): el texto encima tiene una caja
+  // invisible que ocupa todo el ancho y, si escucháramos solo en el canvas,
+  // bloquearía el mousemove en gran parte del área.
+  hero.addEventListener('mousemove', (e) => {
     const rect = canvas.getBoundingClientRect();
     mouseX = e.clientX - rect.left;
     mouseY = e.clientY - rect.top;
   });
-  canvas.addEventListener('mouseleave', () => {
+  hero.addEventListener('mouseleave', () => {
     mouseX = null;
     mouseY = null;
   });
@@ -136,7 +143,9 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
     for (let i = 0; i < nodes.length; i++) {
       for (let j = i + 1; j < nodes.length; j++) {
         const a = nodes[i], b = nodes[j];
-        const d = Math.hypot(a.x - b.x, a.y - b.y);
+        const dx = a.x - b.x, dy = a.y - b.y;
+        const d = Math.hypot(dx, dy);
+
         if (d < 150) {
           ctx.strokeStyle = 'rgba(20,33,61,' + (0.32 * (1 - d / 150)) + ')';
           ctx.lineWidth = 1.4;
@@ -144,6 +153,13 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
           ctx.moveTo(a.x, a.y);
           ctx.lineTo(b.x, b.y);
           ctx.stroke();
+        }
+
+        if (d < NODE_REPEL_RADIUS && d > 0.01) {
+          const force = (1 - d / NODE_REPEL_RADIUS) * NODE_REPEL_STRENGTH;
+          const ux = dx / d, uy = dy / d;
+          a.x += ux * force; a.y += uy * force;
+          b.x -= ux * force; b.y -= uy * force;
         }
       }
     }
