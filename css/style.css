@@ -219,6 +219,40 @@ em {
   position: relative;
 }
 
+/* ---------- Hero: red de conexión ---------- */
+.hero--network {
+  min-height: 88vh;
+  padding: 150px 0 140px;
+  box-sizing: border-box;
+}
+.hero--network::before { display: none; }
+
+.hero-network {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-mask-image: linear-gradient(105deg, transparent 0%, transparent 34%, black 56%, black 100%);
+  mask-image: linear-gradient(105deg, transparent 0%, transparent 34%, black 56%, black 100%);
+}
+.hero--network .hero-inner {
+  position: relative;
+  z-index: 1;
+  grid-template-columns: 1fr;
+}
+
+@media (max-width: 960px) {
+  .hero--network {
+    min-height: 100svh;
+    padding: 130px 0 60px;
+  }
+  .hero-network {
+    -webkit-mask-image: linear-gradient(180deg, transparent 0%, transparent 58%, black 78%, black 100%);
+    mask-image: linear-gradient(180deg, transparent 0%, transparent 58%, black 78%, black 100%);
+  }
+}
+
 .eyebrow {
   display: inline-flex;
   align-items: center;
