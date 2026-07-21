@@ -100,10 +100,11 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
     const n = nodeCount();
     nodes = [];
     for (let i = 0; i < n; i++) {
-      // sesgado hacia la derecha: menos nodos cerca del texto
-      const x = W * (0.28 + Math.pow(Math.random(), 1.4) * 0.78);
+      // sesgado hacia los laterales: menos nodos cerca del texto centrado
+      const side = Math.random() < 0.5 ? -1 : 1;
+      const x = W / 2 + side * (0.16 + Math.pow(Math.random(), 1.3) * 0.34) * W;
       nodes.push({
-        x: Math.min(x, W),
+        x: Math.max(0, Math.min(x, W)),
         y: Math.random() * H,
         vx: (Math.random() - 0.5) * 0.28 * SPEED,
         vy: (Math.random() - 0.5) * 0.28 * SPEED,
