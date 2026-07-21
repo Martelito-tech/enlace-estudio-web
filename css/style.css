@@ -501,81 +501,82 @@ em {
 }
 .price-card-featured .price-highlight { background: rgba(58,134,255,.22); color: var(--white); }
 
-/* ---------- Trabajos ---------- */
-.work-grid {
+/* ---------- Trabajos: caso destacado ---------- */
+.work-feature {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
-}
-
-.work-card {
-  background: var(--bg);
+  grid-template-columns: 1.05fr 1fr;
+  align-items: stretch;
+  background: var(--white);
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 20px;
-  transition: transform .2s ease;
-}
-.work-card:hover { transform: translateY(-4px); }
-
-.work-thumb {
-  height: 180px;
-  border-radius: 12px;
-  margin-bottom: 18px;
-  display: flex;
-  align-items: flex-end;
-  padding: 16px;
-  background-size: cover;
-  background-position: center;
-}
-.work-thumb span {
-  color: var(--white);
-  font-weight: 700;
-  font-size: .82rem;
-  letter-spacing: .04em;
-  background: rgba(20,33,61,.55);
-  padding: 6px 12px;
-  border-radius: 999px;
-  backdrop-filter: blur(4px);
-}
-
-.work-thumb-1 { background: linear-gradient(135deg, #14213d, #3a86ff); }
-.work-thumb-2 { background: linear-gradient(135deg, #3a86ff, #14213d 130%); }
-.work-thumb-3 { background: linear-gradient(135deg, #1f2f54, #6ea8ff); }
-
-.work-thumb-img {
-  display: block;
-  position: relative;
-  padding: 0;
   overflow: hidden;
-  align-items: stretch;
+  transition: box-shadow .25s ease;
 }
-.work-thumb-img img {
+.work-feature:hover { box-shadow: 0 30px 60px -30px rgba(20,33,61,.25); }
+
+.work-feature-thumb {
+  display: block;
+  overflow: hidden;
+  min-height: 340px;
+}
+.work-feature-thumb img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: top center;
-  transition: transform .4s ease;
+  display: block;
+  transition: transform .5s ease;
 }
-.work-card-real:hover .work-thumb-img img { transform: scale(1.05); }
-.work-thumb-img span {
-  position: absolute;
-  left: 16px;
-  bottom: 16px;
-  background: rgba(20,33,61,.6);
+.work-feature:hover .work-feature-thumb img { transform: scale(1.04); }
+
+.work-feature-body {
+  padding: 44px 44px 44px 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
-.work-card h3 { color: var(--navy); margin-bottom: .3em; }
-.work-card h3 a { color: inherit; }
-.work-card h3 a:hover { color: var(--blue); }
-.work-card p { color: var(--muted); font-size: .92rem; margin: 0 0 .8em; }
-
-.work-link {
-  display: inline-block;
+.work-feature-tag {
+  font-size: .74rem;
   font-weight: 700;
-  font-size: .88rem;
+  letter-spacing: .06em;
   color: var(--blue);
+  margin-bottom: 14px;
 }
-.work-link:hover { text-decoration: underline; }
+
+.work-feature-body h3 {
+  font-family: var(--font-display);
+  font-size: 1.9rem;
+  color: var(--navy);
+  margin-bottom: .3em;
+}
+.work-feature-body h3 a { color: inherit; }
+.work-feature-body h3 a:hover { color: var(--blue); }
+
+.work-feature-desc { color: var(--muted); margin-bottom: 22px; }
+
+.work-feature-points {
+  list-style: none;
+  margin: 0 0 30px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.work-feature-points li {
+  position: relative;
+  padding-left: 26px;
+  font-size: .92rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+.work-feature-points li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: var(--blue);
+  font-weight: 700;
+}
 
 /* ---------- Página de caso (trabajos individuales) ---------- */
 .case-hero {
@@ -887,7 +888,10 @@ em {
   .hero-inner { grid-template-columns: 1fr; }
   .hero-art { order: -1; height: 220px; }
   .hero-logo { width: 180px; }
-  .pricing-grid, .work-grid { grid-template-columns: 1fr; }
+  .pricing-grid { grid-template-columns: 1fr; }
+  .work-feature { grid-template-columns: 1fr; }
+  .work-feature-thumb { min-height: 220px; }
+  .work-feature-body { padding: 32px 24px; }
   .steps-grid { grid-template-columns: 1fr 1fr; }
   .case-grid { grid-template-columns: 1fr; }
   .case-sidebar { position: static; }
