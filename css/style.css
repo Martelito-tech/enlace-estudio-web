@@ -348,6 +348,7 @@ em {
 }
 
 .section h2 { color: var(--navy); max-width: 18ch; }
+#trabajos h2 { max-width: 26ch; }
 
 .section-lead {
   color: var(--muted);
