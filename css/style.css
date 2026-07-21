@@ -716,22 +716,6 @@ em {
 .case-stats-img img { width: 100%; display: block; }
 .case-result p { margin: 0; color: var(--muted); }
 
-.case-gallery-single {
-  max-width: 380px;
-  margin-top: 20px;
-  border-radius: 14px;
-  overflow: hidden;
-  border: 1px solid var(--border);
-  background: var(--white);
-}
-.case-gallery-single img { width: 100%; display: block; }
-.case-gallery-single figcaption {
-  padding: 12px 16px;
-  font-size: .82rem;
-  color: var(--muted);
-  border-top: 1px solid var(--border);
-}
-
 .case-gallery {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -769,7 +753,6 @@ em {
 }
 .case-sidebar .price-list { margin-bottom: 32px; gap: 18px; }
 .case-sidebar .price-list li { font-size: 1rem; }
-.case-sidebar .price-list:last-of-type { margin-bottom: 0; }
 
 /* ---------- Proceso ---------- */
 .steps-grid {
