@@ -69,15 +69,23 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
   // Escuchamos en .hero (no en el canvas): el texto encima tiene una caja
   // invisible que ocupa todo el ancho y, si escucháramos solo en el canvas,
   // bloquearía el mousemove en gran parte del área.
-  hero.addEventListener('mousemove', (e) => {
-    const rect = canvas.getBoundingClientRect();
-    mouseX = e.clientX - rect.left;
-    mouseY = e.clientY - rect.top;
-  });
-  hero.addEventListener('mouseleave', () => {
-    mouseX = null;
-    mouseY = null;
-  });
+  //
+  // Solo en dispositivos con cursor real (hover + puntero fino). En táctil
+  // el "mousemove" que simulan los navegadores al hacer scroll con el dedo
+  // se queda clavado en un punto (nunca llega el "mouseleave"), empujando
+  // nodos sin parar — no aporta nada ahí, así que lo desactivamos del todo.
+  const supportsHoverCursor = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  if (supportsHoverCursor) {
+    hero.addEventListener('mousemove', (e) => {
+      const rect = canvas.getBoundingClientRect();
+      mouseX = e.clientX - rect.left;
+      mouseY = e.clientY - rect.top;
+    });
+    hero.addEventListener('mouseleave', () => {
+      mouseX = null;
+      mouseY = null;
+    });
+  }
 
   function nodeCount() {
     return W < 760 ? 24 : 42;
