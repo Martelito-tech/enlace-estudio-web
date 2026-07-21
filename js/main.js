@@ -195,7 +195,7 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
       const x = p.a.x + (p.b.x - p.a.x) * p.t;
       const y = p.a.y + (p.b.y - p.a.y) * p.t;
       // pequeña -> grande -> pequeña a lo largo del camino
-      const pulseR = 1.5 + Math.sin(Math.PI * p.t) * 4;
+      const pulseR = 1.5 + Math.sin(Math.PI * p.t) * 1.8;
       ctx.beginPath();
       ctx.fillStyle = '#3a86ff';
       ctx.shadowColor = '#3a86ff';
