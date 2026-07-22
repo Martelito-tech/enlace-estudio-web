@@ -91,6 +91,8 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
     return W < 760 ? 24 : 42;
   }
 
+  let lastW = null;
+
   function resize() {
     const rect = hero.getBoundingClientRect();
     dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -101,7 +103,22 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
     canvas.style.width = W + 'px';
     canvas.style.height = H + 'px';
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    initNodes();
+
+    // En móvil, mostrar/ocultar la barra de direcciones al hacer scroll
+    // dispara "resize" cambiando solo el alto. Si regenerásemos los nodos
+    // cada vez, se verían "saltar" a posiciones nuevas mientras deslizas.
+    // Solo reiniciamos si el ANCHO cambia de verdad (giro de pantalla,
+    // redimensionar ventana o primera carga).
+    if (lastW === null || Math.abs(W - lastW) > 2) {
+      lastW = W;
+      initNodes();
+    } else {
+      // Mismo ancho: no regenerar, solo mantener los nodos dentro del
+      // nuevo alto para que no queden fuera del lienzo.
+      for (const n of nodes) {
+        n.y = Math.min(n.y, H);
+      }
+    }
   }
 
   function initNodes() {
