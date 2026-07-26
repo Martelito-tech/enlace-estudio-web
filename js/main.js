@@ -73,7 +73,7 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
   // Solo en dispositivos con cursor real (hover + puntero fino). En táctil
   // el "mousemove" que simulan los navegadores al hacer scroll con el dedo
   // se queda clavado en un punto (nunca llega el "mouseleave"), empujando
-  // nodos sin parar — no aporta nada ahí, así que lo desactivamos del todo.
+  // nodos sin parar, y no aporta nada ahí, así que lo desactivamos del todo.
   const supportsHoverCursor = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
   if (supportsHoverCursor) {
     hero.addEventListener('mousemove', (e) => {
