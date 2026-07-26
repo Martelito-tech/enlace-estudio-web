@@ -12,6 +12,13 @@
   --green-dark: #16a34a;
   --border: #e2e8f5;
   --radius: 18px;
+  /* Acento y precios sobre fondo navy (bloque de automatizaciones) */
+  --blue-light: #6ba5ff;
+  /* Titulillos e iconos sobre fondo navy. Nombrado --blue-pale y no
+     --blue-soft porque ese nombre ya existe (línea 6, #ecf3ff, un tono
+     casi blanco usado en fondos claros): reutilizarlo con otro valor
+     rompería todo lo que ya lo usa. */
+  --blue-pale: #8fbbff;
   --font-display: 'Sora', sans-serif;
   --font-body: 'Manrope', sans-serif;
   --font-accent: 'Fraunces', serif;
@@ -452,30 +459,22 @@ em {
   font-size: 3rem;
   font-weight: 700;
   color: var(--navy);
-  margin-bottom: 14px;
+  margin-bottom: 6px;
   display: flex;
   align-items: baseline;
   gap: 4px;
 }
 .price-card-featured .price-amount { color: var(--white); }
-.price-amount span:not(.price-from) { font-size: 1.3rem; font-weight: 600; }
-.price-from {
-  font-family: var(--font-accent);
-  font-style: italic;
-  font-size: 1.1rem;
-  font-weight: 500;
-  color: var(--muted);
-  margin-right: 4px;
-}
-.price-card-featured .price-from { color: #b9c6e6; }
+.price-amount span { font-size: 1.3rem; font-weight: 600; }
 
-.price-desc {
+/* Línea pequeña bajo el precio: "pago único, sin permanencia" o "+ 45 €/mes" */
+.price-note {
+  font-size: .85rem;
+  font-weight: 600;
   color: var(--muted);
-  font-size: .95rem;
-  margin-bottom: 24px;
-  min-height: 66px;
+  margin-bottom: 22px;
 }
-.price-card-featured .price-desc { color: #cdd7ef; }
+.price-card-featured .price-note { color: #b9c6e6; }
 
 .price-list {
   list-style: none;
@@ -499,34 +498,92 @@ em {
   font-weight: 700;
 }
 .price-card-featured .price-list li::before { color: #7fb1ff; }
-.price-list li span {
-  display: block;
-  font-weight: 400;
-  font-size: .86rem;
-  color: var(--muted);
-  margin-top: 3px;
-}
-.price-card-featured .price-list li span { color: #b9c6e6; }
 
-.price-setup {
-  font-size: .82rem;
+/* Nota gris pizarra bajo las tres tarjetas */
+.pricing-note {
+  margin-top: 28px;
   color: var(--muted);
-  margin: 20px 0 0;
-  padding-top: 16px;
-  border-top: 1px solid var(--border);
-}
-.price-card-featured .price-setup { color: #b9c6e6; border-top-color: rgba(255,255,255,.15); }
-
-.price-highlight {
   font-size: .88rem;
-  font-weight: 700;
-  color: var(--navy);
-  background: var(--blue-soft);
-  padding: 10px 14px;
-  border-radius: 10px;
-  margin: 20px 0 0;
+  max-width: 70ch;
 }
-.price-card-featured .price-highlight { background: rgba(58,134,255,.22); color: var(--white); }
+
+/* ---------- Automatizaciones (bloque, no un cuarto plan) ---------- */
+.automations-block {
+  background: var(--navy);
+  padding: 88px 0;
+}
+
+.automations-kicker {
+  color: var(--blue-pale);
+  font-size: .78rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  margin-bottom: 14px;
+}
+
+.automations-title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  color: var(--white);
+  font-size: clamp(1.7rem, 3.4vw, 2.4rem);
+  max-width: 20ch;
+  margin-bottom: .5em;
+}
+
+.automations-lead {
+  color: #b9c6dc;
+  font-size: 1.02rem;
+  max-width: 60ch;
+  margin-bottom: 48px;
+}
+
+.automations-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  margin-bottom: 40px;
+}
+
+.automations-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.automations-icon {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  color: var(--blue-light);
+  margin-top: 2px;
+}
+
+.automations-item h3 {
+  color: var(--white);
+  font-size: 1.02rem;
+  margin-bottom: .4em;
+}
+
+.automations-item p {
+  color: #b9c6dc;
+  font-size: .92rem;
+  margin: 0;
+}
+
+.automations-note {
+  border: 1px solid rgba(107,165,255,.4);
+  border-radius: 14px;
+  padding: 20px 24px;
+}
+.automations-note p {
+  color: var(--white);
+  font-size: .92rem;
+  margin: 0;
+}
+
+@media (max-width: 760px) {
+  .automations-grid { grid-template-columns: 1fr; gap: 28px; }
+}
 
 /* ---------- Trabajos: caso destacado ---------- */
 .work-feature {
