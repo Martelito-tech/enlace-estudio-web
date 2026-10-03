@@ -87,9 +87,16 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
     });
   }
 
+  // En móvil el lienzo sólo se ve en la franja de abajo (la máscara del CSS
+  // esconde la parte de arriba, donde va el texto). Ahí van menos nodos,
+  // repartidos por todo el ancho y más separados, para que no se amontonen.
+  const isMobile = () => W < 760;
   function nodeCount() {
-    return W < 760 ? 36 : 72;
+    return isMobile() ? 14 : 72;
   }
+  const edge = () => (isMobile() ? 24 : BORDER_MARGIN);   // margen a los lados
+  const topY = () => (isMobile() ? H * 0.7 : 0);          // donde empieza la zona visible, bajo los botones
+  const spacing = () => (isMobile() ? 72 : NODE_REPEL_RADIUS);
 
   let lastW = null;
 
@@ -125,12 +132,21 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
     const n = nodeCount();
     nodes = [];
     for (let i = 0; i < n; i++) {
-      // sesgado hacia los laterales: menos nodos cerca del texto centrado
-      const side = Math.random() < 0.5 ? -1 : 1;
-      const x = W / 2 + side * (0.16 + Math.pow(Math.random(), 1.3) * 0.34) * W;
+      let x, y;
+      if (isMobile()) {
+        // Repartidos a lo ancho por franjas, con algo de azar dentro de cada
+        // una, y sólo en la zona que se ve
+        x = edge() + ((i + 0.15 + Math.random() * 0.7) / n) * (W - 2 * edge());
+        y = topY() + edge() + Math.random() * (H - topY() - 2 * edge());
+      } else {
+        // sesgado hacia los laterales: menos nodos cerca del texto centrado
+        const side = Math.random() < 0.5 ? -1 : 1;
+        x = W / 2 + side * (0.16 + Math.pow(Math.random(), 1.3) * 0.34) * W;
+        y = Math.random() * H;
+      }
       nodes.push({
         x: Math.max(0, Math.min(x, W)),
-        y: Math.random() * H,
+        y,
         vx: (Math.random() - 0.5) * 0.28 * SPEED,
         vy: (Math.random() - 0.5) * 0.28 * SPEED,
         r: Math.random() < 0.18 ? 4.4 : 2.6,
@@ -159,20 +175,21 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
       n.x += n.vx;
       n.y += n.vy;
 
-      if (n.x < BORDER_MARGIN) {
-        n.x += (BORDER_MARGIN - n.x) / BORDER_MARGIN * BORDER_STRENGTH;
+      const m = edge(), top = topY();
+      if (n.x < m) {
+        n.x += (m - n.x) / m * BORDER_STRENGTH;
         if (n.vx < 0) n.vx = -n.vx;
       }
-      if (n.x > W - BORDER_MARGIN) {
-        n.x -= (BORDER_MARGIN - (W - n.x)) / BORDER_MARGIN * BORDER_STRENGTH;
+      if (n.x > W - m) {
+        n.x -= (m - (W - n.x)) / m * BORDER_STRENGTH;
         if (n.vx > 0) n.vx = -n.vx;
       }
-      if (n.y < BORDER_MARGIN) {
-        n.y += (BORDER_MARGIN - n.y) / BORDER_MARGIN * BORDER_STRENGTH;
+      if (n.y < top + m) {
+        n.y += (top + m - n.y) / m * BORDER_STRENGTH;
         if (n.vy < 0) n.vy = -n.vy;
       }
-      if (n.y > H - BORDER_MARGIN) {
-        n.y -= (BORDER_MARGIN - (H - n.y)) / BORDER_MARGIN * BORDER_STRENGTH;
+      if (n.y > H - m) {
+        n.y -= (m - (H - n.y)) / m * BORDER_STRENGTH;
         if (n.vy > 0) n.vy = -n.vy;
       }
       n.x = Math.max(0, Math.min(W, n.x));
@@ -192,6 +209,7 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
       }
     }
 
+    const sep = spacing();
     for (let i = 0; i < nodes.length; i++) {
       for (let j = i + 1; j < nodes.length; j++) {
         const a = nodes[i], b = nodes[j];
@@ -207,8 +225,8 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
           ctx.stroke();
         }
 
-        if (d < NODE_REPEL_RADIUS && d > 0.01) {
-          const force = (1 - d / NODE_REPEL_RADIUS) * NODE_REPEL_STRENGTH;
+        if (d < sep && d > 0.01) {
+          const force = (1 - d / sep) * NODE_REPEL_STRENGTH;
           const ux = dx / d, uy = dy / d;
           a.x += ux * force; a.y += uy * force;
           b.x -= ux * force; b.y -= uy * force;
@@ -598,26 +616,42 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
   parts.forEach(p => { if (!p.img.complete) p.img.addEventListener('load', () => { measure(); render(); }, { once: true }); });
 })();
 
-// Vídeo de fondo de «cómo funciona»: sólo se reproduce mientras se ve, para no
-// gastar batería ni procesador cuando la sección está fuera de pantalla. Con
-// «reducir movimiento» se queda parado en el primer fotograma.
+// Vídeo de fondo de «cómo funciona». No se descarga al abrir la página
+// (preload="none" y su fotograma de póster mientras tanto): espera a que la
+// página termine de cargar, para no competir con el hero, y sólo se reproduce
+// mientras se ve. Con «reducir movimiento» se queda el póster.
 (function () {
   const video = document.querySelector('.nfc-how-video');
   if (!video) return;
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    video.removeAttribute('autoplay');
-    video.pause();
-    return;
-  }
-  if (!('IntersectionObserver' in window)) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  let visible = false;
+  let pageLoaded = document.readyState === 'complete';
+  const sync = () => {
+    if (!pageLoaded) return;
+    if (visible) {
+      const p = video.play();
+      if (p && p.catch) p.catch(() => { /* sin permiso para reproducir: se queda el póster */ });
+    } else {
+      video.pause();
+    }
+  };
+  if (!pageLoaded) window.addEventListener('load', () => { pageLoaded = true; sync(); }, { once: true });
+
+  if (!('IntersectionObserver' in window)) { visible = true; sync(); return; }
   new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const p = video.play();
-        if (p && p.catch) p.catch(() => { /* sin permiso para reproducir: se queda el póster */ });
-      } else {
-        video.pause();
-      }
-    });
-  }, { threshold: 0.05 }).observe(video);
+    visible = entries[0].isIntersecting;
+    sync();
+  }, { rootMargin: '200px 0px' }).observe(video);
+})();
+
+// Botón fijo de WhatsApp: en la portada se esconde mientras se ve el botón
+// de WhatsApp del hero, para que no haya dos a la vez en pantalla.
+(function () {
+  const fab = document.querySelector('.wa-float');
+  const heroCta = document.querySelector('.hero-actions');
+  if (!fab || !heroCta || !('IntersectionObserver' in window)) return;
+  new IntersectionObserver(entries => {
+    fab.classList.toggle('is-hidden', entries[0].isIntersecting);
+  }).observe(heroCta);
 })();

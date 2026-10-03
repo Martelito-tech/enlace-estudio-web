@@ -1769,3 +1769,42 @@ em {
     .nfc-examples-grid.is-carousel { --card-w: clamp(220px, min(80vw, (100svh - 510px) * 1.618), 680px); }
   }
 }
+
+/* ---------- Botón fijo de WhatsApp (sólo móvil) ----------
+   En móvil sustituye a los botones de cada tarjeta de paquete: uno solo,
+   siempre a mano abajo a la derecha. En la portada se esconde mientras se ve
+   el botón del hero, para no duplicarlo (clase .is-hidden, la pone el JS). */
+.wa-float { display: none; }
+
+@media (max-width: 760px) {
+  .wa-float {
+    position: fixed;
+    right: 16px;
+    bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+    z-index: 90;
+    display: grid;
+    place-items: center;
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+    background: var(--green);
+    color: var(--white);
+    box-shadow: 0 12px 28px -8px rgba(22,163,74,.6), 0 4px 10px rgba(20,33,61,.18);
+    transition: transform .25s ease, opacity .25s ease;
+  }
+  .wa-float .icon-wa { width: 30px; height: 30px; }
+  .wa-float:active { transform: scale(.94); }
+  .wa-float.is-hidden {
+    opacity: 0;
+    transform: translateY(16px) scale(.9);
+    pointer-events: none;
+  }
+
+  /* Sin botones repartidos: el fijo hace de llamada a la acción */
+  .plan-cta,
+  .pack-price .btn-wa { display: none; }
+  .price-card .price-list { margin-bottom: 0; }
+  .pack-lead { margin-bottom: 0; }
+  /* Que el último contenido no quede tapado por el botón */
+  .site-footer { padding-bottom: calc(96px + env(safe-area-inset-bottom, 0px)); }
+}
