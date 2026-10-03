@@ -696,10 +696,9 @@ em {
 }
 
 /* ---------- Escaparate de tarjetas: diseños de ejemplo ----------
-   Banda oscura a sangre (se sale del .wrap) donde las tarjetas entran
-   desde la derecha girando, atadas al scroll, y después se inclinan en 3D
-   siguiendo el cursor. El movimiento lo pone js/main.js; sin JS, o con
-   «reducir movimiento», las tarjetas se ven quietas en su sitio. */
+   Banda oscura a sangre (se sale del .wrap) con las tarjetas en carrusel.
+   La del centro se inclina en 3D siguiendo el cursor. El movimiento lo pone
+   js/main.js; sin JS se ven quietas en rejilla. */
 .nfc-examples {
   --mx: 70%;
   --my: 30%;
@@ -766,10 +765,7 @@ em {
 .nfc-card:nth-child(even) { margin-top: 96px; }
 .nfc-card.is-tilting { z-index: 2; }
 
-.nfc-card-stage {
-  transform-origin: 50% 50%;
-  will-change: transform, opacity;
-}
+.nfc-card-stage { position: relative; }
 
 .nfc-card-tilt {
   position: relative;
@@ -818,7 +814,6 @@ em {
 .nfc-card.is-tilting .nfc-card-glare { opacity: 1; }
 .nfc-card.is-tilting .nfc-card-glare::after { opacity: 1; }
 
-/* El pie aparece cuando la tarjeta ya ha llegado (--p lo pone el JS) */
 .nfc-card figcaption {
   margin-top: 22px;
   display: flex;
@@ -828,8 +823,7 @@ em {
   font-size: .95rem;
   color: #b9c6dc;
   /* --focus vale 1 en la tarjeta del centro y 0 en las de los lados */
-  opacity: min(calc((var(--p, 1) - .75) * 4), var(--focus, 1));
-  transform: translateY(calc((1 - var(--p, 1)) * 24px));
+  opacity: var(--focus, 1);
 }
 
 /* ---------- Carrusel horizontal (lo activa el JS con .is-carousel) ----------

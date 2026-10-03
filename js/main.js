@@ -257,8 +257,8 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
 })();
 
 // Escaparate de tarjetas NFC: carrusel horizontal que se arrastra. Las tarjetas
-// entran desde la derecha girando (atado al scroll), se doblan con la velocidad
-// al arrastrarlas y la del centro se inclina en 3D siguiendo al cursor.
+// se doblan con la velocidad al arrastrarlas y la del centro se inclina en 3D
+// siguiendo al cursor.
 (function () {
   const scene = document.querySelector('.nfc-examples');
   if (!scene) return;
@@ -270,8 +270,6 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
   const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
-  // Cuadrática y no cúbica: el giro de entrada se reparte por todo el recorrido
-  const easeOut = t => 1 - Math.pow(1 - t, 2);
   // Distancia más corta entre dos posiciones de un carrusel circular
   const wrap = d => ((d % n) + n + n / 2) % n - n / 2;
 
@@ -286,7 +284,7 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
     canvas.setAttribute('aria-hidden', 'true');
     img.after(canvas);
     img.addEventListener('dragstart', e => e.preventDefault());
-    return { card, tilt, img, canvas, ctx: canvas.getContext('2d'), stage: card.querySelector('.nfc-card-stage') };
+    return { card, tilt, img, canvas, ctx: canvas.getContext('2d') };
   });
 
   // Controles: flechas y un punto por tarjeta (con el nombre del negocio)
@@ -314,7 +312,6 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
   let cardW = 0, gapStep = 0, dpr = 1;
   let dragging = false, dragStartX = 0, dragStartPos = 0, dragMoved = 0, lastPos = 0;
   let running = false;
-  let entranceDone = reduceMotion;
   let active = 0;
 
   function measure() {
@@ -346,31 +343,8 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
     }
   }
 
-  // Entrada atada al scroll (0 → 1 por tarjeta). La del centro llega primero,
-  // luego la de la derecha y por último la de la izquierda.
-  const entrance = new Array(n).fill(reduceMotion ? 1 : 0);
-  function updateEntrance() {
-    if (reduceMotion) return;
-    const vh = window.innerHeight;
-    const r = track.getBoundingClientRect();
-    const center = r.top + r.height / 2;
-    const raw = (vh * 0.9 - center) / (vh * 0.9 - vh * 0.5);
-    let done = true;
-    parts.forEach((p, i) => {
-      const d = wrap(i - pos);
-      const order = d === 0 ? 0 : d > 0 ? Math.abs(d) * 0.8 : Math.abs(d) * 0.8 + 0.4;
-      const pr = clamp(raw * 1.5 - order * 0.22, 0, 1);
-      entrance[i] = pr;
-      if (pr < 1) done = false;
-    });
-    if (entranceDone && !done) releaseAll();
-    entranceDone = done;
-  }
-
   function render() {
     const bendPx = reduceMotion ? 0 : clamp(-vel * gapStep * 1.3, -cardW * 0.09, cardW * 0.09);
-    const vw = window.innerWidth;
-    const dist = Math.min(vw * 0.55, 620);
     parts.forEach((p, i) => {
       const d = wrap(i - pos);
       const ad = Math.abs(d);
@@ -382,21 +356,6 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
       p.card.style.setProperty('--dist', near.toFixed(3));
       p.card.style.setProperty('--focus', (1 - near).toFixed(3));
       p.card.style.visibility = ad > 2.4 ? 'hidden' : '';
-
-      // Entrada: desde la derecha, girando, hasta quedar plana
-      const e = easeOut(entrance[i]);
-      const k = 1 - e;
-      p.card.style.setProperty('--p', e.toFixed(3));
-      if (entrance[i] >= 1) {
-        p.stage.style.transform = '';
-        p.stage.style.opacity = '';
-      } else {
-        p.stage.style.transform =
-          `perspective(1400px) translate3d(${(k * dist).toFixed(1)}px, ${(k * 40).toFixed(1)}px, 0) ` +
-          `rotateY(${(k * -55).toFixed(2)}deg) rotateZ(${(k * 12).toFixed(2)}deg) rotateX(${(k * 8).toFixed(2)}deg) ` +
-          `scale(${(0.82 + 0.18 * e).toFixed(3)})`;
-        p.stage.style.opacity = clamp(entrance[i] * 3, 0, 1).toFixed(3);
-      }
 
       // Doblado: sólo cuando se mueve lo bastante como para notarse
       if (Math.abs(bendPx) > 0.6 && ad < 2) {
@@ -437,7 +396,6 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
       vel *= Math.pow(0.78, f);
       pos += vel * f;
     }
-    updateEntrance();
     render();
     const settled = !dragging && Math.abs(target - pos) < 0.0005 && Math.abs(vel) < 0.0005;
     if (settled) {
@@ -546,8 +504,8 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
       const go = () => { if (!anim) { anim = true; requestAnimationFrame(tiltFrame); } };
 
       tilt.addEventListener('pointermove', ev => {
-        if (dragging || !entranceDone || i !== active || Math.abs(wrap(i - pos)) > 0.02) return;
-        const r = p.stage.getBoundingClientRect();
+        if (dragging || i !== active || Math.abs(wrap(i - pos)) > 0.02) return;
+        const r = card.querySelector('.nfc-card-stage').getBoundingClientRect();
         const x = clamp((ev.clientX - r.left) / r.width, 0, 1);
         const y = clamp((ev.clientY - r.top) / r.height, 0, 1);
         card.classList.add('is-tilting');
@@ -577,14 +535,7 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
 
   // ---- Arranque ----
   measure();
-  updateEntrance();
   render();
-  let ticking = false;
-  window.addEventListener('scroll', () => {
-    if (ticking || running) return;
-    ticking = true;
-    requestAnimationFrame(() => { updateEntrance(); render(); ticking = false; });
-  }, { passive: true });
   window.addEventListener('resize', () => { measure(); render(); });
   // Si una imagen termina de cargar más tarde, el lienzo necesita sus medidas
   parts.forEach(p => { if (!p.img.complete) p.img.addEventListener('load', () => { measure(); render(); }, { once: true }); });
