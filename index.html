@@ -3,13 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Enlace Estudio · Diseño web en Tenerife</title>
-<meta name="description" content="Webs para cafeterías, restaurantes y comercio local en Tenerife. Precio cerrado desde 490 €, dominio a tu nombre y ficha de Google Business configurada. Escríbenos por WhatsApp.">
+<title>Enlace Estudio · Tarjetas NFC para reseñas y webs en Tenerife</title>
+<meta name="description" content="Tarjetas NFC con tu marca para conseguir reseñas en Google, Instagram y Facebook con un toque del móvil, desde 69 €. Y webs para negocios locales en Tenerife desde 490 €. Escríbenos por WhatsApp.">
 
 <link rel="canonical" href="https://enlaceestudio.com/">
+<link rel="alternate" hreflang="es" href="https://enlaceestudio.com/">
+<link rel="alternate" hreflang="en" href="https://enlaceestudio.com/en/">
+<link rel="alternate" hreflang="lt" href="https://enlaceestudio.com/lt/">
+<link rel="alternate" hreflang="x-default" href="https://enlaceestudio.com/">
 
-<meta property="og:title" content="Enlace Estudio · Diseño web en Tenerife">
-<meta property="og:description" content="Webs para cafeterías, restaurantes y comercio local en Tenerife. Precio cerrado desde 490 €, dominio a tu nombre y ficha de Google Business configurada.">
+<meta property="og:title" content="Enlace Estudio · Tarjetas NFC para reseñas y webs en Tenerife">
+<meta property="og:description" content="Tarjetas NFC con tu marca para conseguir reseñas en Google con un toque del móvil, desde 69 €. Y webs para negocios locales en Tenerife desde 490 €.">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="es_ES">
 <meta property="og:url" content="https://enlaceestudio.com/">
@@ -19,8 +23,8 @@
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Imagen de Enlace Estudio sobre fondo azul con el texto: webs para cafeterías, restaurantes y comercio local, precio cerrado desde 490 €.">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Enlace Estudio · Diseño web en Tenerife">
-<meta name="twitter:description" content="Webs para cafeterías, restaurantes y comercio local en Tenerife. Precio cerrado desde 490 €, dominio a tu nombre y ficha de Google Business configurada.">
+<meta name="twitter:title" content="Enlace Estudio · Tarjetas NFC para reseñas y webs en Tenerife">
+<meta name="twitter:description" content="Tarjetas NFC con tu marca para conseguir reseñas en Google con un toque del móvil, desde 69 €. Y webs para negocios locales en Tenerife desde 490 €.">
 <meta name="twitter:image" content="https://enlaceestudio.com/img/og-image-490.png">
 <meta name="theme-color" content="#14213d">
 
@@ -28,13 +32,14 @@
 <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
 <link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
 <link rel="apple-touch-icon" href="img/favicon-180.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@1,500&family=Manrope:wght@400;500;600;700&family=Sora:wght@600;700;800&display=swap" rel="stylesheet">
-<!-- Al tocar el CSS o el JS, sube la fecha del ?v= en los dos HTML. Cloudflare
+<!-- Tipografías autoalojadas: no se contacta con Google. El crossorigin es
+     obligatorio en el preload aunque la fuente sea del mismo dominio. -->
+<link rel="preload" href="fonts/manrope-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/sora-latin.woff2" as="font" type="font/woff2" crossorigin>
+<!-- Al tocar el CSS o el JS, sube la fecha del ?v= en todos los HTML. Cloudflare
      los cachea 4 horas: si la ruta no cambia, quien ya visitó la web recibe el
      HTML nuevo con el CSS viejo y la página se ve rota. -->
-<link rel="stylesheet" href="css/style.css?v=2026-07-26">
+<link rel="stylesheet" href="css/style.css?v=2026-10-03e">
 
 <script type="application/ld+json">
 {
@@ -42,12 +47,12 @@
   "@type": "ProfessionalService",
   "@id": "https://enlaceestudio.com/#negocio",
   "name": "Enlace Estudio",
-  "description": "Estudio de diseño y desarrollo web en Tenerife. Hacemos webs para cafeterías, restaurantes, pastelerías y comercio local, con precio cerrado desde 490 €, el dominio a nombre del cliente y la ficha de Google Business configurada. Antes de diseñar analizamos el negocio y entregamos un informe de diagnóstico.",
+  "description": "Estudio de Tenerife que hace tarjetas NFC con la marca del negocio para conseguir reseñas en Google y seguidores en redes con un toque del móvil, desde 69 €. También hacemos webs para cafeterías, restaurantes, pastelerías y comercio local, con precio cerrado desde 490 €, el dominio a nombre del cliente y la ficha de Google Business configurada. Antes de diseñar analizamos el negocio y entregamos un informe de diagnóstico.",
   "url": "https://enlaceestudio.com/",
   "image": "https://enlaceestudio.com/img/og-image.png",
   "logo": "https://enlaceestudio.com/img/Logo_enlace_vectorizado.svg",
   "telephone": "+34682292137",
-  "priceRange": "Desde 490€",
+  "priceRange": "Desde 69€",
   "currenciesAccepted": "EUR",
   "areaServed": "Tenerife",
   "sameAs": [
@@ -65,6 +70,22 @@
   "@context": "https://schema.org",
   "@type": "FAQPage",
   "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "¿Las tarjetas NFC funcionan con cualquier móvil?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Con casi todos los actuales: los iPhone desde el XS y la gran mayoría de móviles Android, que traen NFC de serie. No hace falta instalar ninguna app: el cliente acerca el móvil a la tarjeta y se le abre el enlace."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Necesito tener web para usar las tarjetas?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. La tarjeta de reseñas lleva a tu ficha de Google y las demás a tus redes, así que funcionan igual tengas web o no. Si más adelante la quieres, el Pack Negocio completo junta la web, las tarjetas y la gestión de tu ficha de Google."
+      }
+    },
     {
       "@type": "Question",
       "name": "¿Qué pasa si no tengo dominio ni hosting?",
@@ -128,12 +149,17 @@
       <span class="brand-name">Enlace <em>Estudio</em></span>
     </a>
     <nav class="main-nav" id="main-nav">
+      <a href="#tarjetas">Tarjetas NFC</a>
       <a href="#trabajos">Trabajos</a>
-      <a href="#servicios">Servicios</a>
-      <a href="#proceso">Cómo trabajo</a>
+      <a href="#servicios">Precios web</a>
       <a href="#faq">Preguntas frecuentes</a>
     </nav>
-    <a class="btn btn-dark btn-sm" href="https://wa.me/34682292137?text=%C2%A1Hola!%20Quiero%20hablar%20sobre%20una%20web%20para%20mi%20negocio." target="_blank" rel="noopener">
+    <nav class="lang-switch" aria-label="Idioma">
+      <a href="index.html" hreflang="es" lang="es" title="Español" aria-current="page"><img src="img/flags/es.svg" alt="" width="20" height="14"><span>ES</span><span class="sr-only"> · Español</span></a>
+      <a href="en/index.html" hreflang="en" lang="en" title="English"><img src="img/flags/gb.svg" alt="" width="20" height="14"><span>EN</span><span class="sr-only"> · English</span></a>
+      <a href="lt/index.html" hreflang="lt" lang="lt" title="Lietuvių"><img src="img/flags/lt.svg" alt="" width="20" height="14"><span>LT</span><span class="sr-only"> · Lietuvių</span></a>
+    </nav>
+    <a class="btn btn-dark btn-sm" href="https://wa.me/34682292137?text=%C2%A1Hola!%20Quiero%20hablar%20sobre%20mi%20negocio." target="_blank" rel="noopener">
       <svg viewBox="0 0 24 24" class="icon-wa" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.7-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.1-.2.2-.3.2-.6.1-.3-.1-1.2-.5-2.3-1.5-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5C10.1 9 9.6 7.8 9.4 7.3c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.3.3-1 .9-1 2.3s1 2.7 1.2 2.9c.1.2 2 3 4.8 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 1.9-1.3.2-.7.2-1.2.2-1.3-.1-.2-.3-.2-.6-.4z"/><path d="M12 2C6.5 2 2 6.5 2 12c0 1.9.5 3.7 1.5 5.3L2 22l4.8-1.5c1.5.8 3.3 1.3 5.2 1.3 5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18.3c-1.7 0-3.4-.5-4.8-1.4l-.3-.2-3 .9.9-2.9-.2-.3C3.7 15 3.2 13.5 3.2 12c0-4.8 3.9-8.8 8.8-8.8s8.8 3.9 8.8 8.8-3.9 8.8-8.8 8.8z"/></svg>
       Hablamos
     </a>
@@ -150,24 +176,225 @@
     <canvas class="hero-network" id="hero-network" aria-hidden="true"></canvas>
     <div class="wrap hero-inner">
       <div class="hero-copy">
-        <p class="eyebrow"><span class="dot"></span> ACEPTANDO PROYECTOS ESTE MES</p>
-        <h1>Páginas web que <em>sí</em><br>resuelven tu problema.</h1>
-        <p class="hero-lead">Diseñamos webs para negocios locales que trabajan por ti: reciben reservas, piden reseñas y avisan a tus clientes cuando no puedes coger el teléfono.</p>
+        <p class="eyebrow"><span class="dot"></span> TARJETAS NFC Y WEBS · TENERIFE</p>
+        <h1>Más reseñas en Google con <em>un toque</em> del móvil.</h1>
+        <p class="hero-lead">Tarjetas NFC con tu marca para el mostrador y las mesas: tu cliente acerca el móvil y te deja la reseña sin tener que buscarte. Y si tu negocio necesita web, también la hacemos.</p>
         <div class="hero-actions">
-          <a class="btn btn-wa" href="https://wa.me/34682292137?text=%C2%A1Hola!%20Quiero%20mejorar%20la%20web%20de%20mi%20negocio%2C%20%C2%BFme%20cont%C3%A1is%20c%C3%B3mo%20funciona%3F" target="_blank" rel="noopener">
+          <a class="btn btn-wa" href="https://wa.me/34682292137?text=%C2%A1Hola!%20Me%20interesan%20las%20tarjetas%20NFC%20para%20mi%20negocio." target="_blank" rel="noopener">
             <svg viewBox="0 0 24 24" class="icon-wa" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.7-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.1-.2.2-.3.2-.6.1-.3-.1-1.2-.5-2.3-1.5-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5C10.1 9 9.6 7.8 9.4 7.3c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.3.3-1 .9-1 2.3s1 2.7 1.2 2.9c.1.2 2 3 4.8 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 1.9-1.3.2-.7.2-1.2.2-1.3-.1-.2-.3-.2-.6-.4z"/><path d="M12 2C6.5 2 2 6.5 2 12c0 1.9.5 3.7 1.5 5.3L2 22l4.8-1.5c1.5.8 3.3 1.3 5.2 1.3 5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18.3c-1.7 0-3.4-.5-4.8-1.4l-.3-.2-3 .9.9-2.9-.2-.3C3.7 15 3.2 13.5 3.2 12c0-4.8 3.9-8.8 8.8-8.8s8.8 3.9 8.8 8.8-3.9 8.8-8.8 8.8z"/></svg>
-            Quiero mejorar mi negocio
+            Quiero mis tarjetas
           </a>
-          <a class="btn btn-outline" href="#servicios">Ver cómo funciona</a>
+          <a class="btn btn-outline" href="#tarjetas">Ver los packs</a>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- SERVICIOS / PRECIOS -->
-  <section class="section" id="servicios">
+  <!-- TARJETAS NFC -->
+  <section class="section section-alt" id="tarjetas">
     <div class="wrap">
-      <p class="eyebrow eyebrow-section">SERVICIOS Y PRECIOS</p>
+      <p class="eyebrow eyebrow-section">TARJETAS NFC</p>
+      <h2>Tu cliente ya está contento. Solo falta que lo diga.</h2>
+      <p class="section-lead">El mejor momento para pedir una reseña es cuando todavía está sentado en la mesa. Con la tarjeta delante no tiene que buscar tu nombre en Google ni acordarse luego: acerca el móvil y ya está dentro.</p>
+
+      <div class="nfc-intro">
+        <figure class="nfc-photo">
+          <img src="img/tarjetas/tarjetas-nfc-cachitos.jpg" alt="Dos tarjetas NFC de Cachitos, una blanca y otra verde, con el texto «Déjanos tu reseña» y «Acerca tu móvil»" width="800" height="1034" loading="lazy">
+          <figcaption>Las tarjetas de Cachitos, recién llegadas de imprenta.</figcaption>
+        </figure>
+
+        <div class="nfc-steps">
+          <div class="nfc-step">
+            <p class="step-num">01</p>
+            <div>
+              <h3>Acerca el móvil</h3>
+              <p>A la tarjeta, sin abrir ninguna app ni escanear nada.</p>
+            </div>
+          </div>
+          <div class="nfc-step">
+            <p class="step-num">02</p>
+            <div>
+              <h3>Se abre tu página</h3>
+              <p>Directo a dejarte la reseña en Google, a seguirte en Instagram o Facebook o a ver tu carta, según la tarjeta.</p>
+            </div>
+          </div>
+          <div class="nfc-step">
+            <p class="step-num">03</p>
+            <div>
+              <h3>Te la deja en el momento</h3>
+              <p>Con el buen sabor de boca todavía reciente, no tres días después, cuando ya se le ha olvidado.</p>
+            </div>
+          </div>
+          <p class="nfc-design">Cada tarjeta se diseña con tu logo y tus colores, para que parezca parte de tu local y no un cartel de otra marca.</p>
+        </div>
+      </div>
+
+      <div class="nfc-examples">
+        <div class="nfc-examples-head">
+          <h3>Diseños de ejemplo</h3>
+          <p>Cuatro negocios inventados para que veas el estilo. Cada tarjeta lleva la marca del local y dice en una línea a dónde lleva, en el idioma o los idiomas que hable tu clientela.</p>
+        </div>
+        <div class="nfc-examples-grid" aria-roledescription="carrusel" aria-label="Diseños de ejemplo">
+          <figure class="nfc-card">
+            <div class="nfc-card-stage">
+              <div class="nfc-card-tilt">
+                <img src="img/tarjetas/ejemplo-gintaro.webp" alt="Tarjeta NFC de ejemplo de Gintaro, una barbería: fondo negro, letras doradas y el texto «Déjanos una reseña» en lituano y en inglés" width="976" height="603" draggable="false" loading="lazy">
+                <span class="nfc-card-glare" aria-hidden="true"></span>
+              </div>
+            </div>
+            <figcaption><strong>Gintaro</strong> · barbería <span>Reseñas en Google</span></figcaption>
+          </figure>
+          <figure class="nfc-card">
+            <div class="nfc-card-stage">
+              <div class="nfc-card-tilt">
+                <img src="img/tarjetas/ejemplo-rasos.webp" alt="Tarjeta NFC de ejemplo de Rasos, un estudio floral: fondo rosa con un tulipán y el texto «Síguenos en Instagram» en lituano y en inglés" width="976" height="603" draggable="false" loading="lazy">
+                <span class="nfc-card-glare" aria-hidden="true"></span>
+              </div>
+            </div>
+            <figcaption><strong>Rasos</strong> · floristería <span>Instagram</span></figcaption>
+          </figure>
+          <figure class="nfc-card">
+            <div class="nfc-card-stage">
+              <div class="nfc-card-tilt">
+                <img src="img/tarjetas/ejemplo-kopa.webp" alt="Tarjeta NFC de ejemplo de Kopa, un estudio de yoga: fondo verde agua con un sol sobre las olas y el texto «Síguenos en Facebook» en lituano y en inglés" width="976" height="603" draggable="false" loading="lazy">
+                <span class="nfc-card-glare" aria-hidden="true"></span>
+              </div>
+            </div>
+            <figcaption><strong>Kopa</strong> · estudio de yoga <span>Facebook</span></figcaption>
+          </figure>
+          <figure class="nfc-card">
+            <div class="nfc-card-stage">
+              <div class="nfc-card-tilt">
+                <img src="img/tarjetas/ejemplo-bangos.webp" alt="Tarjeta NFC de ejemplo de Bangos, un bistró: fondo azul marino con un pez naranja y el texto «Mira nuestra carta» en lituano y en inglés" width="976" height="603" draggable="false" loading="lazy">
+                <span class="nfc-card-glare" aria-hidden="true"></span>
+              </div>
+            </div>
+            <figcaption><strong>Bangos</strong> · bistró <span>Carta</span></figcaption>
+          </figure>
+        </div>
+        <div class="nfc-carousel-controls" hidden>
+          <button type="button" class="nfc-carousel-btn" data-dir="-1" aria-label="Diseño anterior"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+          <div class="nfc-carousel-dots"></div>
+          <button type="button" class="nfc-carousel-btn" data-dir="1" aria-label="Siguiente diseño"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+        </div>
+      </div>
+
+      <div class="pricing-grid nfc-pricing">
+        <article class="price-card">
+          <p class="price-tag"><span class="dot dot-green"></span> MOSTRADOR</p>
+          <p class="price-amount">69&nbsp;<span>€</span></p>
+          <p class="price-note">3 tarjetas · 23&nbsp;€ cada una</p>
+          <ul class="price-list">
+            <li>Una para reseñas en Google, una para Instagram y una para Facebook</li>
+            <li>Para la caja o el mostrador</li>
+            <li>Diseño con tu marca incluido</li>
+          </ul>
+        </article>
+
+        <article class="price-card price-card-featured">
+          <p class="price-badge">RECOMENDADO</p>
+          <p class="price-tag"><span class="dot dot-blue"></span> MESAS</p>
+          <p class="price-amount">169&nbsp;<span>€</span></p>
+          <p class="price-note">10 tarjetas · 16,90&nbsp;€ cada una</p>
+          <ul class="price-list">
+            <li>Una tarjeta en cada mesa: la reseña se deja sin levantarse</li>
+            <li>Tú decides a dónde lleva cada una: Google, Instagram, Facebook o tu carta</li>
+            <li>Diseño con tu marca incluido</li>
+          </ul>
+        </article>
+
+        <article class="price-card">
+          <p class="price-tag"><span class="dot dot-navy"></span> LOCAL</p>
+          <p class="price-amount">290&nbsp;<span>€</span></p>
+          <p class="price-note">20 tarjetas · 14,50&nbsp;€ cada una</p>
+          <ul class="price-list">
+            <li>Para terrazas y locales grandes</li>
+            <li>Mesas, barra y mostrador cubiertos</li>
+            <li>Diseño con tu marca incluido</li>
+          </ul>
+        </article>
+      </div>
+
+      <p class="pricing-note">Precios finales, sin impuestos añadidos: lo que ves es lo que pagas. ¿Necesitas más de 20? Te hacemos presupuesto, desde 13&nbsp;€ la tarjeta. Y si además quieres web, mira el <a href="#pack">Pack Negocio completo</a>.</p>
+
+      <div class="nfc-cta">
+        <a class="btn btn-wa btn-lg" href="https://wa.me/34682292137?text=%C2%A1Hola!%20Me%20interesan%20las%20tarjetas%20NFC%20para%20mi%20negocio." target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" class="icon-wa" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.7-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.1-.2.2-.3.2-.6.1-.3-.1-1.2-.5-2.3-1.5-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5C10.1 9 9.6 7.8 9.4 7.3c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.3.3-1 .9-1 2.3s1 2.7 1.2 2.9c.1.2 2 3 4.8 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 1.9-1.3.2-.7.2-1.2.2-1.3-.1-.2-.3-.2-.6-.4z"/><path d="M12 2C6.5 2 2 6.5 2 12c0 1.9.5 3.7 1.5 5.3L2 22l4.8-1.5c1.5.8 3.3 1.3 5.2 1.3 5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18.3c-1.7 0-3.4-.5-4.8-1.4l-.3-.2-3 .9.9-2.9-.2-.3C3.7 15 3.2 13.5 3.2 12c0-4.8 3.9-8.8 8.8-8.8s8.8 3.9 8.8 8.8-3.9 8.8-8.8 8.8z"/></svg>
+          Quiero mis tarjetas
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRABAJOS -->
+  <section class="section" id="trabajos">
+    <div class="wrap">
+      <p class="eyebrow eyebrow-section">WEBS · TRABAJOS</p>
+      <h2>Dos casos reales, de principio a fin.</h2>
+      <p class="section-lead">Preferimos enseñarte proyectos completos, con capturas y contexto de verdad, antes que rellenar esto con negocios que no existen.</p>
+
+      <div class="work-list">
+      <article class="work-feature">
+        <a href="trabajos/cachitos.html" class="work-feature-thumb">
+          <div class="browser-frame">
+            <div class="browser-bar" aria-hidden="true">
+              <span class="browser-dot browser-dot-red"></span>
+              <span class="browser-dot browser-dot-amber"></span>
+              <span class="browser-dot browser-dot-green"></span>
+              <span class="browser-url">cachitosrealfood.com</span>
+            </div>
+            <div class="browser-viewport">
+              <img src="img/trabajos/cachitos-hero-raw.png" alt="Web de Cachitos, cafetería sin azúcar y sin gluten en Santa Cruz de Tenerife" loading="lazy">
+            </div>
+          </div>
+        </a>
+        <div class="work-feature-body">
+          <p class="work-feature-tag">CASO DE TRABAJO · CAFETERÍA EN TENERIFE</p>
+          <h3><a href="trabajos/cachitos.html">Cachitos</a></h3>
+          <p class="work-feature-desc">Convertimos su carta en una herramienta de venta: consulta, encargos, talleres y reservas, todo desde el móvil, sin fricción.</p>
+          <ul class="work-feature-points">
+            <li>Carta visual organizada por categorías, con packs destacados</li>
+            <li>Sellos "sin gluten" y "sin azúcar" visibles en toda la web</li>
+            <li>Selector de idioma ES/EN para la clientela turística</li>
+          </ul>
+          <a class="btn btn-dark" href="trabajos/cachitos.html">Ver el caso completo</a>
+        </div>
+      </article>
+
+      <article class="work-feature work-feature--reverse">
+        <a href="trabajos/el-cafe-de-manuela.html" class="work-feature-thumb">
+          <div class="browser-frame">
+            <div class="browser-bar" aria-hidden="true">
+              <span class="browser-dot browser-dot-red"></span>
+              <span class="browser-dot browser-dot-amber"></span>
+              <span class="browser-dot browser-dot-green"></span>
+              <span class="browser-url">elcafedemanuela.com</span>
+            </div>
+            <div class="browser-viewport browser-viewport--clean">
+              <img src="img/trabajos/manuela-hero.jpg" alt="Web de El Café de Manuela, brunch y música en vivo en Ravelo, con el Teide de fondo" loading="lazy">
+            </div>
+          </div>
+        </a>
+        <div class="work-feature-body">
+          <p class="work-feature-tag">CASO DE TRABAJO · BRUNCH EN RAVELO</p>
+          <h3><a href="trabajos/el-cafe-de-manuela.html">El Café de Manuela</a></h3>
+          <p class="work-feature-desc">Lo primero que hicimos no fue la web: fue quitarles una factura de hosting que no alojaba nada. Después llegaron la web y un sistema para que quien compra un bono elija fecha sin escribir a nadie.</p>
+          <ul class="work-feature-points">
+            <li>Hosting: de 203,88&nbsp;€ al año a 0&nbsp;€</li>
+            <li>La fecha del bono se pide al momento, a cualquier hora</li>
+            <li>El café decide el cupo de cada día desde el móvil</li>
+          </ul>
+          <a class="btn btn-dark" href="trabajos/el-cafe-de-manuela.html">Ver el caso completo</a>
+        </div>
+      </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICIOS / PRECIOS -->
+  <section class="section section-alt" id="servicios">
+    <div class="wrap">
+      <p class="eyebrow eyebrow-section">PRECIOS DE LAS WEBS</p>
       <h2>Elige cómo quieres<br>que trabaje tu web.</h2>
       <p class="section-lead">Web propia, con cuota mensual o sin ella. Precio cerrado desde el primer mensaje: nunca vas a pagar más porque sí.</p>
 
@@ -214,7 +441,34 @@
         </article>
       </div>
 
-      <p class="pricing-note">Precios sin IGIC. La cuota mensual es opcional y se puede empezar sin ella. Permanencia mínima de 6 meses en los planes con cuota, con 15 días de preaviso.</p>
+      <p class="pricing-note">Precios finales, sin impuestos añadidos. La cuota mensual es opcional y se puede empezar sin ella. Permanencia mínima de 6 meses en los planes con cuota, con 15 días de preaviso.</p>
+
+      <!-- Pack combinado: web propia (490) + pack Mesas (169) = 659 por separado.
+           Si cambia algún precio suelto, revisa también el "por separado" y el ahorro. -->
+      <article class="pack-card" id="pack">
+        <div class="pack-copy">
+          <p class="pack-kicker">PACK NEGOCIO COMPLETO</p>
+          <h3>Web, tarjetas NFC y ficha de Google, trabajando juntas.</h3>
+          <p>La tarjeta lleva al cliente a tu ficha de Google, la ficha lleva a tu web y la web lleva a la reserva. Por separado funcionan; juntas, cada pieza empuja a la siguiente.</p>
+          <ul class="price-list">
+            <li>Web propia completa, con el dominio a tu nombre</li>
+            <li>10 tarjetas NFC con tu marca, las del pack Mesas</li>
+            <li>Gestión continua de tu ficha de Google Business y SEO progresiva</li>
+            <li>Monitorización, copias de seguridad y 2 cambios menores al mes</li>
+            <li>Informe trimestral</li>
+          </ul>
+        </div>
+        <div class="pack-price">
+          <p class="pack-was">Por separado, <s>659&nbsp;€</s></p>
+          <p class="price-amount">590&nbsp;<span>€</span></p>
+          <p class="price-note">+ 45&nbsp;€/mes</p>
+          <p class="pack-saving">Te ahorras 69&nbsp;€, lo mismo que cuesta el pack Mostrador.</p>
+          <a class="btn btn-wa" href="https://wa.me/34682292137?text=%C2%A1Hola!%20Me%20interesa%20el%20Pack%20Negocio%20completo%3A%20web%2C%20tarjetas%20NFC%20y%20ficha%20de%20Google." target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" class="icon-wa" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.7-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.1-.2.2-.3.2-.6.1-.3-.1-1.2-.5-2.3-1.5-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5C10.1 9 9.6 7.8 9.4 7.3c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.3.3-1 .9-1 2.3s1 2.7 1.2 2.9c.1.2 2 3 4.8 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 1.9-1.3.2-.7.2-1.2.2-1.3-.1-.2-.3-.2-.6-.4z"/><path d="M12 2C6.5 2 2 6.5 2 12c0 1.9.5 3.7 1.5 5.3L2 22l4.8-1.5c1.5.8 3.3 1.3 5.2 1.3 5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18.3c-1.7 0-3.4-.5-4.8-1.4l-.3-.2-3 .9.9-2.9-.2-.3C3.7 15 3.2 13.5 3.2 12c0-4.8 3.9-8.8 8.8-8.8s8.8 3.9 8.8 8.8-3.9 8.8-8.8 8.8z"/></svg>
+            Quiero el pack completo
+          </a>
+        </div>
+      </article>
 
       <div class="ownership-block">
         <svg viewBox="0 0 24 24" class="ownership-icon" aria-hidden="true"><path d="M12 2 3 6v6c0 5 3.8 9.4 9 10 5.2-.6 9-5 9-10V6l-9-4Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M8.5 12.2l2.4 2.4 4.6-4.8" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -277,42 +531,6 @@
     </div>
   </section>
 
-  <!-- TRABAJOS -->
-  <section class="section section-alt" id="trabajos">
-    <div class="wrap">
-      <p class="eyebrow eyebrow-section">TRABAJOS</p>
-      <h2>Un caso real, de principio a fin.</h2>
-      <p class="section-lead">Preferimos enseñarte un proyecto completo, con capturas y contexto de verdad, antes que rellenar esto con negocios que todavía no existen.</p>
-
-      <article class="work-feature">
-        <a href="trabajos/cachitos.html" class="work-feature-thumb">
-          <div class="browser-frame">
-            <div class="browser-bar" aria-hidden="true">
-              <span class="browser-dot browser-dot-red"></span>
-              <span class="browser-dot browser-dot-amber"></span>
-              <span class="browser-dot browser-dot-green"></span>
-              <span class="browser-url">cachitosrealfood.com</span>
-            </div>
-            <div class="browser-viewport">
-              <img src="img/trabajos/cachitos-hero-raw.png" alt="Web de Cachitos, cafetería sin azúcar y sin gluten en Santa Cruz de Tenerife" loading="lazy">
-            </div>
-          </div>
-        </a>
-        <div class="work-feature-body">
-          <p class="work-feature-tag">CASO DE TRABAJO · CAFETERÍA EN TENERIFE</p>
-          <h3><a href="trabajos/cachitos.html">Cachitos</a></h3>
-          <p class="work-feature-desc">Convertimos su carta en una herramienta de venta: consulta, encargos, talleres y reservas, todo desde el móvil, sin fricción.</p>
-          <ul class="work-feature-points">
-            <li>Carta visual organizada por categorías, con packs destacados</li>
-            <li>Sellos "sin gluten" y "sin azúcar" visibles en toda la web</li>
-            <li>Selector de idioma ES/EN para la clientela turística</li>
-          </ul>
-          <a class="btn btn-dark" href="trabajos/cachitos.html">Ver el caso completo</a>
-        </div>
-      </article>
-    </div>
-  </section>
-
   <!-- CÓMO TRABAJO -->
   <section class="section" id="proceso">
     <div class="wrap">
@@ -352,6 +570,24 @@
 
       <div class="faq-list">
         <div class="faq-item is-open">
+          <button class="faq-question">
+            <span>¿Las tarjetas NFC funcionan con cualquier móvil?</span>
+            <svg viewBox="0 0 24 24" class="faq-chevron"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="faq-answer">
+            <p>Con casi todos los actuales: los iPhone desde el XS y la gran mayoría de móviles Android, que traen NFC de serie. No hace falta instalar ninguna app: el cliente acerca el móvil a la tarjeta y se le abre el enlace.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>¿Necesito tener web para usar las tarjetas?</span>
+            <svg viewBox="0 0 24 24" class="faq-chevron"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="faq-answer">
+            <p>No. La tarjeta de reseñas lleva a tu ficha de Google y las demás a tus redes, así que funcionan igual tengas web o no. Si más adelante la quieres, el <a href="#pack">Pack Negocio completo</a> junta la web, las tarjetas y la gestión de tu ficha de Google.</p>
+          </div>
+        </div>
+        <div class="faq-item">
           <button class="faq-question">
             <span>¿Qué pasa si no tengo dominio ni hosting?</span>
             <svg viewBox="0 0 24 24" class="faq-chevron"><path d="M6 9l6 6 6-6"/></svg>
@@ -412,8 +648,8 @@
   <!-- CONTACTO / CTA FINAL -->
   <section class="cta-final">
     <div class="wrap cta-final-inner">
-      <h2>¿Hablamos de tu web?</h2>
-      <p>Cuéntanos en qué consiste tu negocio y te respondemos con un plan y un precio cerrado.</p>
+      <h2>¿Hablamos de tu negocio?</h2>
+      <p>Tarjetas, web o las dos cosas: cuéntanos en qué consiste tu negocio y te respondemos con lo que te hace falta y un precio cerrado.</p>
       <a class="btn btn-wa btn-lg" href="https://wa.me/34682292137?text=%C2%A1Hola!%20Os%20cuento%20en%20qu%C3%A9%20consiste%20mi%20negocio%20para%20que%20me%20propong%C3%A1is%20un%20plan%20y%20un%20precio." target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24" class="icon-wa" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.7-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.1-.2.2-.3.2-.6.1-.3-.1-1.2-.5-2.3-1.5-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5C10.1 9 9.6 7.8 9.4 7.3c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.3.3-1 .9-1 2.3s1 2.7 1.2 2.9c.1.2 2 3 4.8 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 1.9-1.3.2-.7.2-1.2.2-1.3-.1-.2-.3-.2-.6-.4z"/><path d="M12 2C6.5 2 2 6.5 2 12c0 1.9.5 3.7 1.5 5.3L2 22l4.8-1.5c1.5.8 3.3 1.3 5.2 1.3 5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18.3c-1.7 0-3.4-.5-4.8-1.4l-.3-.2-3 .9.9-2.9-.2-.3C3.7 15 3.2 13.5 3.2 12c0-4.8 3.9-8.8 8.8-8.8s8.8 3.9 8.8 8.8-3.9 8.8-8.8 8.8z"/></svg>
         Escríbenos al 682 292 137
@@ -452,12 +688,13 @@
       <div class="footer-meta">
         <p>Santa Cruz de Tenerife, España</p>
         <p><a href="mailto:enlaceestudioweb@gmail.com">enlaceestudioweb@gmail.com</a> · <a href="https://wa.me/34682292137?text=%C2%A1Hola!%20Os%20escribo%20desde%20la%20web%20de%20Enlace%20Estudio." target="_blank" rel="noopener">+34 682 292 137</a></p>
+        <p class="footer-legal"><a href="aviso-legal.html">Aviso legal</a> · <a href="privacidad.html">Privacidad</a> · <a href="cookies.html">Cookies</a></p>
       </div>
       <p class="footer-copy">© <span id="year"></span> Enlace Estudio. Diseño y desarrollo web en Tenerife.</p>
     </div>
   </div>
 </footer>
 
-<script src="js/main.js?v=2026-07-26"></script>
+<script src="js/main.js?v=2026-10-03e"></script>
 </body>
 </html>
