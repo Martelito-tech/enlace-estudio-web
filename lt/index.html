@@ -39,7 +39,7 @@
 <!-- Al tocar el CSS o el JS, sube la fecha del ?v= en todos los HTML. Cloudflare
      los cachea 4 horas: si la ruta no cambia, quien ya visitó la web recibe el
      HTML nuevo con el CSS viejo y la página se ve rota. -->
-<link rel="stylesheet" href="../css/style.css?v=2026-10-03i">
+<link rel="stylesheet" href="../css/style.css?v=2026-10-03j">
 
 <script type="application/ld+json">
 {
@@ -194,9 +194,15 @@
   <section class="section section-alt" id="tarjetas">
     <div class="wrap">
       <!-- Cómo funciona: título y pasos centrados sobre un vídeo de tarjetas
-           cayendo. El vídeo va dentro de .nfc-how-media cuando esté listo. -->
+           cayendo (bucle de 9 s sin audio; el original está en
+           Trabajo/Tarjetas NFC/video). -->
       <div class="nfc-how">
-        <div class="nfc-how-media" aria-hidden="true"></div>
+        <div class="nfc-how-media" aria-hidden="true">
+          <video class="nfc-how-video" autoplay muted loop playsinline preload="auto" poster="../img/tarjetas/cayendo-poster.jpg" tabindex="-1">
+            <source src="../img/tarjetas/cayendo.webm" type="video/webm">
+            <source src="../img/tarjetas/cayendo.mp4" type="video/mp4">
+          </video>
+        </div>
         <div class="nfc-how-inner">
           <p class="eyebrow eyebrow-section">NFC KORTELĖS</p>
           <h2>Jūsų klientas jau patenkintas. Belieka, kad jis tai pasakytų.</h2>
@@ -695,6 +701,6 @@
   </div>
 </footer>
 
-<script src="../js/main.js?v=2026-10-03i"></script>
+<script src="../js/main.js?v=2026-10-03j"></script>
 </body>
 </html>

@@ -726,6 +726,7 @@ em {
 /* Con «reducir movimiento» el vídeo no se reproduce: queda el fondo fijo */
 @media (prefers-reduced-motion: reduce) {
   .nfc-how-video { display: none; }
+  .nfc-how-media { background: url("../img/tarjetas/cayendo-poster.jpg") center / cover no-repeat; }
 }
 
 /* ---------- Escaparate de tarjetas: diseños de ejemplo ----------

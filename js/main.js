@@ -597,3 +597,27 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
   // Si una imagen termina de cargar más tarde, el lienzo necesita sus medidas
   parts.forEach(p => { if (!p.img.complete) p.img.addEventListener('load', () => { measure(); render(); }, { once: true }); });
 })();
+
+// Vídeo de fondo de «cómo funciona»: sólo se reproduce mientras se ve, para no
+// gastar batería ni procesador cuando la sección está fuera de pantalla. Con
+// «reducir movimiento» se queda parado en el primer fotograma.
+(function () {
+  const video = document.querySelector('.nfc-how-video');
+  if (!video) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    video.removeAttribute('autoplay');
+    video.pause();
+    return;
+  }
+  if (!('IntersectionObserver' in window)) return;
+  new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const p = video.play();
+        if (p && p.catch) p.catch(() => { /* sin permiso para reproducir: se queda el póster */ });
+      } else {
+        video.pause();
+      }
+    });
+  }, { threshold: 0.05 }).observe(video);
+})();
