@@ -88,7 +88,7 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
   }
 
   function nodeCount() {
-    return W < 760 ? 24 : 42;
+    return W < 760 ? 36 : 72;
   }
 
   let lastW = null;
