@@ -87,16 +87,13 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
     });
   }
 
-  // En móvil el lienzo sólo se ve en la franja de abajo (la máscara del CSS
-  // esconde la parte de arriba, donde va el texto). Ahí van menos nodos,
-  // repartidos por todo el ancho y más separados, para que no se amontonen.
+  // En móvil no hay red: en una pantalla estrecha los nodos se amontonan y
+  // tapan el texto. El CSS oculta el lienzo y aquí no se anima, para no gastar
+  // batería en algo que no se ve.
   const isMobile = () => W < 760;
   function nodeCount() {
-    return isMobile() ? 14 : 72;
+    return 72;
   }
-  const edge = () => (isMobile() ? 24 : BORDER_MARGIN);   // margen a los lados
-  const topY = () => (isMobile() ? H * 0.7 : 0);          // donde empieza la zona visible, bajo los botones
-  const spacing = () => (isMobile() ? 72 : NODE_REPEL_RADIUS);
 
   let lastW = null;
 
@@ -132,21 +129,12 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
     const n = nodeCount();
     nodes = [];
     for (let i = 0; i < n; i++) {
-      let x, y;
-      if (isMobile()) {
-        // Repartidos a lo ancho por franjas, con algo de azar dentro de cada
-        // una, y sólo en la zona que se ve
-        x = edge() + ((i + 0.15 + Math.random() * 0.7) / n) * (W - 2 * edge());
-        y = topY() + edge() + Math.random() * (H - topY() - 2 * edge());
-      } else {
-        // sesgado hacia los laterales: menos nodos cerca del texto centrado
-        const side = Math.random() < 0.5 ? -1 : 1;
-        x = W / 2 + side * (0.16 + Math.pow(Math.random(), 1.3) * 0.34) * W;
-        y = Math.random() * H;
-      }
+      // sesgado hacia los laterales: menos nodos cerca del texto centrado
+      const side = Math.random() < 0.5 ? -1 : 1;
+      const x = W / 2 + side * (0.16 + Math.pow(Math.random(), 1.3) * 0.34) * W;
       nodes.push({
         x: Math.max(0, Math.min(x, W)),
-        y,
+        y: Math.random() * H,
         vx: (Math.random() - 0.5) * 0.28 * SPEED,
         vy: (Math.random() - 0.5) * 0.28 * SPEED,
         r: Math.random() < 0.18 ? 4.4 : 2.6,
@@ -168,28 +156,29 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
     }
   }
 
+  let animating = false;
   function step() {
+    if (isMobile()) { animating = false; ctx.clearRect(0, 0, W, H); return; }
     ctx.clearRect(0, 0, W, H);
 
     for (const n of nodes) {
       n.x += n.vx;
       n.y += n.vy;
 
-      const m = edge(), top = topY();
-      if (n.x < m) {
-        n.x += (m - n.x) / m * BORDER_STRENGTH;
+      if (n.x < BORDER_MARGIN) {
+        n.x += (BORDER_MARGIN - n.x) / BORDER_MARGIN * BORDER_STRENGTH;
         if (n.vx < 0) n.vx = -n.vx;
       }
-      if (n.x > W - m) {
-        n.x -= (m - (W - n.x)) / m * BORDER_STRENGTH;
+      if (n.x > W - BORDER_MARGIN) {
+        n.x -= (BORDER_MARGIN - (W - n.x)) / BORDER_MARGIN * BORDER_STRENGTH;
         if (n.vx > 0) n.vx = -n.vx;
       }
-      if (n.y < top + m) {
-        n.y += (top + m - n.y) / m * BORDER_STRENGTH;
+      if (n.y < BORDER_MARGIN) {
+        n.y += (BORDER_MARGIN - n.y) / BORDER_MARGIN * BORDER_STRENGTH;
         if (n.vy < 0) n.vy = -n.vy;
       }
-      if (n.y > H - m) {
-        n.y -= (m - (H - n.y)) / m * BORDER_STRENGTH;
+      if (n.y > H - BORDER_MARGIN) {
+        n.y -= (BORDER_MARGIN - (H - n.y)) / BORDER_MARGIN * BORDER_STRENGTH;
         if (n.vy > 0) n.vy = -n.vy;
       }
       n.x = Math.max(0, Math.min(W, n.x));
@@ -209,7 +198,6 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
       }
     }
 
-    const sep = spacing();
     for (let i = 0; i < nodes.length; i++) {
       for (let j = i + 1; j < nodes.length; j++) {
         const a = nodes[i], b = nodes[j];
@@ -225,8 +213,8 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
           ctx.stroke();
         }
 
-        if (d < sep && d > 0.01) {
-          const force = (1 - d / sep) * NODE_REPEL_STRENGTH;
+        if (d < NODE_REPEL_RADIUS && d > 0.01) {
+          const force = (1 - d / NODE_REPEL_RADIUS) * NODE_REPEL_STRENGTH;
           const ux = dx / d, uy = dy / d;
           a.x += ux * force; a.y += uy * force;
           b.x -= ux * force; b.y -= uy * force;
@@ -264,11 +252,17 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
     requestAnimationFrame(step);
   }
 
+  const start = () => {
+    if (reduceMotion || animating || isMobile()) return;
+    animating = true;
+    requestAnimationFrame(step);
+  };
+
   resize();
-  window.addEventListener('resize', resize);
+  window.addEventListener('resize', () => { resize(); start(); });
 
   if (!reduceMotion) {
-    requestAnimationFrame(step);
+    start();
   } else {
     step(); // un solo frame estático, sin animar
   }

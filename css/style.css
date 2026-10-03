@@ -101,7 +101,7 @@ html {
   scroll-behavior: smooth;
   /* La cabecera es fija: los enlaces a una sección (#tarjetas, #faq…) dejan
      este hueco arriba para que el título no quede tapado por ella */
-  scroll-padding-top: 88px;
+  scroll-padding-top: 96px;
 }
 
 body {
@@ -213,8 +213,8 @@ em {
   display: flex;
   align-items: center;
   gap: 24px;
-  padding-top: 16px;
-  padding-bottom: 16px;
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 
 .brand {
@@ -283,13 +283,13 @@ em {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 6px 8px;
-  border-radius: 8px;
+  padding: 7px 10px;
+  border-radius: 9px;
   border: 1px solid transparent;
-  font-size: .78rem;
+  font-size: .84rem;
   font-weight: 700;
   color: var(--muted);
-  opacity: .75;
+  opacity: .85;
   transition: opacity .15s ease, border-color .15s ease, background-color .15s ease;
 }
 .lang-switch a:hover { opacity: 1; background: var(--white); }
@@ -300,9 +300,9 @@ em {
   border-color: var(--border);
 }
 .lang-switch img {
-  width: 20px;
-  height: 14px;
-  border-radius: 2px;
+  width: 26px;
+  height: 18px;
+  border-radius: 3px;
   box-shadow: 0 0 0 1px rgba(20,33,61,.12);
 }
 
@@ -310,7 +310,7 @@ em {
    se quedan sólo las banderas y el menú se aprieta. */
 @media (max-width: 1180px) {
   .lang-switch a > span:not(.sr-only) { display: none; }
-  .lang-switch a { padding: 6px; }
+  .lang-switch a { padding: 7px; }
   .main-nav { gap: 22px; }
 }
 @media (max-width: 1000px) {
@@ -1657,9 +1657,19 @@ em {
 
 @media (max-width: 760px) {
   .header-inner .btn-sm { display: none; }
-  .header-inner { gap: 12px; }
+  /* Cabecera de móvil más alta y banderas más grandes, para que el selector
+     de idioma se vea y se pueda pulsar bien con el dedo */
+  /* Con .site-header delante: la regla .wrap de más abajo (padding: 0 20px)
+     le quitaba el relleno de arriba y abajo, y la cabecera medía 34 px */
+  .site-header .header-inner { gap: 8px; padding-top: 12px; padding-bottom: 12px; }
+  .brand { gap: 8px; }
+  .brand-mark { width: 30px; height: 30px; }
+  .brand-name { font-size: clamp(.92rem, 4.1vw, 1.05rem); white-space: nowrap; }
   .lang-switch { gap: 2px; }
-  .lang-switch a { padding: 6px; }
+  .lang-switch a { padding: 6px 5px; }
+  .lang-switch img { width: 28px; height: 20px; }
+  /* Sin red de nodos en el hero: en pantalla estrecha se amontonaban */
+  .hero-network { display: none; }
   .lang-switch a > span:not(.sr-only) { display: none; }
   .legal-table th, .legal-table td { display: block; width: 100%; }
   .legal-table th { padding-bottom: 2px; border-bottom: 0; }
