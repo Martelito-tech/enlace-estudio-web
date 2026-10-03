@@ -145,17 +145,6 @@ em {
   font-weight: 500;
 }
 
-/* subtle grain/texture overlay */
-.noise {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 999;
-  opacity: .025;
-  mix-blend-mode: multiply;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-}
-
 /* ---------- Buttons ---------- */
 .btn {
   display: inline-flex;
@@ -734,7 +723,7 @@ em {
 /* Con «reducir movimiento» el vídeo no se reproduce: queda el fondo fijo */
 @media (prefers-reduced-motion: reduce) {
   .nfc-how-video { display: none; }
-  .nfc-how-media { background: url("../img/tarjetas/cayendo-poster.jpg") center / cover no-repeat; }
+  .nfc-how-media { background: url("../img/tarjetas/cayendo-poster.jpg?v=2026-10-03v") center / cover no-repeat; }
 }
 
 /* ---------- Escaparate de tarjetas: diseños de ejemplo ----------

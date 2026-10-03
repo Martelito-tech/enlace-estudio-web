@@ -156,9 +156,21 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
     }
   }
 
+  // Sólo se anima mientras el hero se ve: al bajar por la página se para, y
+  // así no se redibuja el lienzo en cada fotograma del scroll (medido: era
+  // de lo que más tirones daba).
   let animating = false;
+  let heroVisible = true;
+
+  // Las líneas se agrupan en 10 niveles de transparencia y cada nivel se
+  // pinta de una vez: unas 10 operaciones de dibujo por fotograma en vez de
+  // una por línea (con 72 nodos llegaban a ser miles). Los arrays se reutilizan
+  // para no generar basura en cada fotograma.
+  const LINE_LEVELS = 10;
+  const lineBuckets = Array.from({ length: LINE_LEVELS }, () => []);
   function step() {
     if (isMobile()) { animating = false; ctx.clearRect(0, 0, W, H); return; }
+    if (!heroVisible) { animating = false; return; }
     ctx.clearRect(0, 0, W, H);
 
     for (const n of nodes) {
@@ -205,12 +217,8 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
         const d = Math.hypot(dx, dy);
 
         if (d < LINE_MAX_DIST) {
-          ctx.strokeStyle = 'rgba(20,33,61,' + (0.32 * (1 - d / LINE_MAX_DIST)) + ')';
-          ctx.lineWidth = 1.4;
-          ctx.beginPath();
-          ctx.moveTo(a.x, a.y);
-          ctx.lineTo(b.x, b.y);
-          ctx.stroke();
+          const lvl = Math.min(LINE_LEVELS - 1, Math.floor((1 - d / LINE_MAX_DIST) * LINE_LEVELS));
+          lineBuckets[lvl].push(a.x, a.y, b.x, b.y);
         }
 
         if (d < NODE_REPEL_RADIUS && d > 0.01) {
@@ -222,14 +230,33 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
       }
     }
 
-    for (const n of nodes) {
+    ctx.lineWidth = 1.4;
+    for (let l = 0; l < LINE_LEVELS; l++) {
+      const seg = lineBuckets[l];
+      if (!seg.length) continue;
+      ctx.strokeStyle = 'rgba(20,33,61,' + (0.32 * (l + 0.5) / LINE_LEVELS).toFixed(3) + ')';
       ctx.beginPath();
-      ctx.fillStyle = n.blue ? '#3a86ff' : '#14213d';
-      ctx.globalAlpha = n.blue ? 1 : 0.8;
-      ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.globalAlpha = 1;
+      for (let k = 0; k < seg.length; k += 4) {
+        ctx.moveTo(seg[k], seg[k + 1]);
+        ctx.lineTo(seg[k + 2], seg[k + 3]);
+      }
+      ctx.stroke();
+      seg.length = 0;
     }
+
+    // Nodos: dos pinceladas (azules y oscuros) en vez de una por nodo
+    for (const blue of [true, false]) {
+      ctx.beginPath();
+      for (const n of nodes) {
+        if (n.blue !== blue) continue;
+        ctx.moveTo(n.x + n.r, n.y);
+        ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
+      }
+      ctx.fillStyle = blue ? '#3a86ff' : '#14213d';
+      ctx.globalAlpha = blue ? 1 : 0.8;
+      ctx.fill();
+    }
+    ctx.globalAlpha = 1;
 
     maybeSpawnPulse();
     for (let i = pulses.length - 1; i >= 0; i--) {
@@ -240,13 +267,21 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
       const y = p.a.y + (p.b.y - p.a.y) * p.t;
       // pequeña -> grande -> pequeña a lo largo del camino
       const pulseR = 1.5 + Math.sin(Math.PI * p.t) * 1.8;
-      ctx.beginPath();
+      // Halo suave con dos círculos translúcidos: el mismo efecto que un
+      // shadowBlur, que obliga a desenfocar en cada fotograma y es carísimo
       ctx.fillStyle = '#3a86ff';
-      ctx.shadowColor = '#3a86ff';
-      ctx.shadowBlur = 12;
+      ctx.globalAlpha = 0.12;
+      ctx.beginPath();
+      ctx.arc(x, y, pulseR * 3.2, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.globalAlpha = 0.25;
+      ctx.beginPath();
+      ctx.arc(x, y, pulseR * 1.9, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.globalAlpha = 1;
+      ctx.beginPath();
       ctx.arc(x, y, pulseR, 0, Math.PI * 2);
       ctx.fill();
-      ctx.shadowBlur = 0;
     }
 
     requestAnimationFrame(step);
@@ -260,6 +295,12 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
 
   resize();
   window.addEventListener('resize', () => { resize(); start(); });
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(entries => {
+      heroVisible = entries[0].isIntersecting;
+      if (heroVisible) start();
+    }).observe(hero);
+  }
 
   if (!reduceMotion) {
     start();
