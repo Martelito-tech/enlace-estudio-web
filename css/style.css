@@ -547,14 +547,37 @@ em {
   gap: 24px;
 }
 
+/* Tarjetas de paquetes, sin precio: nombre, una línea que lo resume, lo
+   importante en dos a cuatro puntos y el botón de WhatsApp, siempre abajo
+   para que las tres tarjetas queden alineadas aunque tengan más o menos texto */
 .price-card {
+  display: flex;
+  flex-direction: column;
   background: var(--white);
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 32px 28px;
+  padding: 32px 28px 28px;
   position: relative;
   transition: transform .2s ease, box-shadow .2s ease;
 }
+.price-card .price-tag { margin-bottom: 10px; }
+.plan-sub {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--navy);
+  margin: 0 0 20px;
+}
+.price-card-featured .plan-sub { color: var(--white); }
+.price-card .price-list { margin-bottom: 28px; }
+.plan-cta {
+  margin-top: auto;
+  justify-content: center;
+  width: 100%;
+  white-space: normal; /* en lituano el texto es largo: mejor dos líneas que salirse */
+  text-align: center;
+}
+#servicios > .wrap > .pricing-note { text-align: center; max-width: none; }
 .price-card:hover { transform: translateY(-4px); box-shadow: 0 20px 40px -18px rgba(20,33,61,.18); }
 
 .price-card-featured {
@@ -588,28 +611,6 @@ em {
 }
 .price-card-featured .price-tag { color: #b9c6e6; }
 
-.price-amount {
-  font-family: var(--font-display);
-  font-size: 3rem;
-  font-weight: 700;
-  color: var(--navy);
-  margin-bottom: 6px;
-  display: flex;
-  align-items: baseline;
-  gap: 4px;
-}
-.price-card-featured .price-amount { color: var(--white); }
-.price-amount span { font-size: 1.3rem; font-weight: 600; }
-
-/* Línea pequeña bajo el precio: "pago único, sin permanencia" o "+ 45 €/mes" */
-.price-note {
-  font-size: .85rem;
-  font-weight: 600;
-  color: var(--muted);
-  margin-bottom: 22px;
-}
-.price-card-featured .price-note { color: #b9c6e6; }
-
 .price-list {
   list-style: none;
   margin: 0;
@@ -640,6 +641,7 @@ em {
   font-size: .88rem;
   max-width: 70ch;
 }
+.plan-note { text-align: center; max-width: none; margin-top: 24px; font-size: .95rem; }
 .pricing-note a,
 .faq-answer a {
   color: var(--blue);
@@ -1012,11 +1014,7 @@ em {
   text-transform: uppercase;
 }
 
-.nfc-cta {
-  display: flex;
-  justify-content: center;
-  margin-top: 40px;
-}
+
 
 /* ---------- Pack combinado (web + tarjetas + ficha de Google) ---------- */
 .pack-card {
@@ -1057,14 +1055,12 @@ em {
   background: var(--navy-soft);
   border-left: 1px solid rgba(107,165,255,.25);
 }
-.pack-was { color: #b9c6dc; font-size: .9rem; font-weight: 600; margin-bottom: 4px; }
-.pack-price .price-amount { color: var(--white); }
-.pack-price .price-note { color: #b9c6e6; margin-bottom: 14px; }
-.pack-saving {
+.pack-lead {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 700;
   color: var(--white);
-  font-size: .9rem;
-  font-weight: 600;
-  margin-bottom: 26px;
+  margin-bottom: 22px;
 }
 
 /* ---------- Automatizaciones (bloque, no un cuarto plan) ---------- */
