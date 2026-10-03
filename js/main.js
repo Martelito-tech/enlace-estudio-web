@@ -255,3 +255,337 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
     step(); // un solo frame estático, sin animar
   }
 })();
+
+// Escaparate de tarjetas NFC: carrusel horizontal que se arrastra. Las tarjetas
+// entran desde la derecha girando (atado al scroll), se doblan con la velocidad
+// al arrastrarlas y la del centro se inclina en 3D siguiendo al cursor.
+(function () {
+  const scene = document.querySelector('.nfc-examples');
+  if (!scene) return;
+  const track = scene.querySelector('.nfc-examples-grid');
+  const cards = [...track.querySelectorAll('.nfc-card')];
+  const n = cards.length;
+  if (!n) return;
+
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
+  // Cuadrática y no cúbica: el giro de entrada se reparte por todo el recorrido
+  const easeOut = t => 1 - Math.pow(1 - t, 2);
+  // Distancia más corta entre dos posiciones de un carrusel circular
+  const wrap = d => ((d % n) + n + n / 2) % n - n / 2;
+
+  track.classList.add('is-carousel');
+  track.tabIndex = 0;
+
+  const parts = cards.map(card => {
+    const tilt = card.querySelector('.nfc-card-tilt');
+    const img = tilt.querySelector('img');
+    const canvas = document.createElement('canvas');
+    canvas.className = 'nfc-card-bend';
+    canvas.setAttribute('aria-hidden', 'true');
+    img.after(canvas);
+    img.addEventListener('dragstart', e => e.preventDefault());
+    return { card, tilt, img, canvas, ctx: canvas.getContext('2d'), stage: card.querySelector('.nfc-card-stage') };
+  });
+
+  // Controles: flechas y un punto por tarjeta (con el nombre del negocio)
+  const controls = scene.querySelector('.nfc-carousel-controls');
+  const dots = [];
+  if (controls) {
+    controls.hidden = false;
+    const dotsWrap = controls.querySelector('.nfc-carousel-dots');
+    cards.forEach((card, i) => {
+      const dot = document.createElement('button');
+      dot.type = 'button';
+      dot.className = 'nfc-carousel-dot';
+      dot.setAttribute('aria-label', card.querySelector('figcaption strong').textContent.trim());
+      dot.addEventListener('click', () => goTo(i));
+      dotsWrap.appendChild(dot);
+      dots.push(dot);
+    });
+    controls.querySelectorAll('[data-dir]').forEach(btn => {
+      btn.addEventListener('click', () => step(Number(btn.dataset.dir)));
+    });
+  }
+
+  // ---- Estado. pos es la tarjeta (con decimales) que ocupa el centro ----
+  let pos = 0, target = 0, vel = 0;
+  let cardW = 0, gapStep = 0, dpr = 1;
+  let dragging = false, dragStartX = 0, dragStartPos = 0, dragMoved = 0, lastPos = 0;
+  let running = false;
+  let entranceDone = reduceMotion;
+  let active = 0;
+
+  function measure() {
+    cardW = parts[0].tilt.offsetWidth; // ancho sin transformar
+    // De centro a centro. En móvil, más juntas para que asome la de al lado
+    gapStep = cardW * (window.innerWidth < 760 ? 0.88 : 1.0);
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    parts.forEach(p => {
+      p.canvas.width = Math.round(cardW * 1.2 * dpr);
+      p.canvas.height = Math.round(p.tilt.offsetHeight * dpr);
+    });
+  }
+
+  // Dibuja la tarjeta doblada: la imagen se pinta por franjas horizontales y
+  // cada franja se desplaza según una parábola, así el centro se queda atrás
+  // respecto a los bordes de arriba y abajo, como una tela que se arrastra.
+  function drawBend(p, bend) {
+    const { img, canvas, ctx } = p;
+    if (!img.complete || !img.naturalWidth) return;
+    const W = cardW * dpr, H = canvas.height, M = cardW * 0.1 * dpr;
+    const rows = Math.max(24, Math.round(H / (2 * dpr)));
+    const rowH = H / rows;
+    const iw = img.naturalWidth, ih = img.naturalHeight;
+    ctx.clearRect(0, 0, canvas.width, H);
+    for (let r = 0; r < rows; r++) {
+      const t = (r + 0.5) / rows;
+      const dx = bend * dpr * (1 - Math.pow(2 * t - 1, 2));
+      ctx.drawImage(img, 0, (r / rows) * ih, iw, ih / rows + 1, M + dx, r * rowH, W, rowH + 0.75);
+    }
+  }
+
+  // Entrada atada al scroll (0 → 1 por tarjeta). La del centro llega primero,
+  // luego la de la derecha y por último la de la izquierda.
+  const entrance = new Array(n).fill(reduceMotion ? 1 : 0);
+  function updateEntrance() {
+    if (reduceMotion) return;
+    const vh = window.innerHeight;
+    const r = track.getBoundingClientRect();
+    const center = r.top + r.height / 2;
+    const raw = (vh * 0.9 - center) / (vh * 0.9 - vh * 0.5);
+    let done = true;
+    parts.forEach((p, i) => {
+      const d = wrap(i - pos);
+      const order = d === 0 ? 0 : d > 0 ? Math.abs(d) * 0.8 : Math.abs(d) * 0.8 + 0.4;
+      const pr = clamp(raw * 1.5 - order * 0.22, 0, 1);
+      entrance[i] = pr;
+      if (pr < 1) done = false;
+    });
+    if (entranceDone && !done) releaseAll();
+    entranceDone = done;
+  }
+
+  function render() {
+    const bendPx = reduceMotion ? 0 : clamp(-vel * gapStep * 1.3, -cardW * 0.09, cardW * 0.09);
+    const vw = window.innerWidth;
+    const dist = Math.min(vw * 0.55, 620);
+    parts.forEach((p, i) => {
+      const d = wrap(i - pos);
+      const ad = Math.abs(d);
+      const near = Math.min(ad, 1);
+      const scale = 1 - near * 0.2 - Math.max(ad - 1, 0) * 0.08;
+      const x = d * gapStep;
+      p.card.style.transform = `translate3d(${(x - cardW / 2).toFixed(1)}px, 0, 0) scale(${scale.toFixed(4)})`;
+      p.card.style.zIndex = String(10 - Math.round(ad * 2));
+      p.card.style.setProperty('--dist', near.toFixed(3));
+      p.card.style.setProperty('--focus', (1 - near).toFixed(3));
+      p.card.style.visibility = ad > 2.4 ? 'hidden' : '';
+
+      // Entrada: desde la derecha, girando, hasta quedar plana
+      const e = easeOut(entrance[i]);
+      const k = 1 - e;
+      p.card.style.setProperty('--p', e.toFixed(3));
+      if (entrance[i] >= 1) {
+        p.stage.style.transform = '';
+        p.stage.style.opacity = '';
+      } else {
+        p.stage.style.transform =
+          `perspective(1400px) translate3d(${(k * dist).toFixed(1)}px, ${(k * 40).toFixed(1)}px, 0) ` +
+          `rotateY(${(k * -55).toFixed(2)}deg) rotateZ(${(k * 12).toFixed(2)}deg) rotateX(${(k * 8).toFixed(2)}deg) ` +
+          `scale(${(0.82 + 0.18 * e).toFixed(3)})`;
+        p.stage.style.opacity = clamp(entrance[i] * 3, 0, 1).toFixed(3);
+      }
+
+      // Doblado: sólo cuando se mueve lo bastante como para notarse
+      if (Math.abs(bendPx) > 0.6 && ad < 2) {
+        p.card.classList.add('is-bending');
+        drawBend(p, bendPx);
+      } else {
+        p.card.classList.remove('is-bending');
+      }
+    });
+
+    const now = ((Math.round(pos) % n) + n) % n;
+    if (now !== active || !cards[active].classList.contains('is-active')) {
+      cards[active].classList.remove('is-active');
+      active = now;
+      cards[active].classList.add('is-active');
+      dots.forEach((dot, i) => dot.setAttribute('aria-current', i === active ? 'true' : 'false'));
+      cards.forEach((card, i) => card.setAttribute('aria-hidden', i === active ? 'false' : 'true'));
+    }
+  }
+
+  // Bucle de física: al arrastrar, la posición sigue al dedo; al soltar, un
+  // muelle amortiguado la lleva a la tarjeta más cercana.
+  // Todo va en «fotogramas de 60 Hz» (f): en una pantalla de 120 o 144 Hz el
+  // carrusel se mueve y se dobla igual que en una de 60.
+  let lastTime = 0;
+  function frame(now) {
+    const f = lastTime ? clamp((now - lastTime) / (1000 / 60), 0.25, 3) : 1;
+    lastTime = now;
+    if (dragging) {
+      // Velocidad suavizada: si el dedo se para, la tarjeta se endereza poco a
+      // poco en vez de de golpe
+      const keep = Math.pow(0.75, f);
+      vel = vel * keep + ((pos - lastPos) / f) * (1 - keep);
+      lastPos = pos;
+    } else {
+      // Muelle amortiguado hacia la tarjeta de destino
+      vel += (target - pos) * 0.075 * f;
+      vel *= Math.pow(0.78, f);
+      pos += vel * f;
+    }
+    updateEntrance();
+    render();
+    const settled = !dragging && Math.abs(target - pos) < 0.0005 && Math.abs(vel) < 0.0005;
+    if (settled) {
+      pos = target;
+      vel = 0;
+      render();
+      running = false;
+      lastTime = 0;
+      return;
+    }
+    requestAnimationFrame(frame);
+  }
+  const kick = () => { if (!running) { running = true; requestAnimationFrame(frame); } };
+
+  function goTo(i) {
+    target = Math.round(pos + wrap(i - pos));
+    releaseAll();
+    kick();
+  }
+  function step(dir) {
+    target = Math.round(target) + dir;
+    releaseAll();
+    kick();
+  }
+
+  // ---- Arrastre (ratón y dedo) ----
+  track.addEventListener('pointerdown', ev => {
+    if (ev.button !== 0) return;
+    dragging = true;
+    dragStartX = ev.clientX;
+    dragStartPos = pos;
+    lastPos = pos;
+    dragMoved = 0;
+    try { track.setPointerCapture(ev.pointerId); } catch (e) { /* sin captura, el arrastre sigue funcionando */ }
+    track.classList.add('is-dragging');
+    releaseAll();
+    kick();
+  });
+  track.addEventListener('pointermove', ev => {
+    if (!dragging) return;
+    const dx = ev.clientX - dragStartX;
+    dragMoved = Math.max(dragMoved, Math.abs(dx));
+    pos = dragStartPos - dx / gapStep;
+  });
+  const endDrag = ev => {
+    if (!dragging) return;
+    dragging = false;
+    track.classList.remove('is-dragging');
+    if (dragMoved < 6) {
+      // Ha sido un clic: si es una tarjeta de los lados, la trae al centro
+      const hit = document.elementFromPoint(ev.clientX, ev.clientY);
+      const card = hit && hit.closest('.nfc-card');
+      const i = cards.indexOf(card);
+      target = Math.round(pos);
+      if (i >= 0 && i !== active) goTo(i);
+    } else {
+      // Inercia: un gesto rápido puede saltar más de una tarjeta
+      target = Math.round(pos + clamp(vel * 9, -1.5, 1.5));
+    }
+    kick();
+  };
+  track.addEventListener('pointerup', endDrag);
+  track.addEventListener('pointercancel', endDrag);
+
+  track.addEventListener('keydown', ev => {
+    if (ev.key === 'ArrowRight') { ev.preventDefault(); step(1); }
+    if (ev.key === 'ArrowLeft') { ev.preventDefault(); step(-1); }
+  });
+
+  // ---- Inclinación 3D de la tarjeta del centro, siguiendo al cursor ----
+  const MAX_TILT = 10;
+  const SCALE = 1.06;
+  const LIFT = -12;
+  const tilts = [];
+
+  function releaseAll() { tilts.forEach(t => t && t.release()); }
+
+  if (canHover && !reduceMotion) {
+    parts.forEach((p, i) => {
+      const { card, tilt } = p;
+      const cur = { rx: 0, ry: 0, s: 1, y: 0 };
+      let goal = { rx: 0, ry: 0, s: 1, y: 0 };
+      let anim = false;
+
+      function tiltFrame() {
+        let moving = false;
+        for (const key in cur) {
+          const d = goal[key] - cur[key];
+          cur[key] += d * 0.14;
+          if (Math.abs(d) > 0.001) moving = true;
+        }
+        tilt.style.transform =
+          `perspective(1100px) translateY(${cur.y.toFixed(2)}px) ` +
+          `rotateX(${cur.rx.toFixed(2)}deg) rotateY(${cur.ry.toFixed(2)}deg) scale(${cur.s.toFixed(4)})`;
+        const lift = (cur.s - 1) / (SCALE - 1);
+        tilt.style.boxShadow =
+          `${(-cur.ry * 2.4).toFixed(1)}px ${(40 + cur.rx * 2.4 + lift * 18).toFixed(1)}px ${(70 + lift * 30).toFixed(0)}px -28px rgba(0,0,0,${(0.75 + lift * 0.1).toFixed(2)}), ` +
+          `0 18px 30px -18px rgba(0,0,0,.55)`;
+        if (moving) {
+          requestAnimationFrame(tiltFrame);
+        } else {
+          anim = false;
+          if (goal.s === 1) { tilt.style.transform = ''; tilt.style.boxShadow = ''; }
+        }
+      }
+      const go = () => { if (!anim) { anim = true; requestAnimationFrame(tiltFrame); } };
+
+      tilt.addEventListener('pointermove', ev => {
+        if (dragging || !entranceDone || i !== active || Math.abs(wrap(i - pos)) > 0.02) return;
+        const r = p.stage.getBoundingClientRect();
+        const x = clamp((ev.clientX - r.left) / r.width, 0, 1);
+        const y = clamp((ev.clientY - r.top) / r.height, 0, 1);
+        card.classList.add('is-tilting');
+        card.style.setProperty('--gx', (x * 100).toFixed(1) + '%');
+        card.style.setProperty('--gy', (y * 100).toFixed(1) + '%');
+        goal = { rx: (0.5 - y) * 2 * MAX_TILT, ry: (x - 0.5) * 2 * MAX_TILT, s: SCALE, y: LIFT };
+        go();
+      });
+      const release = () => {
+        card.classList.remove('is-tilting');
+        goal = { rx: 0, ry: 0, s: 1, y: 0 };
+        go();
+      };
+      tilt.addEventListener('pointerleave', release);
+      tilts[i] = { release };
+    });
+
+    // Foco de luz de la escena, que sigue al cursor
+    scene.addEventListener('pointermove', ev => {
+      const r = scene.getBoundingClientRect();
+      scene.style.setProperty('--mx', (ev.clientX - r.left).toFixed(0) + 'px');
+      scene.style.setProperty('--my', (ev.clientY - r.top).toFixed(0) + 'px');
+      scene.classList.add('is-lit');
+    });
+    scene.addEventListener('pointerleave', () => scene.classList.remove('is-lit'));
+  }
+
+  // ---- Arranque ----
+  measure();
+  updateEntrance();
+  render();
+  let ticking = false;
+  window.addEventListener('scroll', () => {
+    if (ticking || running) return;
+    ticking = true;
+    requestAnimationFrame(() => { updateEntrance(); render(); ticking = false; });
+  }, { passive: true });
+  window.addEventListener('resize', () => { measure(); render(); });
+  // Si una imagen termina de cargar más tarde, el lienzo necesita sus medidas
+  parts.forEach(p => { if (!p.img.complete) p.img.addEventListener('load', () => { measure(); render(); }, { once: true }); });
+})();
