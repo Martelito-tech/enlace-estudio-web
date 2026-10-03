@@ -700,8 +700,6 @@ em {
    La del centro se inclina en 3D siguiendo el cursor. El movimiento lo pone
    js/main.js; sin JS se ven quietas en rejilla. */
 .nfc-examples {
-  --mx: 70%;
-  --my: 30%;
   position: relative;
   isolation: isolate;
   margin: 0 calc(50% - 50vw) 88px;
@@ -715,18 +713,25 @@ em {
   color: var(--white);
   overflow: hidden; /* las tarjetas llegan desde fuera de la pantalla */
 }
-/* Foco de luz que sigue al cursor por toda la escena */
-.nfc-examples::before {
-  content: "";
+/* Foco de luz que sigue al cursor por toda la escena. Lo crea el JS y lo
+   desplaza con transform: el degradado se pinta una sola vez y luego sólo se
+   mueve, sin repintar el fondo de la sección en cada movimiento del ratón. */
+.nfc-spotlight {
   position: absolute;
-  inset: 0;
+  top: 0;
+  left: 0;
   z-index: -1;
-  background: radial-gradient(520px circle at var(--mx) var(--my), rgba(107,165,255,.22), transparent 65%);
+  width: 1040px;
+  height: 1040px;
+  margin: -520px 0 0 -520px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(107,165,255,.22), transparent 65%);
   opacity: 0;
   transition: opacity .6s ease;
   pointer-events: none;
+  will-change: transform;
 }
-.nfc-examples.is-lit::before { opacity: 1; }
+.nfc-examples.is-lit .nfc-spotlight { opacity: 1; }
 /* Rejilla de puntos muy tenue, para dar profundidad al fondo */
 .nfc-examples::after {
   content: "";
@@ -746,7 +751,7 @@ em {
   justify-content: space-between;
   gap: 16px 48px;
   flex-wrap: wrap;
-  margin-bottom: clamp(20px, 3.5vh, 32px);
+  margin-bottom: clamp(36px, 6vh, 56px);
 }
 .nfc-examples-head h3 {
   color: var(--white);
@@ -767,24 +772,33 @@ em {
 .nfc-card:nth-child(even) { margin-top: 96px; }
 .nfc-card.is-tilting { z-index: 2; }
 
-/* Sombra y velo de las tarjetas de los lados van aquí, en un solo filtro que
-   afecta igual a la imagen y al lienzo doblado: así no cambia nada al pasar
-   de una a otro y no hay parpadeo. --dist lo pone el JS (0 = centro). */
-.nfc-card-stage {
-  position: relative;
-  filter:
-    brightness(calc(1 - var(--dist, 0) * .6))
-    drop-shadow(0 28px 30px rgba(0,0,0,.5))
-    drop-shadow(0 8px 12px rgba(0,0,0,.35));
-}
+.nfc-card-stage { position: relative; }
 
+/* Rendimiento: aquí no hay filtros. La sombra es fija, así que se pinta una
+   vez y al mover la tarjeta sólo se desplaza; el velo de las tarjetas de los
+   lados es una capa aparte a la que el JS sólo le cambia la opacidad. */
 .nfc-card-tilt {
   position: relative;
   /* El mismo radio que la tarjeta impresa (4,5 % del ancho) */
   border-radius: 4.5% / 7.3%;
+  box-shadow:
+    0 40px 70px -28px rgba(0,0,0,.75),
+    0 18px 30px -18px rgba(0,0,0,.55);
   transform: perspective(1100px);
   will-change: transform;
 }
+.nfc-card-dim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: inherit;
+  background: rgb(10, 17, 34);
+  opacity: 0;
+  pointer-events: none;
+  will-change: opacity;
+}
+/* Mientras se dobla, el velo ya va pintado dentro del lienzo */
+.nfc-card.is-bending .nfc-card-dim { visibility: hidden; }
 .nfc-card-tilt img {
   display: block;
   width: 100%;
@@ -830,8 +844,6 @@ em {
   gap: 6px 12px;
   font-size: .95rem;
   color: #b9c6dc;
-  /* --focus vale 1 en la tarjeta del centro y 0 en las de los lados */
-  opacity: var(--focus, 1);
 }
 
 /* ---------- Carrusel horizontal (lo activa el JS con .is-carousel) ----------
@@ -843,7 +855,7 @@ em {
   /* El ancho sale también del alto de la ventana: lo que no es tarjeta
      (cabecera de la web, título, pie, controles y márgenes) ocupa ~400 px,
      y la tarjeta mide 0,618 veces su ancho de alto. */
-  --card-w: clamp(240px, min(74vw, (100vh - 400px) * 1.618), 680px);
+  --card-w: clamp(240px, min(74vw, (100vh - 440px) * 1.618), 680px);
   display: block;
   position: relative;
   height: calc(var(--card-w) * .618 + 64px);
@@ -1699,7 +1711,7 @@ em {
   .nfc-examples-grid { grid-template-columns: 1fr; gap: 48px; }
   .nfc-card:nth-child(even) { margin-top: 0; }
   .nfc-examples-grid.is-carousel {
-    --card-w: clamp(220px, min(80vw, (100vh - 480px) * 1.618), 680px);
+    --card-w: clamp(220px, min(80vw, (100vh - 510px) * 1.618), 680px);
     height: calc(var(--card-w) * .618 + 84px);
   }
   .steps-grid { grid-template-columns: 1fr; }
@@ -1710,8 +1722,8 @@ em {
 /* En móvil, 100vh cuenta la barra del navegador como si no estuviera; svh
    mide lo que de verdad se ve. Se usa donde el navegador lo entiende. */
 @supports (height: 100svh) {
-  .nfc-examples-grid.is-carousel { --card-w: clamp(240px, min(74vw, (100svh - 400px) * 1.618), 680px); }
+  .nfc-examples-grid.is-carousel { --card-w: clamp(240px, min(74vw, (100svh - 440px) * 1.618), 680px); }
   @media (max-width: 760px) {
-    .nfc-examples-grid.is-carousel { --card-w: clamp(220px, min(80vw, (100svh - 480px) * 1.618), 680px); }
+    .nfc-examples-grid.is-carousel { --card-w: clamp(220px, min(80vw, (100svh - 510px) * 1.618), 680px); }
   }
 }

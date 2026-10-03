@@ -272,6 +272,7 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
   const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
   // Distancia más corta entre dos posiciones de un carrusel circular
   const wrap = d => ((d % n) + n + n / 2) % n - n / 2;
+  const DIM = 0.6; // opacidad máxima del velo de las tarjetas de los lados
 
   track.classList.add('is-carousel');
   track.tabIndex = 0;
@@ -283,8 +284,20 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
     canvas.className = 'nfc-card-bend';
     canvas.setAttribute('aria-hidden', 'true');
     img.after(canvas);
+    // Velo de las tarjetas de los lados: una capa propia a la que sólo se le
+    // cambia la opacidad, que el navegador resuelve sin volver a pintar nada
+    const dim = document.createElement('span');
+    dim.className = 'nfc-card-dim';
+    dim.setAttribute('aria-hidden', 'true');
+    canvas.after(dim);
     img.addEventListener('dragstart', e => e.preventDefault());
-    return { card, tilt, img, canvas, ctx: canvas.getContext('2d') };
+    return {
+      card, tilt, img, canvas, dim,
+      ctx: canvas.getContext('2d'),
+      glare: tilt.querySelector('.nfc-card-glare'),
+      caption: card.querySelector('figcaption'),
+      bending: false, lastBend: NaN, lastNear: NaN, lastDim: -1,
+    };
   });
 
   // Controles: flechas y un punto por tarjeta (con el nombre del negocio)
@@ -319,28 +332,45 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
     // De centro a centro. En móvil, más juntas para que asome la de al lado
     // (0,92 y no menos: por debajo se solapan y se pisan al moverse)
     gapStep = cardW * (window.innerWidth < 760 ? 0.92 : 1.0);
-    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    // El lienzo sólo se ve mientras la tarjeta se mueve: con 1,5x basta
+    dpr = Math.min(window.devicePixelRatio || 1, 1.5);
     parts.forEach(p => {
       p.canvas.width = Math.round(cardW * 1.2 * dpr);
       p.canvas.height = Math.round(p.tilt.offsetHeight * dpr);
+      p.lastBend = NaN;
     });
   }
 
   // Dibuja la tarjeta doblada: la imagen se pinta por franjas horizontales y
   // cada franja se desplaza según una parábola, así el centro se queda atrás
   // respecto a los bordes de arriba y abajo, como una tela que se arrastra.
-  function drawBend(p, bend) {
+  // Una franja cada 4 px: la curva se sigue viendo lisa y cuesta la mitad.
+  // El velo de las tarjetas de los lados se pinta encima, dentro del lienzo,
+  // con el mismo color y opacidad que la capa .nfc-card-dim: al pasar de la
+  // imagen al lienzo no cambia nada a la vista.
+  function drawBend(p, bend, near) {
     const { img, canvas, ctx } = p;
     if (!img.complete || !img.naturalWidth) return;
+    // Si apenas ha cambiado desde el último dibujo, no se repinta
+    if (Math.abs(bend - p.lastBend) < 0.3 && Math.abs(near - p.lastNear) < 0.01) return;
+    p.lastBend = bend;
+    p.lastNear = near;
     const W = cardW * dpr, H = canvas.height, M = cardW * 0.1 * dpr;
-    const rows = Math.max(24, Math.round(H / (2 * dpr)));
+    const rows = Math.max(20, Math.round(H / (4 * dpr)));
     const rowH = H / rows;
     const iw = img.naturalWidth, ih = img.naturalHeight;
+    ctx.globalCompositeOperation = 'source-over';
     ctx.clearRect(0, 0, canvas.width, H);
     for (let r = 0; r < rows; r++) {
       const t = (r + 0.5) / rows;
       const dx = bend * dpr * (1 - Math.pow(2 * t - 1, 2));
       ctx.drawImage(img, 0, (r / rows) * ih, iw, ih / rows + 1, M + dx, r * rowH, W, rowH + 0.75);
+    }
+    if (near > 0.005) {
+      ctx.globalCompositeOperation = 'source-atop';
+      ctx.fillStyle = 'rgba(10, 17, 34, ' + (near * DIM).toFixed(3) + ')';
+      ctx.fillRect(0, 0, canvas.width, H);
+      ctx.globalCompositeOperation = 'source-over';
     }
   }
 
@@ -355,16 +385,22 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
       p.card.style.transform = `translate3d(${(x - cardW / 2).toFixed(1)}px, 0, 0) scale(${scale.toFixed(4)})`;
       // La más cercana al centro siempre encima, sin empates
       p.card.style.zIndex = String(100 - Math.round(ad * 40));
-      p.card.style.setProperty('--dist', near.toFixed(3));
-      p.card.style.setProperty('--focus', (1 - near).toFixed(3));
       p.card.style.visibility = ad > 2.4 ? 'hidden' : '';
+      // Velo y pie: sólo opacidad, y sólo si ha cambiado de verdad
+      const dimNow = Math.round(near * DIM * 1000) / 1000;
+      if (dimNow !== p.lastDim) {
+        p.lastDim = dimNow;
+        p.dim.style.opacity = String(dimNow);
+        p.caption.style.opacity = String(Math.round((1 - near) * 1000) / 1000);
+      }
 
       // Doblado. Una vez que la tarjeta empieza a doblarse se queda en el
       // lienzo hasta que el carrusel se para del todo: si saltara entre lienzo
       // e imagen cada vez que el muelle oscila, parpadearía.
-      if (ad < 2 && (p.bending || Math.abs(bendPx) > 0.6)) {
-        if (!p.bending) { p.bending = true; p.card.classList.add('is-bending'); }
-        drawBend(p, bendPx);
+      // Sólo las tres que se ven (centro y vecinas)
+      if (ad < 1.6 && (p.bending || Math.abs(bendPx) > 0.6)) {
+        if (!p.bending) { p.bending = true; p.lastBend = NaN; p.card.classList.add('is-bending'); }
+        drawBend(p, bendPx, near);
       } else if (p.bending) {
         p.bending = false;
         p.card.classList.remove('is-bending');
@@ -476,7 +512,7 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
 
   // ---- Inclinación 3D de la tarjeta del centro, siguiendo al cursor ----
   const MAX_TILT = 10;
-  const SCALE = 1.06;
+  const SCALE = 1.05;
   const LIFT = -12;
   const tilts = [];
 
@@ -499,15 +535,11 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
         tilt.style.transform =
           `perspective(1100px) translateY(${cur.y.toFixed(2)}px) ` +
           `rotateX(${cur.rx.toFixed(2)}deg) rotateY(${cur.ry.toFixed(2)}deg) scale(${cur.s.toFixed(4)})`;
-        const lift = (cur.s - 1) / (SCALE - 1);
-        tilt.style.boxShadow =
-          `${(-cur.ry * 2.4).toFixed(1)}px ${(40 + cur.rx * 2.4 + lift * 18).toFixed(1)}px ${(70 + lift * 30).toFixed(0)}px -28px rgba(0,0,0,${(0.75 + lift * 0.1).toFixed(2)}), ` +
-          `0 18px 30px -18px rgba(0,0,0,.55)`;
         if (moving) {
           requestAnimationFrame(tiltFrame);
         } else {
           anim = false;
-          if (goal.s === 1) { tilt.style.transform = ''; tilt.style.boxShadow = ''; }
+          if (goal.s === 1) tilt.style.transform = '';
         }
       }
       const go = () => { if (!anim) { anim = true; requestAnimationFrame(tiltFrame); } };
@@ -518,8 +550,10 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
         const x = clamp((ev.clientX - r.left) / r.width, 0, 1);
         const y = clamp((ev.clientY - r.top) / r.height, 0, 1);
         card.classList.add('is-tilting');
-        card.style.setProperty('--gx', (x * 100).toFixed(1) + '%');
-        card.style.setProperty('--gy', (y * 100).toFixed(1) + '%');
+        // Las variables del brillo van en el propio brillo, no en la tarjeta:
+        // así el navegador sólo recalcula ese elemento
+        p.glare.style.setProperty('--gx', (x * 100).toFixed(1) + '%');
+        p.glare.style.setProperty('--gy', (y * 100).toFixed(1) + '%');
         goal = { rx: (0.5 - y) * 2 * MAX_TILT, ry: (x - 0.5) * 2 * MAX_TILT, s: SCALE, y: LIFT };
         go();
       });
@@ -532,11 +566,25 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
       tilts[i] = { release };
     });
 
-    // Foco de luz de la escena, que sigue al cursor
+    // Foco de luz de la escena, que sigue al cursor. Es un elemento propio que
+    // se desplaza con transform (sin repintar el fondo) y como mucho una vez
+    // por fotograma, aunque el ratón mande más eventos.
+    const spot = document.createElement('div');
+    spot.className = 'nfc-spotlight';
+    spot.setAttribute('aria-hidden', 'true');
+    scene.prepend(spot);
+    let spotX = 0, spotY = 0, spotQueued = false;
     scene.addEventListener('pointermove', ev => {
       const r = scene.getBoundingClientRect();
-      scene.style.setProperty('--mx', (ev.clientX - r.left).toFixed(0) + 'px');
-      scene.style.setProperty('--my', (ev.clientY - r.top).toFixed(0) + 'px');
+      spotX = ev.clientX - r.left;
+      spotY = ev.clientY - r.top;
+      if (!spotQueued) {
+        spotQueued = true;
+        requestAnimationFrame(() => {
+          spot.style.transform = 'translate3d(' + spotX.toFixed(0) + 'px, ' + spotY.toFixed(0) + 'px, 0)';
+          spotQueued = false;
+        });
+      }
       scene.classList.add('is-lit');
     });
     scene.addEventListener('pointerleave', () => scene.classList.remove('is-lit'));
