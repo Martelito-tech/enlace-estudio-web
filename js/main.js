@@ -639,13 +639,3 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
   }, { rootMargin: '200px 0px' }).observe(video);
 })();
 
-// Botón fijo de WhatsApp: en la portada se esconde mientras se ve el botón
-// de WhatsApp del hero, para que no haya dos a la vez en pantalla.
-(function () {
-  const fab = document.querySelector('.wa-float');
-  const heroCta = document.querySelector('.hero-actions');
-  if (!fab || !heroCta || !('IntersectionObserver' in window)) return;
-  new IntersectionObserver(entries => {
-    fab.classList.toggle('is-hidden', entries[0].isIntersecting);
-  }).observe(heroCta);
-})();

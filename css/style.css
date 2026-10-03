@@ -1701,9 +1701,8 @@ em {
 }
 
 /* ---------- Botón fijo de WhatsApp (sólo móvil) ----------
-   En móvil sustituye a los botones de cada tarjeta de paquete: uno solo,
-   siempre a mano abajo a la derecha. En la portada se esconde mientras se ve
-   el botón del hero, para no duplicarlo (clase .is-hidden, la pone el JS). */
+   En móvil sustituye a los botones de cada grupo de tarjetas: uno solo,
+   siempre a mano abajo a la derecha. */
 .wa-float { display: none; }
 
 @media (max-width: 760px) {
@@ -1724,11 +1723,6 @@ em {
   }
   .wa-float .icon-wa { width: 30px; height: 30px; }
   .wa-float:active { transform: scale(.94); }
-  .wa-float.is-hidden {
-    opacity: 0;
-    transform: translateY(16px) scale(.9);
-    pointer-events: none;
-  }
 
   /* Sin botones repartidos: el fijo hace de llamada a la acción */
   .plans-cta,
