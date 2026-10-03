@@ -317,7 +317,8 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
   function measure() {
     cardW = parts[0].tilt.offsetWidth; // ancho sin transformar
     // De centro a centro. En móvil, más juntas para que asome la de al lado
-    gapStep = cardW * (window.innerWidth < 760 ? 0.88 : 1.0);
+    // (0,92 y no menos: por debajo se solapan y se pisan al moverse)
+    gapStep = cardW * (window.innerWidth < 760 ? 0.92 : 1.0);
     dpr = Math.min(window.devicePixelRatio || 1, 2);
     parts.forEach(p => {
       p.canvas.width = Math.round(cardW * 1.2 * dpr);
@@ -352,16 +353,20 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
       const scale = 1 - near * 0.2 - Math.max(ad - 1, 0) * 0.08;
       const x = d * gapStep;
       p.card.style.transform = `translate3d(${(x - cardW / 2).toFixed(1)}px, 0, 0) scale(${scale.toFixed(4)})`;
-      p.card.style.zIndex = String(10 - Math.round(ad * 2));
+      // La más cercana al centro siempre encima, sin empates
+      p.card.style.zIndex = String(100 - Math.round(ad * 40));
       p.card.style.setProperty('--dist', near.toFixed(3));
       p.card.style.setProperty('--focus', (1 - near).toFixed(3));
       p.card.style.visibility = ad > 2.4 ? 'hidden' : '';
 
-      // Doblado: sólo cuando se mueve lo bastante como para notarse
-      if (Math.abs(bendPx) > 0.6 && ad < 2) {
-        p.card.classList.add('is-bending');
+      // Doblado. Una vez que la tarjeta empieza a doblarse se queda en el
+      // lienzo hasta que el carrusel se para del todo: si saltara entre lienzo
+      // e imagen cada vez que el muelle oscila, parpadearía.
+      if (ad < 2 && (p.bending || Math.abs(bendPx) > 0.6)) {
+        if (!p.bending) { p.bending = true; p.card.classList.add('is-bending'); }
         drawBend(p, bendPx);
-      } else {
+      } else if (p.bending) {
+        p.bending = false;
         p.card.classList.remove('is-bending');
       }
     });
@@ -402,6 +407,10 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
       pos = target;
       vel = 0;
       render();
+      // Ya quieto: todas vuelven a la imagen, que se ve más nítida que el lienzo
+      parts.forEach(p => {
+        if (p.bending) { p.bending = false; p.card.classList.remove('is-bending'); }
+      });
       running = false;
       lastTime = 0;
       return;
