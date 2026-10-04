@@ -1003,6 +1003,512 @@ em {
 
 
 
+/* ---------- Demo interactiva: acerca el móvil a la tarjeta ----------
+   Panel blanco con el texto y la elección de tarjeta a la izquierda, y a la
+   derecha una tarjeta y un móvil que se arrastra hasta ella. El estado va en
+   data-state (idle, moving, reading, open) y lo cambia js/main.js. El móvil
+   se diseña a 250 × 510 px y se escala con --s, así el contenido de la
+   pantalla no hay que rehacerlo en cada tamaño. */
+.nfc-demo {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+  align-items: center;
+  gap: 48px;
+  margin: 0 0 88px;
+  padding: clamp(28px, 4vw, 56px);
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 28px;
+  box-shadow: 0 30px 60px -40px rgba(20,33,61,.35);
+}
+.nfc-demo-copy h3 {
+  font-size: clamp(1.6rem, 2.6vw, 2.1rem);
+  color: var(--navy);
+  margin: 0 0 .4em;
+}
+.nfc-demo-lead { color: var(--muted); margin: 0 0 24px; max-width: 46ch; }
+
+.nfc-demo-picker {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+.nfc-demo-pick {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--white);
+  font: inherit;
+  color: var(--ink);
+  text-align: left;
+  cursor: pointer;
+  transition: border-color .2s ease, box-shadow .2s ease, background-color .2s ease;
+}
+.nfc-demo-pick:hover { border-color: #c5d6f5; }
+.nfc-demo-pick[aria-pressed="true"] {
+  border-color: var(--blue);
+  background: #f5f9ff;
+  box-shadow: 0 0 0 3px rgba(58,134,255,.15);
+}
+.nfc-demo-pick:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+.nfc-demo-pick img { width: 44px; height: 44px; border-radius: 50%; flex: none; }
+.nfc-demo-pick strong { display: block; font-size: .92rem; line-height: 1.25; }
+.nfc-demo-pick small { display: block; color: var(--muted); font-size: .78rem; }
+
+.nfc-demo-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 20px;
+  margin-top: 24px;
+}
+.nfc-demo-actions [hidden] { display: none; }
+.nfc-demo-tap { gap: 10px; }
+.nfc-demo-tap svg {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.nfc-demo-reset {
+  padding: 8px 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-weight: 700;
+  color: var(--blue);
+  cursor: pointer;
+}
+.nfc-demo-reset:hover { text-decoration: underline; }
+
+/* Escena */
+.nfc-demo-stage {
+  position: relative;
+  height: 560px;
+  touch-action: pan-y;
+}
+.nfc-demo-card {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: min(54%, 320px);
+  height: auto;
+  border-radius: 4.5% / 7.3%;
+  transform: translateY(-50%) rotate(-5deg);
+  box-shadow: 0 26px 40px -24px rgba(20,33,61,.55), 0 0 0 0 rgba(58,134,255,0);
+  transition: opacity .18s ease, box-shadow .35s ease;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+.nfc-demo-card.is-swapping { opacity: 0; }
+.nfc-demo[data-state="reading"] .nfc-demo-card {
+  box-shadow: 0 26px 40px -24px rgba(20,33,61,.55), 0 0 0 6px rgba(58,134,255,.35);
+}
+
+.nfc-demo-phone {
+  --s: 1;
+  position: absolute;
+  right: 2%;
+  top: 50%;
+  z-index: 2;
+  width: calc(250px * var(--s));
+  height: calc(510px * var(--s));
+  margin-top: calc(-255px * var(--s));
+  cursor: grab;
+  touch-action: none;
+  transition: transform .6s cubic-bezier(.2, .8, .2, 1);
+  will-change: transform;
+}
+.nfc-demo[data-state="open"] .nfc-demo-phone { cursor: auto; touch-action: auto; }
+.nfc-demo-phone.is-dragging { cursor: grabbing; transition: none; }
+/* Pista: mientras nadie lo ha tocado, el móvil se asoma hacia la tarjeta */
+.nfc-demo-phone.is-hinting { animation: nfcDemoNudge 3.4s ease-in-out infinite; }
+@keyframes nfcDemoNudge {
+  0%, 55%, 100% { transform: none; }
+  70% { transform: translateX(-26px) rotate(-4deg); }
+  82% { transform: translateX(-10px) rotate(-1deg); }
+}
+
+.ph-frame {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 250px;
+  height: 510px;
+  padding: 9px;
+  border-radius: 42px;
+  background: #0d1424;
+  box-shadow: inset 0 0 0 2px #2a3550, 0 40px 60px -30px rgba(10,17,34,.6);
+  transform: scale(var(--s));
+  transform-origin: 0 0;
+}
+
+.nfc-demo-drag {
+  position: absolute;
+  bottom: calc(100% + 12px);
+  left: 50%;
+  margin: 0;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: var(--navy);
+  color: var(--white);
+  font-size: .78rem;
+  font-weight: 700;
+  white-space: nowrap;
+  transform: translateX(-50%);
+  transition: opacity .25s ease;
+  pointer-events: none;
+}
+.nfc-demo-drag::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -6px;
+  border: 6px solid transparent;
+  border-top-color: var(--navy);
+}
+.nfc-demo:not([data-state="idle"]) .nfc-demo-drag,
+.nfc-demo.was-touched .nfc-demo-drag { opacity: 0; }
+
+/* Ondas NFC: salen de la parte de arriba del móvil al tocar la tarjeta */
+.nfc-demo-waves {
+  position: absolute;
+  top: 22%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  z-index: 3;
+  pointer-events: none;
+}
+.nfc-demo-waves i {
+  position: absolute;
+  left: -40px;
+  top: -40px;
+  width: 80px;
+  height: 80px;
+  border: 2px solid var(--blue);
+  border-radius: 50%;
+  opacity: 0;
+}
+.nfc-demo[data-state="reading"] .nfc-demo-waves i { animation: nfcDemoWave 1.1s ease-out infinite; }
+.nfc-demo[data-state="reading"] .nfc-demo-waves i:nth-child(2) { animation-delay: .25s; }
+.nfc-demo[data-state="reading"] .nfc-demo-waves i:nth-child(3) { animation-delay: .5s; }
+@keyframes nfcDemoWave {
+  from { opacity: .8; transform: scale(.3); }
+  to { opacity: 0; transform: scale(2.2); }
+}
+
+/* Pantalla */
+.ph-screen {
+  position: relative;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 34px;
+  background: #fff;
+  color: #1f2937;
+  font-size: 13px;
+  line-height: 1.4;
+  user-select: none;
+}
+.nfc-demo[data-state="open"] .ph-screen { user-select: auto; }
+.ph-status {
+  position: relative;
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 36px;
+  padding: 0 24px;
+  font-size: 12px;
+  font-weight: 700;
+}
+.ph-island {
+  position: absolute;
+  top: 9px;
+  left: 50%;
+  width: 72px;
+  height: 21px;
+  margin-left: -36px;
+  border-radius: 999px;
+  background: #0d1424;
+}
+.ph-bat {
+  width: 20px;
+  height: 10px;
+  border: 1.5px solid currentColor;
+  border-radius: 3px;
+  box-shadow: inset 0 0 0 1.5px #fff;
+  background: currentColor;
+}
+.nfc-demo[data-card="bangos"][data-state="open"] .ph-status { color: #fff; }
+
+.ph-banner {
+  position: absolute;
+  top: 40px;
+  left: 8px;
+  right: 8px;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 18px;
+  background: rgba(244,246,251,.97);
+  box-shadow: 0 12px 30px -12px rgba(10,17,34,.45);
+  opacity: 0;
+  transform: translateY(-120%);
+  transition: opacity .3s ease, transform .4s cubic-bezier(.2, .8, .2, 1);
+}
+.nfc-demo[data-state="reading"] .ph-banner { opacity: 1; transform: none; }
+.ph-banner svg {
+  width: 30px;
+  height: 30px;
+  padding: 5px;
+  flex: none;
+  border-radius: 8px;
+  background: var(--blue);
+  fill: none;
+  stroke: #fff;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.ph-banner strong { display: block; font-size: 12.5px; }
+.ph-banner small { display: block; color: #5c6b8a; font-size: 11.5px; }
+
+.ph-view {
+  position: absolute;
+  inset: 36px 0 0;
+  padding: 14px 16px 18px;
+  overflow-y: auto;
+  scrollbar-width: none;
+  animation: phIn .45s cubic-bezier(.2, .8, .2, 1);
+}
+.ph-view::-webkit-scrollbar { display: none; }
+.ph-view[hidden] { display: none; }
+@keyframes phIn {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: none; }
+}
+
+.ph-idle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  inset: 0;
+  text-align: center;
+  background: linear-gradient(170deg, #eaf2ff 0%, #f8fbff 55%, #e3edff 100%);
+}
+.ph-idle p { margin: 0; max-width: 16ch; color: #5c6b8a; font-weight: 600; }
+.ph-idle-icon {
+  display: grid;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 10px 24px -12px rgba(58,134,255,.6);
+}
+.ph-idle-icon svg {
+  width: 30px;
+  height: 30px;
+  fill: none;
+  stroke: var(--blue);
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.ph-head { display: flex; align-items: center; gap: 10px; }
+.ph-head img { width: 40px; height: 40px; border-radius: 50%; flex: none; }
+.ph-head strong { display: block; font-size: 14px; }
+.ph-head small { display: block; color: #6b7280; font-size: 11.5px; }
+
+.ph-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 16px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--blue);
+  color: #fff;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color .2s ease, opacity .2s ease, transform .15s ease;
+}
+.ph-btn:active { transform: scale(.96); }
+.ph-btn:disabled { opacity: .4; cursor: default; transform: none; }
+.ph-btn:focus-visible, .ph-star:focus-visible, .ph-tab:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+.ph-follow[aria-pressed="true"] { background: #e9edf3; color: #1f2937; }
+
+/* Reseña */
+.ph-review { margin-top: 26px; text-align: center; }
+.ph-title { margin: 0 0 10px; font-weight: 700; font-size: 15px; }
+.ph-stars { display: flex; justify-content: center; gap: 2px; }
+.ph-star {
+  width: 36px;
+  height: 36px;
+  padding: 3px;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  transition: transform .15s ease;
+}
+.ph-star:hover { transform: scale(1.12); }
+.ph-star svg { width: 100%; height: 100%; fill: #dadce0; transition: fill .15s ease; }
+.ph-star.is-on svg { fill: #f6b400; }
+.ph-textarea {
+  min-height: 92px;
+  margin: 16px 0 14px;
+  padding: 10px 12px;
+  border: 1px solid #dadce0;
+  border-radius: 12px;
+  color: #80868b;
+  font-size: 12px;
+  text-align: left;
+}
+.ph-post { width: 100%; }
+.ph-done {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  margin-top: 54px;
+  text-align: center;
+  animation: phIn .45s cubic-bezier(.2, .8, .2, 1);
+}
+.ph-done[hidden] { display: none; }
+.ph-done svg {
+  width: 60px;
+  height: 60px;
+  margin-bottom: 6px;
+  fill: none;
+  stroke: var(--green-dark);
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.ph-done strong { font-size: 15px; }
+.ph-done small { color: #6b7280; max-width: 18ch; }
+
+/* Perfil de Instagram */
+.ph-handle { margin: 0 0 12px; font-weight: 800; font-size: 15px; }
+.ph-profile { display: flex; align-items: center; gap: 10px; }
+.ph-avatar { display: inline-block; border-radius: 50%; flex: none; }
+.ph-avatar img { display: block; width: 58px; height: 58px; border-radius: 50%; border: 3px solid #fff; }
+.ph-ring { padding: 2px; background: conic-gradient(from 200deg, #f9ce34, #ee2a7b, #6228d7, #f9ce34); }
+.ph-stats { display: flex; flex: 1; justify-content: space-around; gap: 6px; margin: 0; }
+.ph-stats div { display: flex; flex-direction: column-reverse; align-items: center; }
+.ph-stats dd { margin: 0; font-weight: 800; font-size: 14px; }
+.ph-stats dt { color: #6b7280; font-size: 9.5px; }
+.ph-name { margin: 12px 0 0; font-weight: 700; }
+.ph-bio { margin: 0 0 12px; color: #4b5563; font-size: 12px; }
+.ph-insta .ph-follow { width: 100%; }
+.ph-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  margin: 14px -16px 0;
+}
+.ph-grid i {
+  aspect-ratio: 1;
+  background:
+    radial-gradient(circle at var(--x, 50%) var(--y, 45%), var(--c, #e0526f) 0 15%, var(--c2, #f4a7b8) 16% 27%, transparent 28%),
+    radial-gradient(ellipse 60% 30% at 50% 100%, #8fb98a 0 60%, transparent 61%),
+    linear-gradient(160deg, var(--bg1, #fbe6ec), var(--bg2, #f3c9d4));
+}
+/* Publicaciones: flores dibujadas con degradados, sin imágenes */
+.ph-grid i:nth-child(2) { --x: 35%; --y: 40%; --c: #c2185b; --c2: #f8bbd0; --bg1: #fff3f6; --bg2: #fbd9e2; }
+.ph-grid i:nth-child(3) { --x: 60%; --y: 50%; --c: #f6b400; --c2: #ffe08a; --bg1: #fdf3e4; --bg2: #f6d9c6; }
+.ph-grid i:nth-child(4) { --x: 55%; --y: 38%; --c: #ff8fab; --c2: #ffd1dc; --bg1: #f6e7f1; --bg2: #e9c6dd; }
+.ph-grid i:nth-child(5) { --x: 45%; --y: 55%; --c: #b23a48; --c2: #e8a0a9; --bg1: #fbeee9; --bg2: #f1cfc6; }
+.ph-grid i:nth-child(6) { --x: 50%; --y: 42%; --c: #ffffff; --c2: #f7d6e0; --bg1: #f3d0db; --bg2: #e7aebf; }
+.ph-grid i:nth-child(7) { --x: 40%; --y: 48%; --c: #9c27b0; --c2: #e1bee7; --bg1: #f8eef9; --bg2: #ead3ee; }
+.ph-grid i:nth-child(8) { --x: 58%; --y: 44%; --c: #ef5350; --c2: #ffcdd2; --bg1: #fff5f3; --bg2: #fbdcd6; }
+.ph-grid i:nth-child(9) { --x: 48%; --y: 36%; --c: #ec407a; --c2: #fce4ec; --bg1: #fdeef3; --bg2: #f6c4d4; }
+
+/* Página de Facebook */
+.ph-fb { padding: 0 0 18px; }
+.ph-cover {
+  height: 112px;
+  background:
+    radial-gradient(circle at 72% 62%, #ffd27a 0 16px, rgba(255,210,122,.35) 17px 34px, transparent 35px),
+    linear-gradient(180deg, #cdebe4 0%, #b5e0d7 62%, #8fcfc3 62.5%, #79c2b5 72%, #f1e2c4 72.5%, #ead6b0 100%);
+}
+.ph-avatar-fb { margin: -38px 0 0 14px; position: relative; }
+.ph-avatar-fb img { width: 72px; height: 72px; border-width: 4px; }
+.ph-fb .ph-name { margin: 6px 16px 0; font-size: 16px; }
+.ph-meta { margin: 0 16px; color: #6b7280; font-size: 12px; }
+.ph-fb-actions { display: flex; gap: 8px; margin: 12px 16px; }
+.ph-fb-actions .ph-btn { flex: 1; }
+.ph-btn-ghost { background: #e9edf3; color: #1f2937; cursor: default; }
+.ph-post-card { margin: 4px 16px 0; padding-top: 12px; border-top: 1px solid #e5e7eb; font-size: 12px; }
+.ph-post-card p { margin: 0 0 4px; }
+.ph-post-head { color: #6b7280; font-size: 11.5px; }
+.ph-post-head strong { color: #1f2937; }
+
+/* Carta */
+.ph-menu { inset: 0; padding-top: 50px; background: linear-gradient(180deg, #0f2140, #13284d); color: #fff; }
+.ph-head-dark small { color: #a9b8d6; }
+.ph-tabs { display: flex; gap: 6px; margin: 16px 0 6px; }
+.ph-tab {
+  padding: 6px 11px;
+  border: 1px solid rgba(255,255,255,.22);
+  border-radius: 999px;
+  background: none;
+  color: #cfdcf3;
+  font: inherit;
+  font-size: 11.5px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.ph-tab[aria-selected="true"] { background: #ff8a4c; border-color: #ff8a4c; color: #0f2140; }
+.ph-dishes { margin: 0; padding: 0; list-style: none; animation: phIn .35s ease; }
+.ph-dishes li { padding: 10px 0; border-bottom: 1px dashed rgba(255,255,255,.16); }
+.ph-dishes strong { display: block; font-size: 13px; }
+.ph-dishes span { display: block; color: #a9b8d6; font-size: 11.5px; }
+
+@media (max-width: 960px) {
+  .nfc-demo { grid-template-columns: 1fr; gap: 28px; }
+  .nfc-demo-stage { width: 100%; max-width: 560px; margin: 0 auto; }
+}
+@media (max-width: 760px) {
+  .nfc-demo { margin-bottom: 64px; border-radius: 22px; }
+  .nfc-demo-stage { height: 470px; }
+  .nfc-demo-card { width: 64%; top: 46%; }
+  .nfc-demo-phone { --s: .8; right: 0; }
+}
+/* Pantallas estrechas: tarjeta arriba y móvil debajo; se arrastra hacia arriba */
+@media (max-width: 520px) {
+  .nfc-demo-picker { grid-template-columns: 1fr; }
+  .nfc-demo-tap { width: 100%; justify-content: center; }
+  .nfc-demo-stage { height: 520px; }
+  .nfc-demo-card { left: 50%; top: 4px; width: min(72%, 260px); transform: translateX(-50%) rotate(-4deg); }
+  .nfc-demo-phone { --s: .64; left: 50%; right: auto; top: auto; bottom: 0; margin: 0 0 0 calc(-125px * var(--s)); }
+  .nfc-demo-phone.is-hinting { animation-name: nfcDemoNudgeUp; }
+}
+@keyframes nfcDemoNudgeUp {
+  0%, 55%, 100% { transform: none; }
+  70% { transform: translateY(-26px) rotate(-3deg); }
+  82% { transform: translateY(-10px) rotate(-1deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .nfc-demo-phone { transition-duration: .01s; }
+  .nfc-demo-phone.is-hinting { animation: none; }
+  .ph-view, .ph-done, .ph-dishes { animation: none; }
+}
+
 /* ---------- Pack combinado (web + tarjetas + ficha de Google) ---------- */
 .pack-card {
   display: grid;

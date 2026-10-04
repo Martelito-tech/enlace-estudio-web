@@ -680,3 +680,181 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
   }, { rootMargin: '200px 0px' }).observe(video);
 })();
 
+
+// Demo interactiva de las tarjetas: el visitante arrastra el móvil hasta la
+// tarjeta (o pulsa el botón) y en la pantalla se abre lo mismo que vería su
+// cliente. Estados en data-state: idle → moving → reading → open.
+(function () {
+  const demo = document.querySelector('.nfc-demo');
+  if (!demo) return;
+
+  const card = demo.querySelector('.nfc-demo-card');
+  const phone = demo.querySelector('.nfc-demo-phone');
+  const banner = demo.querySelector('.ph-banner');
+  const bannerText = banner.querySelector('small');
+  const tapBtn = demo.querySelector('.nfc-demo-tap');
+  const resetBtn = demo.querySelector('.nfc-demo-reset');
+  const picks = [...demo.querySelectorAll('.nfc-demo-pick')];
+  const views = [...demo.querySelectorAll('.ph-view')];
+  const post = demo.querySelector('.ph-post');
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const fmt = new Intl.NumberFormat(document.documentElement.lang);
+  let timers = [];
+
+  const state = () => demo.dataset.state;
+  const setState = s => { demo.dataset.state = s; };
+  const later = (fn, ms) => timers.push(setTimeout(fn, reduce ? Math.min(ms, 200) : ms));
+  const showView = name => views.forEach(v => { v.hidden = v.dataset.view !== name; });
+  const place = (x, y, rot) => {
+    phone.style.transform = x || y ? `translate(${x}px, ${y}px) rotate(${rot || 0}deg)` : '';
+  };
+  const showCounts = () => demo.querySelectorAll('.ph-count').forEach(el => { el.textContent = fmt.format(+el.dataset.count); });
+
+  // Contadores con el formato de números del idioma de la página
+  showCounts();
+
+  // Carta: pestañas
+  function selectTab(tab) {
+    demo.querySelectorAll('.ph-tab').forEach(t => t.setAttribute('aria-selected', String(t === tab)));
+    demo.querySelectorAll('.ph-dishes').forEach(l => { l.hidden = l.dataset.panel !== tab.dataset.tab; });
+  }
+  demo.querySelectorAll('.ph-tab').forEach(t => t.addEventListener('click', () => selectTab(t)));
+
+  function resetApps() {
+    demo.querySelectorAll('.ph-star').forEach(s => { s.classList.remove('is-on'); s.setAttribute('aria-checked', 'false'); });
+    post.disabled = true;
+    demo.querySelector('.ph-review').hidden = false;
+    demo.querySelector('.ph-done').hidden = true;
+    demo.querySelectorAll('.ph-follow').forEach(b => {
+      b.setAttribute('aria-pressed', 'false');
+      b.textContent = b.dataset.off;
+    });
+    showCounts();
+    selectTab(demo.querySelector('.ph-tab'));
+  }
+
+  function reset() {
+    timers.forEach(clearTimeout);
+    timers = [];
+    setState('idle');
+    showView('idle');
+    resetApps();
+    place(0, 0);
+    resetBtn.hidden = true;
+    tapBtn.hidden = false;
+  }
+
+  function open() {
+    const c = demo.dataset.card;
+    setState('reading');
+    phone.classList.remove('is-hinting');
+    bannerText.textContent = banner.dataset['open' + c[0].toUpperCase() + c.slice(1)];
+    if (navigator.vibrate) { try { navigator.vibrate(35); } catch (e) { /* sin vibración */ } }
+    // El móvil vuelve a su sitio y se abre la pantalla de destino
+    later(() => place(0, 0), 700);
+    later(() => {
+      setState('open');
+      showView(c);
+      tapBtn.hidden = true;
+      resetBtn.hidden = false;
+    }, 1350);
+  }
+
+  // ¿La parte de arriba del móvil (donde va la antena NFC) está sobre la tarjeta?
+  function touchesCard() {
+    const p = phone.getBoundingClientRect();
+    const c = card.getBoundingClientRect();
+    const top = p.top + p.height * 0.42;
+    const w = Math.min(p.right, c.right) - Math.max(p.left, c.left);
+    const h = Math.min(top, c.bottom) - Math.max(p.top, c.top);
+    return w > 0 && h > 0 && w * h > p.width * p.height * 0.42 * 0.3;
+  }
+
+  phone.addEventListener('pointerdown', e => {
+    if (state() !== 'idle' || e.button > 0) return;
+    e.preventDefault();
+    try { phone.setPointerCapture(e.pointerId); } catch (err) { /* sin captura: el arrastre sigue funcionando */ }
+    phone.classList.add('is-dragging');
+    phone.classList.remove('is-hinting');
+    demo.classList.add('was-touched');
+    const sx = e.clientX;
+    const sy = e.clientY;
+
+    const move = ev => {
+      const dx = ev.clientX - sx;
+      const dy = ev.clientY - sy;
+      place(dx, dy, Math.max(-10, Math.min(10, dx / -18)));
+      if (touchesCard()) { stop(); open(); }
+    };
+    const up = () => { stop(); if (state() === 'idle') place(0, 0); };
+    const stop = () => {
+      phone.classList.remove('is-dragging');
+      phone.removeEventListener('pointermove', move);
+      phone.removeEventListener('pointerup', up);
+      phone.removeEventListener('pointercancel', up);
+    };
+    phone.addEventListener('pointermove', move);
+    phone.addEventListener('pointerup', up);
+    phone.addEventListener('pointercancel', up);
+  });
+
+  // Botón: el móvil va solo hasta la tarjeta
+  tapBtn.addEventListener('click', () => {
+    if (state() !== 'idle') return;
+    setState('moving');
+    demo.classList.add('was-touched');
+    phone.classList.remove('is-hinting');
+    const p = phone.getBoundingClientRect();
+    const c = card.getBoundingClientRect();
+    place(c.left + c.width * 0.55 - (p.left + p.width / 2), c.top + c.height * 0.5 - (p.top + p.height * 0.22), -8);
+    later(open, 620);
+  });
+
+  resetBtn.addEventListener('click', () => { reset(); tapBtn.focus(); });
+
+  picks.forEach(btn => btn.addEventListener('click', () => {
+    const c = btn.dataset.card;
+    picks.forEach(b => b.setAttribute('aria-pressed', String(b === btn)));
+    if (c !== demo.dataset.card) {
+      demo.dataset.card = c;
+      card.classList.add('is-swapping');
+      setTimeout(() => {
+        card.addEventListener('load', () => card.classList.remove('is-swapping'), { once: true });
+        card.src = card.src.replace(/ejemplo-[a-z]+/, 'ejemplo-' + c);
+        if (card.complete) card.classList.remove('is-swapping');
+      }, 180);
+    }
+    reset();
+  }));
+
+  // Reseña: estrellas y publicar
+  demo.querySelectorAll('.ph-star').forEach((star, i, all) => star.addEventListener('click', () => {
+    all.forEach((s, j) => {
+      s.classList.toggle('is-on', j <= i);
+      s.setAttribute('aria-checked', String(j === i));
+    });
+    post.disabled = false;
+  }));
+  post.addEventListener('click', () => {
+    demo.querySelector('.ph-review').hidden = true;
+    demo.querySelector('.ph-done').hidden = false;
+  });
+
+  // Seguir en Instagram o Facebook: el contador sube uno
+  demo.querySelectorAll('.ph-follow').forEach(btn => btn.addEventListener('click', () => {
+    const on = btn.getAttribute('aria-pressed') !== 'true';
+    btn.setAttribute('aria-pressed', String(on));
+    btn.textContent = on ? btn.dataset.on : btn.dataset.off;
+    const count = btn.closest('.ph-view').querySelector('.ph-count');
+    count.textContent = fmt.format(+count.dataset.count + (on ? 1 : 0));
+  }));
+
+  // Pista: el móvil se asoma hacia la tarjeta mientras la demo está a la
+  // vista y nadie lo ha tocado todavía
+  if (!reduce && 'IntersectionObserver' in window) {
+    new IntersectionObserver(entries => {
+      const show = entries[0].isIntersecting && state() === 'idle' && !demo.classList.contains('was-touched');
+      phone.classList.toggle('is-hinting', show);
+    }, { threshold: 0.4 }).observe(demo);
+  }
+})();
