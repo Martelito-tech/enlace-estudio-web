@@ -1141,6 +1141,12 @@ em {
   will-change: transform;
 }
 .nfc-demo[data-state="open"] .nfc-demo-phone { cursor: auto; touch-action: auto; }
+/* Mientras no hay una pantalla abierta, ningún punto del móvil puede hacer
+   scroll: si el dedo empieza sobre una capa con scroll propio, el navegador
+   le pasaba el gesto a la página en vez de dejar arrastrar el móvil */
+.nfc-demo:not([data-state="open"]) .nfc-demo-phone,
+.nfc-demo:not([data-state="open"]) .nfc-demo-phone * { touch-action: none; }
+.ph-idle { overflow: hidden; }
 .nfc-demo-phone.is-dragging { cursor: grabbing; transition: none; }
 /* Pista: mientras nadie lo ha tocado, el móvil se asoma hacia la tarjeta */
 .nfc-demo-phone.is-hinting { animation: nfcDemoNudge 3.4s ease-in-out infinite; }

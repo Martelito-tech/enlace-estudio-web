@@ -856,6 +856,13 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
     return w > 0 && h > 0 && w * h > p.width * p.height * 0.42 * 0.3;
   }
 
+  // En táctil se frena el scroll de la página desde el primer toque sobre el
+  // móvil (Safari no siempre respeta touch-action); en la pantalla abierta
+  // se deja, para poder desplazarse por el perfil o la carta
+  const holdTouch = e => { if (state() !== 'open' && e.cancelable) e.preventDefault(); };
+  phone.addEventListener('touchstart', holdTouch, { passive: false });
+  phone.addEventListener('touchmove', holdTouch, { passive: false });
+
   phone.addEventListener('pointerdown', e => {
     if (state() !== 'idle' || e.button > 0) return;
     e.preventDefault();
