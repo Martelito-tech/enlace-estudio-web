@@ -1706,6 +1706,147 @@ em {
   .ph-view, .ph-done, .ph-dishes, .ph-dish-detail { animation: none; }
 }
 
+/* ---------- Demo en el móvil del visitante (hasta 760 px) ----------
+   Su propio teléfono hace de móvil: las cuatro tarjetas en rejilla de 2 × 2,
+   al tocar una baja una notificación como la de una etiqueta NFC real y
+   después se abre la pantalla a pantalla completa (.nfc-sheet). */
+.nfc-demo-mob, .nfc-demo-pick-card { display: none; }
+.nfc-sheet[hidden], .nfc-notif[hidden] { display: none; }
+
+@media (max-width: 760px) {
+  .nfc-demo-desk, .nfc-demo-stage, .nfc-demo-actions { display: none; }
+  .nfc-demo-mob { display: inline; }
+  .nfc-demo { gap: 0; padding: 26px 18px; }
+  .nfc-demo-picker { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  .nfc-demo-pick {
+    display: grid;
+    grid-template-columns: 26px minmax(0, 1fr);
+    grid-template-rows: 1fr auto; /* la tarjeta siempre abajo: alineadas en cada fila */
+    align-items: center;
+    gap: 8px;
+    padding: 10px;
+    border-radius: 16px;
+  }
+  .nfc-demo-pick[aria-pressed] { border-color: var(--border); background: var(--white); box-shadow: none; }
+  .nfc-demo-pick > img { width: 26px; height: 26px; }
+  .nfc-demo-pick > span:not(.nfc-demo-pick-card) { min-width: 0; }
+  .nfc-demo-pick strong { font-size: .8rem; }
+  .nfc-demo-pick small { font-size: .7rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .nfc-demo-pick-card {
+    position: relative;
+    display: block;
+    grid-column: 1 / -1;
+    border-radius: 5% / 8%;
+    transition: transform .2s ease;
+  }
+  .nfc-demo-pick-card img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 5% / 8%;
+    box-shadow: 0 14px 22px -16px rgba(20,33,61,.6);
+  }
+  /* Al tocarla: se hunde un poco, se enciende y salen ondas */
+  .nfc-demo-pick.is-tapped .nfc-demo-pick-card { transform: scale(.96); }
+  .nfc-demo-pick.is-tapped .nfc-demo-pick-card img { box-shadow: 0 0 0 4px rgba(58,134,255,.45), 0 14px 22px -16px rgba(20,33,61,.6); }
+  .nfc-demo-pick-card::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 60px;
+    height: 60px;
+    margin: -30px 0 0 -30px;
+    border: 2px solid var(--blue);
+    border-radius: 50%;
+    opacity: 0;
+    pointer-events: none;
+  }
+  .nfc-demo-pick.is-tapped .nfc-demo-pick-card::after { animation: nfcDemoWave .9s ease-out 2; }
+}
+
+.nfc-notif {
+  position: fixed;
+  top: calc(env(safe-area-inset-top, 0px) + 8px);
+  left: 8px;
+  right: 8px;
+  z-index: 1002;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  max-width: 440px;
+  margin: 0 auto;
+  padding: 12px 14px;
+  border: 0;
+  border-radius: 20px;
+  background: #f6f8fc;
+  box-shadow: 0 18px 40px -14px rgba(10,17,34,.5), 0 0 0 1px rgba(20,33,61,.06);
+  color: #1f2937;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transform: translateY(calc(-100% - 24px));
+  transition: transform .45s cubic-bezier(.2, .8, .2, 1);
+}
+.nfc-notif.is-in { transform: none; }
+.nfc-notif .nfc-ico-banner { width: 38px; height: 38px; }
+.nfc-notif strong { display: block; font-size: .9rem; }
+.nfc-notif small { display: block; color: #5c6b8a; font-size: .82rem; }
+
+.nfc-sheet {
+  position: fixed;
+  inset: 0;
+  z-index: 1001;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  animation: nfcSheetIn .4s cubic-bezier(.2, .8, .2, 1);
+}
+@keyframes nfcSheetIn { from { transform: translateY(100%); } to { transform: none; } }
+.nfc-sheet-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 52px;
+  padding: env(safe-area-inset-top, 0px) 12px 0;
+  border-bottom: 1px solid #e5e7eb;
+  background: #fff;
+}
+.nfc-sheet-close {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border: 0;
+  border-radius: 50%;
+  background: #eef1f6;
+  color: var(--navy);
+  cursor: pointer;
+}
+.nfc-sheet-close svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; }
+.nfc-sheet-close:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+.nfc-sheet-title { font-size: .95rem; color: var(--navy); }
+.nfc-sheet-body { position: relative; flex: 1; overflow: hidden; }
+/* La pantalla del móvil dibujado, ampliada al ancho real del teléfono */
+.nfc-sheet .ph-screen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: calc(100% / 1.15);
+  height: calc(100% / 1.15);
+  border-radius: 0;
+  transform: scale(1.15);
+  transform-origin: 0 0;
+  user-select: auto;
+}
+.nfc-sheet .ph-status, .nfc-sheet .ph-banner { display: none; }
+.nfc-sheet .ph-view { inset: 0; }
+.nfc-sheet .ph-view { touch-action: auto; }
+@media (prefers-reduced-motion: reduce) {
+  .nfc-sheet { animation: none; }
+  .nfc-notif { transition-duration: .01s; }
+}
+
 /* ---------- Pack combinado (web + tarjetas + ficha de Google) ---------- */
 .pack-card {
   display: grid;

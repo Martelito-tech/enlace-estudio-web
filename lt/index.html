@@ -39,7 +39,7 @@
 <!-- Al tocar el CSS o el JS, sube la fecha del ?v= en todos los HTML. Cloudflare
      los cachea 4 horas: si la ruta no cambia, quien ya visitó la web recibe el
      HTML nuevo con el CSS viejo y la página se ve rota. -->
-<link rel="stylesheet" href="../css/style.css?v=2026-10-05b">
+<link rel="stylesheet" href="../css/style.css?v=2026-10-05c">
 
 <script type="application/ld+json">
 {
@@ -284,12 +284,12 @@
         <div class="nfc-demo-copy">
           <p class="eyebrow eyebrow-section">IŠBANDYKITE</p>
           <h3>Pažiūrėkite, ką mato jūsų klientas.</h3>
-          <p class="nfc-demo-lead">Pasirinkite vieną iš pavyzdinių kortelių ir nutempkite telefoną ant jos – taip, kaip tai padarytų klientas prie stalo.</p>
+          <p class="nfc-demo-lead"><span class="nfc-demo-desk">Pasirinkite vieną iš pavyzdinių kortelių ir nutempkite telefoną ant jos – taip, kaip tai padarytų klientas prie stalo.</span><span class="nfc-demo-mob">Palieskite vieną iš kortelių pirštu – lyg priartintumėte prie jos telefoną.</span></p>
           <div class="nfc-demo-picker" role="group" aria-label="Pasirinkite kortelę">
-            <button type="button" class="nfc-demo-pick" data-card="gintaro" aria-pressed="true"><img src="../img/tarjetas/logo-gintaro.webp?v=2026-10-05" alt="" width="44" height="44" loading="lazy"><span><strong>Atsiliepimas „Google“</strong><small>Gintaro · barberinė</small></span></button>
-            <button type="button" class="nfc-demo-pick" data-card="rasos" aria-pressed="false"><img src="../img/tarjetas/logo-rasos.webp?v=2026-10-05" alt="" width="44" height="44" loading="lazy"><span><strong>„Instagram“</strong><small>Rasos · gėlių studija</small></span></button>
-            <button type="button" class="nfc-demo-pick" data-card="kopa" aria-pressed="false"><img src="../img/tarjetas/logo-kopa.webp?v=2026-10-05" alt="" width="44" height="44" loading="lazy"><span><strong>„Facebook“</strong><small>Kopa · jogos studija</small></span></button>
-            <button type="button" class="nfc-demo-pick" data-card="bangos" aria-pressed="false"><img src="../img/tarjetas/logo-bangos.webp?v=2026-10-05" alt="" width="44" height="44" loading="lazy"><span><strong>Meniu</strong><small>Bangos · bistro</small></span></button>
+            <button type="button" class="nfc-demo-pick" data-card="gintaro" aria-pressed="true"><img src="../img/tarjetas/logo-gintaro.webp?v=2026-10-05" alt="" width="44" height="44" loading="lazy"><span><strong>Atsiliepimas „Google“</strong><small>Gintaro · barberinė</small></span><span class="nfc-demo-pick-card" aria-hidden="true"><img src="../img/tarjetas/ejemplo-gintaro.webp?v=2026-10-04b" alt="" width="976" height="603" loading="lazy"></span></button>
+            <button type="button" class="nfc-demo-pick" data-card="rasos" aria-pressed="false"><img src="../img/tarjetas/logo-rasos.webp?v=2026-10-05" alt="" width="44" height="44" loading="lazy"><span><strong>„Instagram“</strong><small>Rasos · gėlių studija</small></span><span class="nfc-demo-pick-card" aria-hidden="true"><img src="../img/tarjetas/ejemplo-rasos.webp?v=2026-10-04b" alt="" width="976" height="603" loading="lazy"></span></button>
+            <button type="button" class="nfc-demo-pick" data-card="kopa" aria-pressed="false"><img src="../img/tarjetas/logo-kopa.webp?v=2026-10-05" alt="" width="44" height="44" loading="lazy"><span><strong>„Facebook“</strong><small>Kopa · jogos studija</small></span><span class="nfc-demo-pick-card" aria-hidden="true"><img src="../img/tarjetas/ejemplo-kopa.webp?v=2026-10-04b" alt="" width="976" height="603" loading="lazy"></span></button>
+            <button type="button" class="nfc-demo-pick" data-card="bangos" aria-pressed="false"><img src="../img/tarjetas/logo-bangos.webp?v=2026-10-05" alt="" width="44" height="44" loading="lazy"><span><strong>Meniu</strong><small>Bangos · bistro</small></span><span class="nfc-demo-pick-card" aria-hidden="true"><img src="../img/tarjetas/ejemplo-bangos.webp?v=2026-10-04b" alt="" width="976" height="603" loading="lazy"></span></button>
           </div>
           <div class="nfc-demo-actions">
             <button type="button" class="btn btn-dark nfc-demo-tap"><svg class="nfc-ico nfc-ico-btn" viewBox="38 72 148 110" aria-hidden="true"><path d="M134 83A61 39 0 1 0 127 153"/><path class="nfc-ico-w nfc-ico-w3" d="M89 89A44.1 44.1 0 0 0 92 146"/><path class="nfc-ico-w nfc-ico-w2" d="M100 98A23.5 23.5 0 0 0 100 135"/><path class="nfc-ico-w nfc-ico-w1" d="M108 108A12.4 12.4 0 0 0 108 128"/><g transform="rotate(-5 154 131.5)"><rect x="133.5" y="90" width="41" height="83" rx="10"/><path d="M148 95.5h12"/></g></svg>Priliesti telefoną prie kortelės</button>
@@ -375,6 +375,15 @@
               </div>
             </div></div>
           </div>
+        </div>
+
+        <!-- En móvil la pantalla se abre aquí, a pantalla completa (js/main.js mueve .ph-screen) -->
+        <div class="nfc-sheet" role="dialog" aria-modal="true" aria-labelledby="nfc-sheet-title" hidden>
+          <div class="nfc-sheet-bar">
+            <button type="button" class="nfc-sheet-close" aria-label="Uždaryti"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+            <strong class="nfc-sheet-title" id="nfc-sheet-title"></strong>
+          </div>
+          <div class="nfc-sheet-body"></div>
         </div>
       </div>
 
@@ -816,6 +825,6 @@
   <svg viewBox="0 0 24 24" class="icon-wa" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.7-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.1-.2.2-.3.2-.6.1-.3-.1-1.2-.5-2.3-1.5-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5C10.1 9 9.6 7.8 9.4 7.3c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.3.3-1 .9-1 2.3s1 2.7 1.2 2.9c.1.2 2 3 4.8 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 1.9-1.3.2-.7.2-1.2.2-1.3-.1-.2-.3-.2-.6-.4z"/><path d="M12 2C6.5 2 2 6.5 2 12c0 1.9.5 3.7 1.5 5.3L2 22l4.8-1.5c1.5.8 3.3 1.3 5.2 1.3 5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18.3c-1.7 0-3.4-.5-4.8-1.4l-.3-.2-3 .9.9-2.9-.2-.3C3.7 15 3.2 13.5 3.2 12c0-4.8 3.9-8.8 8.8-8.8s8.8 3.9 8.8 8.8-3.9 8.8-8.8 8.8z"/></svg>
 </a>
 
-<script src="../js/main.js?v=2026-10-05b"></script>
+<script src="../js/main.js?v=2026-10-05c"></script>
 </body>
 </html>

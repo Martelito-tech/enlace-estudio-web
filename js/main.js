@@ -905,7 +905,7 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
 
   resetBtn.addEventListener('click', () => { reset(); tapBtn.focus(); });
 
-  picks.forEach(btn => btn.addEventListener('click', () => {
+  function selectCard(btn) {
     const c = btn.dataset.card;
     picks.forEach(b => b.setAttribute('aria-pressed', String(b === btn)));
     if (c !== demo.dataset.card) {
@@ -917,6 +917,89 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
         if (card.complete) card.classList.remove('is-swapping');
       }, 180);
     }
+  }
+
+  // ---- Móvil del visitante: su teléfono hace de móvil. Toca la tarjeta,
+  // baja una notificación como la de una etiqueta NFC real y se abre la
+  // pantalla a pantalla completa.
+  const mobile = window.matchMedia('(max-width: 760px)');
+  const screen = demo.querySelector('.ph-screen');
+  const frame = demo.querySelector('.ph-frame');
+  const sheet = demo.querySelector('.nfc-sheet');
+  const sheetBody = sheet.querySelector('.nfc-sheet-body');
+  const sheetTitle = sheet.querySelector('.nfc-sheet-title');
+  const notif = document.createElement('button');
+  notif.type = 'button';
+  notif.className = 'nfc-notif';
+  notif.hidden = true;
+  notif.innerHTML = banner.innerHTML;
+  notif.setAttribute('aria-live', 'polite');
+  document.body.appendChild(notif);
+  let tapped = null;
+  let notifTimer = null;
+  let sheetOpen = false;
+
+  function hideNotif() {
+    clearTimeout(notifTimer);
+    notif.classList.remove('is-in');
+    setTimeout(() => { if (!notif.classList.contains('is-in')) notif.hidden = true; }, 450);
+  }
+
+  function mobileTap(btn) {
+    if (sheetOpen) return;
+    picks.forEach(b => b.classList.remove('is-tapped'));
+    selectCard(btn);
+    reset();
+    tapped = btn;
+    void btn.offsetWidth;
+    btn.classList.add('is-tapped');
+    if (navigator.vibrate) { try { navigator.vibrate(35); } catch (e) { /* sin vibración */ } }
+    const c = btn.dataset.card;
+    notif.querySelector('small').textContent = banner.dataset['open' + c[0].toUpperCase() + c.slice(1)];
+    // La notificación vive fuera de la demo: se le pasa el color de la tarjeta
+    notif.style.setProperty('--accent', getComputedStyle(demo).getPropertyValue('--accent'));
+    notif.hidden = false;
+    requestAnimationFrame(() => requestAnimationFrame(() => notif.classList.add('is-in')));
+    clearTimeout(notifTimer);
+    notifTimer = setTimeout(openSheet, reduce ? 600 : 1600);
+  }
+
+  function openSheet() {
+    if (sheetOpen || !tapped) return;
+    hideNotif();
+    tapped.classList.remove('is-tapped');
+    sheetBody.appendChild(screen);
+    setState('open');
+    showView(demo.dataset.card);
+    sheetTitle.textContent = tapped.querySelector('strong').textContent;
+    sheet.hidden = false;
+    sheetOpen = true;
+    document.documentElement.style.overflow = 'hidden';
+    // «Atrás» en el móvil cierra la pantalla en vez de salir de la web
+    if (history.state && history.state.nfcDemo) history.replaceState({ nfcDemo: true }, '');
+    else history.pushState({ nfcDemo: true }, '');
+    sheet.querySelector('.nfc-sheet-close').focus({ preventScroll: true });
+  }
+
+  function closeSheet(fromHistory) {
+    if (!sheetOpen) return;
+    sheetOpen = false;
+    sheet.hidden = true;
+    frame.appendChild(screen);
+    reset();
+    document.documentElement.style.overflow = '';
+    if (tapped) tapped.focus({ preventScroll: true });
+    if (!fromHistory && history.state && history.state.nfcDemo) history.back();
+  }
+
+  notif.addEventListener('click', openSheet);
+  sheet.querySelector('.nfc-sheet-close').addEventListener('click', () => closeSheet(false));
+  window.addEventListener('popstate', () => closeSheet(true));
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeSheet(false); });
+
+  picks.forEach(btn => btn.addEventListener('click', () => {
+    if (mobile.matches) { mobileTap(btn); return; }
+    selectCard(btn);
     reset();
   }));
 
