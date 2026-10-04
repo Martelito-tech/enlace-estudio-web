@@ -4,17 +4,17 @@
 
   <url>
     <loc>https://enlaceestudio.com/</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://enlaceestudio.com/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://enlaceestudio.com/en/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://enlaceestudio.com/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://enlaceestudio.com/es/"/>
     <xhtml:link rel="alternate" hreflang="lt" href="https://enlaceestudio.com/lt/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://enlaceestudio.com/"/>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://enlaceestudio.com/en/</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://enlaceestudio.com/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://enlaceestudio.com/en/"/>
+    <loc>https://enlaceestudio.com/es/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://enlaceestudio.com/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://enlaceestudio.com/es/"/>
     <xhtml:link rel="alternate" hreflang="lt" href="https://enlaceestudio.com/lt/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://enlaceestudio.com/"/>
     <changefreq>weekly</changefreq>
@@ -22,8 +22,8 @@
   </url>
   <url>
     <loc>https://enlaceestudio.com/lt/</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://enlaceestudio.com/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://enlaceestudio.com/en/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://enlaceestudio.com/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://enlaceestudio.com/es/"/>
     <xhtml:link rel="alternate" hreflang="lt" href="https://enlaceestudio.com/lt/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://enlaceestudio.com/"/>
     <changefreq>weekly</changefreq>
@@ -31,130 +31,130 @@
   </url>
 
   <url>
-    <loc>https://enlaceestudio.com/trabajos/cachitos.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://enlaceestudio.com/trabajos/cachitos.html"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://enlaceestudio.com/en/work/cachitos.html"/>
+    <loc>https://enlaceestudio.com/work/cachitos.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://enlaceestudio.com/work/cachitos.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://enlaceestudio.com/es/trabajos/cachitos.html"/>
     <xhtml:link rel="alternate" hreflang="lt" href="https://enlaceestudio.com/lt/darbai/cachitos.html"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://enlaceestudio.com/trabajos/cachitos.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://enlaceestudio.com/work/cachitos.html"/>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://enlaceestudio.com/en/work/cachitos.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://enlaceestudio.com/trabajos/cachitos.html"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://enlaceestudio.com/en/work/cachitos.html"/>
+    <loc>https://enlaceestudio.com/es/trabajos/cachitos.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://enlaceestudio.com/work/cachitos.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://enlaceestudio.com/es/trabajos/cachitos.html"/>
     <xhtml:link rel="alternate" hreflang="lt" href="https://enlaceestudio.com/lt/darbai/cachitos.html"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://enlaceestudio.com/trabajos/cachitos.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://enlaceestudio.com/work/cachitos.html"/>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://enlaceestudio.com/lt/darbai/cachitos.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://enlaceestudio.com/trabajos/cachitos.html"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://enlaceestudio.com/en/work/cachitos.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://enlaceestudio.com/work/cachitos.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://enlaceestudio.com/es/trabajos/cachitos.html"/>
     <xhtml:link rel="alternate" hreflang="lt" href="https://enlaceestudio.com/lt/darbai/cachitos.html"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://enlaceestudio.com/trabajos/cachitos.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://enlaceestudio.com/work/cachitos.html"/>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://enlaceestudio.com/trabajos/el-cafe-de-manuela.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://enlaceestudio.com/trabajos/el-cafe-de-manuela.html"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://enlaceestudio.com/en/work/el-cafe-de-manuela.html"/>
+    <loc>https://enlaceestudio.com/work/el-cafe-de-manuela.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://enlaceestudio.com/work/el-cafe-de-manuela.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://enlaceestudio.com/es/trabajos/el-cafe-de-manuela.html"/>
     <xhtml:link rel="alternate" hreflang="lt" href="https://enlaceestudio.com/lt/darbai/el-cafe-de-manuela.html"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://enlaceestudio.com/trabajos/el-cafe-de-manuela.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://enlaceestudio.com/work/el-cafe-de-manuela.html"/>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://enlaceestudio.com/en/work/el-cafe-de-manuela.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://enlaceestudio.com/trabajos/el-cafe-de-manuela.html"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://enlaceestudio.com/en/work/el-cafe-de-manuela.html"/>
+    <loc>https://enlaceestudio.com/es/trabajos/el-cafe-de-manuela.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://enlaceestudio.com/work/el-cafe-de-manuela.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://enlaceestudio.com/es/trabajos/el-cafe-de-manuela.html"/>
     <xhtml:link rel="alternate" hreflang="lt" href="https://enlaceestudio.com/lt/darbai/el-cafe-de-manuela.html"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://enlaceestudio.com/trabajos/el-cafe-de-manuela.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://enlaceestudio.com/work/el-cafe-de-manuela.html"/>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://enlaceestudio.com/lt/darbai/el-cafe-de-manuela.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://enlaceestudio.com/trabajos/el-cafe-de-manuela.html"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://enlaceestudio.com/en/work/el-cafe-de-manuela.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://enlaceestudio.com/work/el-cafe-de-manuela.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://enlaceestudio.com/es/trabajos/el-cafe-de-manuela.html"/>
     <xhtml:link rel="alternate" hreflang="lt" href="https://enlaceestudio.com/lt/darbai/el-cafe-de-manuela.html"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://enlaceestudio.com/trabajos/el-cafe-de-manuela.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://enlaceestudio.com/work/el-cafe-de-manuela.html"/>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://enlaceestudio.com/aviso-legal.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://enlaceestudio.com/aviso-legal.html"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://enlaceestudio.com/en/legal-notice.html"/>
+    <loc>https://enlaceestudio.com/legal-notice.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://enlaceestudio.com/legal-notice.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://enlaceestudio.com/es/aviso-legal.html"/>
     <xhtml:link rel="alternate" hreflang="lt" href="https://enlaceestudio.com/lt/teisine-informacija.html"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://enlaceestudio.com/aviso-legal.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://enlaceestudio.com/legal-notice.html"/>
     <changefreq>yearly</changefreq>
     <priority>0.2</priority>
   </url>
   <url>
-    <loc>https://enlaceestudio.com/en/legal-notice.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://enlaceestudio.com/aviso-legal.html"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://enlaceestudio.com/en/legal-notice.html"/>
+    <loc>https://enlaceestudio.com/es/aviso-legal.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://enlaceestudio.com/legal-notice.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://enlaceestudio.com/es/aviso-legal.html"/>
     <xhtml:link rel="alternate" hreflang="lt" href="https://enlaceestudio.com/lt/teisine-informacija.html"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://enlaceestudio.com/aviso-legal.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://enlaceestudio.com/legal-notice.html"/>
     <changefreq>yearly</changefreq>
     <priority>0.2</priority>
   </url>
   <url>
     <loc>https://enlaceestudio.com/lt/teisine-informacija.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://enlaceestudio.com/aviso-legal.html"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://enlaceestudio.com/en/legal-notice.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://enlaceestudio.com/legal-notice.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://enlaceestudio.com/es/aviso-legal.html"/>
     <xhtml:link rel="alternate" hreflang="lt" href="https://enlaceestudio.com/lt/teisine-informacija.html"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://enlaceestudio.com/aviso-legal.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://enlaceestudio.com/legal-notice.html"/>
     <changefreq>yearly</changefreq>
     <priority>0.2</priority>
   </url>
 
   <url>
-    <loc>https://enlaceestudio.com/privacidad.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://enlaceestudio.com/privacidad.html"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://enlaceestudio.com/en/privacy.html"/>
+    <loc>https://enlaceestudio.com/privacy.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://enlaceestudio.com/privacy.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://enlaceestudio.com/es/privacidad.html"/>
     <xhtml:link rel="alternate" hreflang="lt" href="https://enlaceestudio.com/lt/privatumas.html"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://enlaceestudio.com/privacidad.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://enlaceestudio.com/privacy.html"/>
     <changefreq>yearly</changefreq>
     <priority>0.2</priority>
   </url>
   <url>
-    <loc>https://enlaceestudio.com/en/privacy.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://enlaceestudio.com/privacidad.html"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://enlaceestudio.com/en/privacy.html"/>
+    <loc>https://enlaceestudio.com/es/privacidad.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://enlaceestudio.com/privacy.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://enlaceestudio.com/es/privacidad.html"/>
     <xhtml:link rel="alternate" hreflang="lt" href="https://enlaceestudio.com/lt/privatumas.html"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://enlaceestudio.com/privacidad.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://enlaceestudio.com/privacy.html"/>
     <changefreq>yearly</changefreq>
     <priority>0.2</priority>
   </url>
   <url>
     <loc>https://enlaceestudio.com/lt/privatumas.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://enlaceestudio.com/privacidad.html"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://enlaceestudio.com/en/privacy.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://enlaceestudio.com/privacy.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://enlaceestudio.com/es/privacidad.html"/>
     <xhtml:link rel="alternate" hreflang="lt" href="https://enlaceestudio.com/lt/privatumas.html"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://enlaceestudio.com/privacidad.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://enlaceestudio.com/privacy.html"/>
     <changefreq>yearly</changefreq>
     <priority>0.2</priority>
   </url>
 
   <url>
     <loc>https://enlaceestudio.com/cookies.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://enlaceestudio.com/cookies.html"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://enlaceestudio.com/en/cookies.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://enlaceestudio.com/cookies.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://enlaceestudio.com/es/cookies.html"/>
     <xhtml:link rel="alternate" hreflang="lt" href="https://enlaceestudio.com/lt/slapukai.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://enlaceestudio.com/cookies.html"/>
     <changefreq>yearly</changefreq>
     <priority>0.2</priority>
   </url>
   <url>
-    <loc>https://enlaceestudio.com/en/cookies.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://enlaceestudio.com/cookies.html"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://enlaceestudio.com/en/cookies.html"/>
+    <loc>https://enlaceestudio.com/es/cookies.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://enlaceestudio.com/cookies.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://enlaceestudio.com/es/cookies.html"/>
     <xhtml:link rel="alternate" hreflang="lt" href="https://enlaceestudio.com/lt/slapukai.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://enlaceestudio.com/cookies.html"/>
     <changefreq>yearly</changefreq>
@@ -162,8 +162,8 @@
   </url>
   <url>
     <loc>https://enlaceestudio.com/lt/slapukai.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://enlaceestudio.com/cookies.html"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://enlaceestudio.com/en/cookies.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://enlaceestudio.com/cookies.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://enlaceestudio.com/es/cookies.html"/>
     <xhtml:link rel="alternate" hreflang="lt" href="https://enlaceestudio.com/lt/slapukai.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://enlaceestudio.com/cookies.html"/>
     <changefreq>yearly</changefreq>
