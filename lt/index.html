@@ -39,7 +39,7 @@
 <!-- Al tocar el CSS o el JS, sube la fecha del ?v= en todos los HTML. Cloudflare
      los cachea 4 horas: si la ruta no cambia, quien ya visitó la web recibe el
      HTML nuevo con el CSS viejo y la página se ve rota. -->
-<link rel="stylesheet" href="../css/style.css?v=2026-10-04c">
+<link rel="stylesheet" href="../css/style.css?v=2026-10-05">
 
 <script type="application/ld+json">
 {
@@ -279,20 +279,20 @@
 
       <!-- DEMO INTERACTIVA: el visitante arrastra el móvil hasta una tarjeta de
            ejemplo y ve lo que se abre. Toda la lógica está en js/main.js; las
-           pantallas son HTML y CSS (sin imágenes de otras marcas). -->
+           pantallas son HTML y CSS, con fotos de Unsplash en img/demo. -->
       <div class="nfc-demo" data-state="idle" data-card="gintaro">
         <div class="nfc-demo-copy">
           <p class="eyebrow eyebrow-section">IŠBANDYKITE</p>
           <h3>Pažiūrėkite, ką mato jūsų klientas.</h3>
           <p class="nfc-demo-lead">Pasirinkite vieną iš pavyzdinių kortelių ir nutempkite telefoną ant jos – taip, kaip tai padarytų klientas prie stalo.</p>
           <div class="nfc-demo-picker" role="group" aria-label="Pasirinkite kortelę">
-            <button type="button" class="nfc-demo-pick" data-card="gintaro" aria-pressed="true"><img src="../img/tarjetas/logo-gintaro.webp?v=2026-10-04b" alt="" width="44" height="44" loading="lazy"><span><strong>Atsiliepimas „Google“</strong><small>Gintaro · barberinė</small></span></button>
-            <button type="button" class="nfc-demo-pick" data-card="rasos" aria-pressed="false"><img src="../img/tarjetas/logo-rasos.webp?v=2026-10-04b" alt="" width="44" height="44" loading="lazy"><span><strong>„Instagram“</strong><small>Rasos · gėlių studija</small></span></button>
-            <button type="button" class="nfc-demo-pick" data-card="kopa" aria-pressed="false"><img src="../img/tarjetas/logo-kopa.webp?v=2026-10-04b" alt="" width="44" height="44" loading="lazy"><span><strong>„Facebook“</strong><small>Kopa · jogos studija</small></span></button>
-            <button type="button" class="nfc-demo-pick" data-card="bangos" aria-pressed="false"><img src="../img/tarjetas/logo-bangos.webp?v=2026-10-04b" alt="" width="44" height="44" loading="lazy"><span><strong>Meniu</strong><small>Bangos · bistro</small></span></button>
+            <button type="button" class="nfc-demo-pick" data-card="gintaro" aria-pressed="true"><img src="../img/tarjetas/logo-gintaro.webp?v=2026-10-05" alt="" width="44" height="44" loading="lazy"><span><strong>Atsiliepimas „Google“</strong><small>Gintaro · barberinė</small></span></button>
+            <button type="button" class="nfc-demo-pick" data-card="rasos" aria-pressed="false"><img src="../img/tarjetas/logo-rasos.webp?v=2026-10-05" alt="" width="44" height="44" loading="lazy"><span><strong>„Instagram“</strong><small>Rasos · gėlių studija</small></span></button>
+            <button type="button" class="nfc-demo-pick" data-card="kopa" aria-pressed="false"><img src="../img/tarjetas/logo-kopa.webp?v=2026-10-05" alt="" width="44" height="44" loading="lazy"><span><strong>„Facebook“</strong><small>Kopa · jogos studija</small></span></button>
+            <button type="button" class="nfc-demo-pick" data-card="bangos" aria-pressed="false"><img src="../img/tarjetas/logo-bangos.webp?v=2026-10-05" alt="" width="44" height="44" loading="lazy"><span><strong>Meniu</strong><small>Bangos · bistro</small></span></button>
           </div>
           <div class="nfc-demo-actions">
-            <button type="button" class="btn btn-dark nfc-demo-tap"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8.5 8.5a5 5 0 0 1 0 7M5.5 5.5a9.2 9.2 0 0 1 0 13M11.5 11a1.4 1.4 0 0 1 0 2"/><rect x="14" y="3" width="7" height="18" rx="2"/></svg>Priliesti telefoną prie kortelės</button>
+            <button type="button" class="btn btn-dark nfc-demo-tap"><svg class="nfc-ico nfc-ico-btn" viewBox="38 72 148 110" aria-hidden="true"><path d="M134 83A61 39 0 1 0 127 153"/><path class="nfc-ico-w nfc-ico-w3" d="M89 89A44.1 44.1 0 0 0 92 146"/><path class="nfc-ico-w nfc-ico-w2" d="M100 98A23.5 23.5 0 0 0 100 135"/><path class="nfc-ico-w nfc-ico-w1" d="M108 108A12.4 12.4 0 0 0 108 128"/><g transform="rotate(-5 154 131.5)"><rect x="133.5" y="90" width="41" height="83" rx="10"/><path d="M148 95.5h12"/></g></svg>Priliesti telefoną prie kortelės</button>
             <button type="button" class="nfc-demo-reset" hidden>↺ Bandyti dar kartą</button>
           </div>
         </div>
@@ -304,52 +304,74 @@
             <p class="nfc-demo-drag" aria-hidden="true">Nutempkite mane ant kortelės</p>
             <div class="ph-frame"><div class="ph-screen">
               <div class="ph-status" aria-hidden="true"><span>9:41</span><span class="ph-island"></span><span class="ph-bat"></span></div>
-              <div class="ph-banner" aria-live="polite" data-open-gintaro="Atidaromi „Google“ atsiliepimai…" data-open-rasos="Atidaromas „Instagram“…" data-open-kopa="Atidaromas „Facebook“…" data-open-bangos="Atidaromas meniu…"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8.5 8.5a5 5 0 0 1 0 7M5.5 5.5a9.2 9.2 0 0 1 0 13M11.5 11a1.4 1.4 0 0 1 0 2"/><rect x="14" y="3" width="7" height="18" rx="2"/></svg><span><strong>NFC žyma</strong><small></small></span></div>
+              <div class="ph-banner" aria-live="polite" data-open-gintaro="Atidaromi „Google“ atsiliepimai…" data-open-rasos="Atidaromas „Instagram“…" data-open-kopa="Atidaromas „Facebook“…" data-open-bangos="Atidaromas meniu…"><svg class="nfc-ico nfc-ico-banner" viewBox="38 72 148 110" aria-hidden="true"><path d="M134 83A61 39 0 1 0 127 153"/><path class="nfc-ico-w nfc-ico-w3" d="M89 89A44.1 44.1 0 0 0 92 146"/><path class="nfc-ico-w nfc-ico-w2" d="M100 98A23.5 23.5 0 0 0 100 135"/><path class="nfc-ico-w nfc-ico-w1" d="M108 108A12.4 12.4 0 0 0 108 128"/><g transform="rotate(-5 154 131.5)"><rect x="133.5" y="90" width="41" height="83" rx="10"/><path d="M148 95.5h12"/></g></svg><span><strong>NFC žyma</strong><small></small></span></div>
 
               <div class="ph-view ph-idle" data-view="idle">
-                <span class="ph-idle-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8.5 8.5a5 5 0 0 1 0 7M5.5 5.5a9.2 9.2 0 0 1 0 13M11.5 11a1.4 1.4 0 0 1 0 2"/><rect x="14" y="3" width="7" height="18" rx="2"/></svg></span>
+                <span class="ph-idle-icon"><svg class="nfc-ico" viewBox="15 35 193 181" aria-hidden="true"><path class="nfc-ico-frame" d="M23 80V51a8 8 0 0 1 8-8h30M162 43h30a8 8 0 0 1 8 8v29M23 175v25a8 8 0 0 0 8 8h30M162 208h30a8 8 0 0 0 8-8v-25"/><path d="M134 83A61 39 0 1 0 127 153"/><path class="nfc-ico-w nfc-ico-w3" d="M89 89A44.1 44.1 0 0 0 92 146"/><path class="nfc-ico-w nfc-ico-w2" d="M100 98A23.5 23.5 0 0 0 100 135"/><path class="nfc-ico-w nfc-ico-w1" d="M108 108A12.4 12.4 0 0 0 108 128"/><g transform="rotate(-5 154 131.5)"><rect x="133.5" y="90" width="41" height="83" rx="10"/><path d="M148 95.5h12"/></g></svg></span>
                 <p>Priartinkite telefoną prie kortelės</p>
               </div>
 
               <div class="ph-view ph-google" data-view="gintaro" hidden>
-                <div class="ph-head"><img src="../img/tarjetas/logo-gintaro.webp?v=2026-10-04b" alt="" width="40" height="40" loading="lazy"><div><strong>Gintaro Barber</strong><small>4,9 ★ · Barberinė</small></div></div>
-                <div class="ph-review">
+                <div class="ph-head"><img src="../img/tarjetas/logo-gintaro.webp?v=2026-10-05" alt="" width="40" height="40" loading="lazy"><div><strong>Gintaro Barber</strong><small>4,9 ★ · Barberinė</small></div></div>
+                <div class="ph-review" data-m1="Ne pats geriausias apsilankymas. Kirpimas ne toks, kokio prašiau." data-m2="Vieta graži, bet teko gana ilgai laukti." data-m3="Neblogas kirpimas ir malonus aptarnavimas. Nieko ypatingo." data-m4="Puikus kirpimas ir labai draugiška komanda. Sugrįšiu!" data-m5="Geriausia barberinė mieste! Tobulas kirpimas, smagus pokalbis ir nuostabi vieta. Rekomenduoju 100 %.">
                   <p class="ph-title">Įvertinkite apsilankymą</p>
                   <div class="ph-stars" role="radiogroup" aria-label="Įvertinkite apsilankymą"><button type="button" class="ph-star" role="radio" aria-checked="false" aria-label="1 žvaigždutė" data-value="1"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2.8 2.8 5.8 6.3.9-4.6 4.4 1.1 6.3L12 17.2l-5.6 3 1.1-6.3L2.9 9.5l6.3-.9Z"/></svg></button><button type="button" class="ph-star" role="radio" aria-checked="false" aria-label="2 žvaigždutės" data-value="2"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2.8 2.8 5.8 6.3.9-4.6 4.4 1.1 6.3L12 17.2l-5.6 3 1.1-6.3L2.9 9.5l6.3-.9Z"/></svg></button><button type="button" class="ph-star" role="radio" aria-checked="false" aria-label="3 žvaigždutės" data-value="3"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2.8 2.8 5.8 6.3.9-4.6 4.4 1.1 6.3L12 17.2l-5.6 3 1.1-6.3L2.9 9.5l6.3-.9Z"/></svg></button><button type="button" class="ph-star" role="radio" aria-checked="false" aria-label="4 žvaigždutės" data-value="4"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2.8 2.8 5.8 6.3.9-4.6 4.4 1.1 6.3L12 17.2l-5.6 3 1.1-6.3L2.9 9.5l6.3-.9Z"/></svg></button><button type="button" class="ph-star" role="radio" aria-checked="false" aria-label="5 žvaigždutės" data-value="5"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2.8 2.8 5.8 6.3.9-4.6 4.4 1.1 6.3L12 17.2l-5.6 3 1.1-6.3L2.9 9.5l6.3-.9Z"/></svg></button></div>
-                  <p class="ph-textarea">Papasakokite apie savo patirtį…</p>
+                  <p class="ph-textarea"><span class="ph-typed" aria-live="polite"></span><span class="ph-placeholder">Paspauskite žvaigždutes ir papasakokite apie savo patirtį…</span></p>
                   <button type="button" class="ph-btn ph-post" disabled>Paskelbti</button>
                 </div>
-                <div class="ph-done" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m7.5 12.3 3 3 6-6.3"/></svg><strong>Ačiū už atsiliepimą!</strong><small>Štai kaip paprasta jūsų klientams.</small></div>
+                <div class="ph-done" hidden>
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m7.5 12.3 3 3 6-6.3"/></svg><strong>Ačiū už atsiliepimą!</strong><small>Štai kaip paprasta jūsų klientams.</small>
+                  <div class="ph-my-review"><div class="ph-my-head"><span class="ph-me" aria-hidden="true">J</span><div><strong>Jūs</strong><span class="ph-my-stars"></span></div></div><p class="ph-my-text"></p></div>
+                </div>
               </div>
 
               <div class="ph-view ph-insta" data-view="rasos" hidden>
                 <p class="ph-handle">rasos.geles</p>
-                <div class="ph-profile">
-                  <span class="ph-avatar ph-ring"><img src="../img/tarjetas/logo-rasos.webp?v=2026-10-04b" alt="" width="64" height="64" loading="lazy"></span>
-                  <dl class="ph-stats"><div><dt>įrašai</dt><dd>128</dd></div><div><dt>sekėjai</dt><dd class="ph-count" data-count="2431">2431</dd></div><div><dt>seka</dt><dd>310</dd></div></dl>
+                <div class="ph-ig-head">
+                  <span class="ph-avatar ph-ring"><img src="../img/tarjetas/logo-rasos.webp?v=2026-10-05" alt="" width="68" height="68" loading="lazy"></span>
+                  <div><p class="ph-name">Rasos gėlės</p><p class="ph-bio">Gėlių parduotuvė · Puokštės pagal užsakymą</p></div>
                 </div>
-                <p class="ph-name">Rasos gėlės</p>
-                <p class="ph-bio">Gėlių parduotuvė · Puokštės pagal užsakymą</p>
-                <button type="button" class="ph-btn ph-follow" aria-pressed="false" data-on="Sekama" data-off="Sekti">Sekti</button>
-                <div class="ph-grid" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+                <dl class="ph-stats"><div><dt>įrašai</dt><dd>128</dd></div><div><dt>sekėjai</dt><dd class="ph-followers" data-count="2431">2431</dd></div><div><dt>seka</dt><dd>310</dd></div></dl>
+                <div class="ph-ig-actions">
+                  <button type="button" class="ph-btn ph-follow" aria-pressed="false" data-on="Sekama" data-off="Sekti" data-target=".ph-followers">Sekti</button>
+                  <span class="ph-btn ph-btn-ghost" aria-hidden="true">Žinutė</span>
+                </div>
+                <div class="ph-highlights" aria-hidden="true"><span><img src="../img/demo/flor-8.webp?v=2026-10-05" alt="" width="48" height="48" loading="lazy"><small>Puokštės</small></span><span><img src="../img/demo/flor-3.webp?v=2026-10-05" alt="" width="48" height="48" loading="lazy"><small>Vestuvės</small></span><span><img src="../img/demo/flor-4.webp?v=2026-10-05" alt="" width="48" height="48" loading="lazy"><small>Parduotuvė</small></span></div>
+                <div class="ph-grid" aria-hidden="true"><img src="../img/demo/flor-1.webp?v=2026-10-05" alt="" width="160" height="160" loading="lazy"><img src="../img/demo/flor-2.webp?v=2026-10-05" alt="" width="160" height="160" loading="lazy"><img src="../img/demo/flor-5.webp?v=2026-10-05" alt="" width="160" height="160" loading="lazy"><img src="../img/demo/flor-6.webp?v=2026-10-05" alt="" width="160" height="160" loading="lazy"><img src="../img/demo/flor-3.webp?v=2026-10-05" alt="" width="160" height="160" loading="lazy"><img src="../img/demo/flor-9.webp?v=2026-10-05" alt="" width="160" height="160" loading="lazy"><img src="../img/demo/flor-7.webp?v=2026-10-05" alt="" width="160" height="160" loading="lazy"><img src="../img/demo/flor-4.webp?v=2026-10-05" alt="" width="160" height="160" loading="lazy"><img src="../img/demo/flor-8.webp?v=2026-10-05" alt="" width="160" height="160" loading="lazy"></div>
               </div>
 
               <div class="ph-view ph-fb" data-view="kopa" hidden>
-                <div class="ph-cover" aria-hidden="true"></div>
-                <span class="ph-avatar ph-avatar-fb"><img src="../img/tarjetas/logo-kopa.webp?v=2026-10-04b" alt="" width="72" height="72" loading="lazy"></span>
+                <img class="ph-cover" src="../img/demo/kopa-portada.webp?v=2026-10-05" alt="" width="720" height="300" loading="lazy">
+                <span class="ph-avatar ph-avatar-fb"><img src="../img/tarjetas/logo-kopa.webp?v=2026-10-05" alt="" width="72" height="72" loading="lazy"></span>
                 <p class="ph-name">Kopa yoga studija</p>
-                <p class="ph-meta">Jogos studija · <span class="ph-count" data-count="1284">1284</span> sekėjų</p>
+                <p class="ph-meta">Jogos studija · <span class="ph-followers" data-count="1284">1284</span> sekėjų</p>
                 <div class="ph-fb-actions">
-                  <button type="button" class="ph-btn ph-follow" aria-pressed="false" data-on="Sekama" data-off="Sekti">Sekti</button>
+                  <button type="button" class="ph-btn ph-follow" aria-pressed="false" data-on="Sekama" data-off="Sekti" data-target=".ph-followers">Sekti</button>
                   <span class="ph-btn ph-btn-ghost" aria-hidden="true">Žinutė</span>
                 </div>
-                <div class="ph-post-card"><p class="ph-post-head"><strong>Kopa yoga studija</strong> · prieš 2 val.</p><p>Šį šeštadienį 8:00 – užsiėmimas paplūdimyje saulei tekant. Pasiimkite kilimėlį!</p></div>
+                <div class="ph-fb-tabs" aria-hidden="true"><span class="is-on">Įrašai</span><span>Apie</span><span>Nuotraukos</span></div>
+                <article class="ph-fb-post">
+                  <header><img src="../img/tarjetas/logo-kopa.webp?v=2026-10-05" alt="" width="34" height="34" loading="lazy"><div><strong>Kopa yoga studija</strong><small>prieš 2 val. · <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg></small></div></header>
+                  <p>Šį šeštadienį 8:00 – užsiėmimas paplūdimyje saulei tekant. Jūs atsineškite kilimėlį, o arbatą parūpinsime mes!</p>
+                  <img class="ph-fb-photo" src="../img/demo/kopa-post.webp?v=2026-10-05" alt="" width="640" height="480" loading="lazy">
+                  <div class="ph-fb-stats"><span class="ph-reacts" aria-hidden="true"><i class="r-like"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10v11H3V10h4Zm2 11h8.5a2 2 0 0 0 2-1.6l1.4-7A2 2 0 0 0 19 10h-5l.8-4.2A2 2 0 0 0 12.8 3L9 10v11Z"/></svg></i><i class="r-love"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10Z"/></svg></i></span><span class="ph-likes" data-count="48">48</span><span class="ph-fb-comments">12 komentarų</span></div>
+                  <div class="ph-fb-bar">
+                    <button type="button" class="ph-like" aria-pressed="false" data-target=".ph-likes"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10v11H3V10h4Zm2 11h8.5a2 2 0 0 0 2-1.6l1.4-7A2 2 0 0 0 19 10h-5l.8-4.2A2 2 0 0 0 12.8 3L9 10v11Z"/></svg>Patinka</button>
+                    <span aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 15a2 2 0 0 1-2 2H8l-4 4V5a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2Z"/></svg>Komentuoti</span>
+                    <span aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4l7 7-7 7v-4c-5 0-8 1.5-11 5 1-5 4-9.5 11-10V4Z"/></svg>Dalintis</span>
+                  </div>
+                </article>
               </div>
 
               <div class="ph-view ph-menu" data-view="bangos" hidden>
-                <div class="ph-head ph-head-dark"><img src="../img/tarjetas/logo-bangos.webp?v=2026-10-04b" alt="" width="40" height="40" loading="lazy"><div><strong>Bangos bistro</strong><small>Meniu</small></div></div>
-                <div class="ph-tabs" role="tablist" aria-label="Meniu"><button type="button" class="ph-tab" role="tab" aria-selected="true" data-tab="0">Užkandžiai</button><button type="button" class="ph-tab" role="tab" aria-selected="false" data-tab="1">Pagrindiniai</button><button type="button" class="ph-tab" role="tab" aria-selected="false" data-tab="2">Desertai</button></div>
-                <ul class="ph-dishes" role="tabpanel" data-panel="0"><li><strong>Keptos sardinės</strong><span>Su citrina ir jūros druska</span></li><li><strong>Žuvienė</strong><span>Namų receptas</span></li><li><strong>Rūkytos skumbrės paštetas</strong><span>Ant skrudintos ruginės duonos</span></li></ul><ul class="ph-dishes" role="tabpanel" data-panel="1" hidden><li><strong>Dienos žuvis</strong><span>Kepta ant grotelių, su sezoninėmis daržovėmis</span></li><li><strong>Jūros gėrybių rizotas</strong><span>Midijos, krevetės ir kalmarai</span></li><li><strong>Žuvis su bulvytėmis</strong><span>Alaus tešloje, totorių padažas</span></li></ul><ul class="ph-dishes" role="tabpanel" data-panel="2" hidden><li><strong>Citrinų pyragas</strong><span>Su morengais</span></li><li><strong>Šokoladinis fondanas</strong><span>Su vanilės ledais</span></li><li><strong>Dienos vaisiai</strong><span>Tokie, kokie tą dieną sezoniniai</span></li></ul>
+                <div class="ph-head ph-head-dark"><img src="../img/tarjetas/logo-bangos.webp?v=2026-10-05" alt="" width="40" height="40" loading="lazy"><div><strong>Bangos bistro</strong><small>Žuvis ir jūros gėrybės · Atidaryta</small></div></div>
+                <div class="ph-tabs" role="tablist" aria-label="Meniu"><button type="button" class="ph-tab" role="tab" aria-selected="true" data-tab="0">Užkandžiai</button><button type="button" class="ph-tab" role="tab" aria-selected="false" data-tab="1">Patiekalai</button><button type="button" class="ph-tab" role="tab" aria-selected="false" data-tab="2">Desertai</button></div>
+                <ul class="ph-dishes" role="tabpanel" data-panel="0"><li><button type="button" class="ph-dish"><img src="../img/demo/plato-sardinas.webp?v=2026-10-05" alt="" width="56" height="56" loading="lazy"><span><strong>Keptos sardinės</strong><small>Su citrina ir jūros druska</small></span><em>8,50 €</em></button></li><li><button type="button" class="ph-dish"><img src="../img/demo/plato-sopa.webp?v=2026-10-05" alt="" width="56" height="56" loading="lazy"><span><strong>Žuvienė</strong><small>Namų receptas</small></span><em>7,00 €</em></button></li><li><button type="button" class="ph-dish"><img src="../img/demo/plato-pate.webp?v=2026-10-05" alt="" width="56" height="56" loading="lazy"><span><strong>Rūkytos skumbrės paštetas</strong><small>Ant skrudintos ruginės duonos</small></span><em>6,50 €</em></button></li></ul><ul class="ph-dishes" role="tabpanel" data-panel="1" hidden><li><button type="button" class="ph-dish"><img src="../img/demo/plato-pescado.webp?v=2026-10-05" alt="" width="56" height="56" loading="lazy"><span><strong>Dienos žuvis</strong><small>Kepta ant grotelių, su sezoninėmis daržovėmis</small></span><em>18,00 €</em></button></li><li><button type="button" class="ph-dish"><img src="../img/demo/plato-risotto.webp?v=2026-10-05" alt="" width="56" height="56" loading="lazy"><span><strong>Jūros gėrybių rizotas</strong><small>Midijos, krevetės ir kalmarai</small></span><em>16,50 €</em></button></li><li><button type="button" class="ph-dish"><img src="../img/demo/plato-fishchips.webp?v=2026-10-05" alt="" width="56" height="56" loading="lazy"><span><strong>Žuvis su bulvytėmis</strong><small>Alaus tešloje, totorių padažas</small></span><em>13,00 €</em></button></li></ul><ul class="ph-dishes" role="tabpanel" data-panel="2" hidden><li><button type="button" class="ph-dish"><img src="../img/demo/plato-tarta.webp?v=2026-10-05" alt="" width="56" height="56" loading="lazy"><span><strong>Citrinų pyragas</strong><small>Su skrudintais morengais</small></span><em>6,00 €</em></button></li><li><button type="button" class="ph-dish"><img src="../img/demo/plato-coulant.webp?v=2026-10-05" alt="" width="56" height="56" loading="lazy"><span><strong>Šokoladinis fondanas</strong><small>Su vanilės ledais</small></span><em>6,50 €</em></button></li><li><button type="button" class="ph-dish"><img src="../img/demo/plato-fruta.webp?v=2026-10-05" alt="" width="56" height="56" loading="lazy"><span><strong>Dienos vaisiai</strong><small>Tokie, kokie tą dieną sezoniniai</small></span><em>4,50 €</em></button></li></ul>
+                <div class="ph-dish-detail" hidden>
+                  <button type="button" class="ph-back">← Atgal</button>
+                  <img class="ph-detail-img" src="" alt="" width="560" height="400">
+                  <div class="ph-detail-body"><p class="ph-detail-name"></p><p class="ph-detail-price"></p><p class="ph-detail-desc"></p></div>
+                </div>
               </div>
             </div></div>
           </div>
@@ -794,6 +816,6 @@
   <svg viewBox="0 0 24 24" class="icon-wa" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.7-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.1-.2.2-.3.2-.6.1-.3-.1-1.2-.5-2.3-1.5-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5C10.1 9 9.6 7.8 9.4 7.3c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.3.3-1 .9-1 2.3s1 2.7 1.2 2.9c.1.2 2 3 4.8 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 1.9-1.3.2-.7.2-1.2.2-1.3-.1-.2-.3-.2-.6-.4z"/><path d="M12 2C6.5 2 2 6.5 2 12c0 1.9.5 3.7 1.5 5.3L2 22l4.8-1.5c1.5.8 3.3 1.3 5.2 1.3 5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18.3c-1.7 0-3.4-.5-4.8-1.4l-.3-.2-3 .9.9-2.9-.2-.3C3.7 15 3.2 13.5 3.2 12c0-4.8 3.9-8.8 8.8-8.8s8.8 3.9 8.8 8.8-3.9 8.8-8.8 8.8z"/></svg>
 </a>
 
-<script src="../js/main.js?v=2026-10-04c"></script>
+<script src="../js/main.js?v=2026-10-05"></script>
 </body>
 </html>

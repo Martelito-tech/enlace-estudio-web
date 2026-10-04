@@ -696,10 +696,18 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
   const resetBtn = demo.querySelector('.nfc-demo-reset');
   const picks = [...demo.querySelectorAll('.nfc-demo-pick')];
   const views = [...demo.querySelectorAll('.ph-view')];
+  const review = demo.querySelector('.ph-review');
+  const stars = [...demo.querySelectorAll('.ph-star')];
+  const textarea = demo.querySelector('.ph-textarea');
+  const typed = demo.querySelector('.ph-typed');
   const post = demo.querySelector('.ph-post');
+  const done = demo.querySelector('.ph-done');
+  const detail = demo.querySelector('.ph-dish-detail');
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const fmt = new Intl.NumberFormat(document.documentElement.lang);
   let timers = [];
+  let typing = null;
+  let rating = 0;
 
   const state = () => demo.dataset.state;
   const setState = s => { demo.dataset.state = s; };
@@ -708,29 +716,107 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
   const place = (x, y, rot) => {
     phone.style.transform = x || y ? `translate(${x}px, ${y}px) rotate(${rot || 0}deg)` : '';
   };
-  const showCounts = () => demo.querySelectorAll('.ph-count').forEach(el => { el.textContent = fmt.format(+el.dataset.count); });
+  const showCounts = () => demo.querySelectorAll('[data-count]').forEach(el => { el.textContent = fmt.format(+el.dataset.count); });
 
   // Contadores con el formato de números del idioma de la página
   showCounts();
 
-  // Carta: pestañas
+  // ---- Carta: pestañas y ficha de cada plato
   function selectTab(tab) {
     demo.querySelectorAll('.ph-tab').forEach(t => t.setAttribute('aria-selected', String(t === tab)));
     demo.querySelectorAll('.ph-dishes').forEach(l => { l.hidden = l.dataset.panel !== tab.dataset.tab; });
   }
   demo.querySelectorAll('.ph-tab').forEach(t => t.addEventListener('click', () => selectTab(t)));
+  demo.querySelectorAll('.ph-dish').forEach(dish => dish.addEventListener('click', () => {
+    const img = detail.querySelector('.ph-detail-img');
+    img.src = dish.querySelector('img').currentSrc || dish.querySelector('img').src;
+    detail.querySelector('.ph-detail-name').textContent = dish.querySelector('strong').textContent;
+    detail.querySelector('.ph-detail-price').textContent = dish.querySelector('em').textContent;
+    detail.querySelector('.ph-detail-desc').textContent = dish.querySelector('small').textContent;
+    detail.closest('.ph-view').scrollTop = 0;
+    detail.hidden = false;
+  }));
+  detail.querySelector('.ph-back').addEventListener('click', () => { detail.hidden = true; });
+
+  // ---- Reseña: cada puntuación escribe un mensaje acorde y, al terminar,
+  // el botón de publicar se mueve un poco para invitar a pulsarlo
+  function stopTyping() {
+    clearInterval(typing);
+    typing = null;
+    typed.classList.remove('is-typing');
+  }
+  function typeMessage(text) {
+    stopTyping();
+    post.disabled = true;
+    post.classList.remove('is-nudge');
+    textarea.classList.add('is-active');
+    typed.textContent = '';
+    const finish = () => {
+      stopTyping();
+      typed.textContent = text;
+      post.disabled = false;
+      void post.offsetWidth; // reinicia la animación si ya se había hecho
+      post.classList.add('is-nudge');
+    };
+    if (reduce) { finish(); return; }
+    typed.classList.add('is-typing');
+    let i = 0;
+    typing = setInterval(() => {
+      i += 1;
+      typed.textContent = text.slice(0, i);
+      if (i >= text.length) finish();
+    }, 26);
+  }
+  stars.forEach((star, i) => star.addEventListener('click', () => {
+    rating = i + 1;
+    stars.forEach((s, j) => {
+      s.classList.toggle('is-on', j <= i);
+      s.setAttribute('aria-checked', String(j === i));
+    });
+    typeMessage(review.dataset['m' + rating]);
+  }));
+  post.addEventListener('click', () => {
+    const starSvg = stars[0].querySelector('svg');
+    const mine = done.querySelector('.ph-my-stars');
+    mine.innerHTML = '';
+    for (let k = 1; k <= 5; k++) {
+      const s = starSvg.cloneNode(true);
+      if (k <= rating) s.classList.add('is-on');
+      mine.appendChild(s);
+    }
+    done.querySelector('.ph-my-text').textContent = typed.textContent;
+    review.hidden = true;
+    done.hidden = false;
+  });
+
+  // ---- Seguir y «Me gusta»: el contador correspondiente sube uno
+  demo.querySelectorAll('.ph-follow, .ph-like').forEach(btn => btn.addEventListener('click', () => {
+    const on = btn.getAttribute('aria-pressed') !== 'true';
+    btn.setAttribute('aria-pressed', String(on));
+    if (btn.dataset.on) btn.textContent = on ? btn.dataset.on : btn.dataset.off;
+    const count = btn.closest('.ph-view').querySelector(btn.dataset.target);
+    count.textContent = fmt.format(+count.dataset.count + (on ? 1 : 0));
+  }));
 
   function resetApps() {
-    demo.querySelectorAll('.ph-star').forEach(s => { s.classList.remove('is-on'); s.setAttribute('aria-checked', 'false'); });
+    stopTyping();
+    rating = 0;
+    stars.forEach(s => { s.classList.remove('is-on'); s.setAttribute('aria-checked', 'false'); });
+    typed.textContent = '';
+    textarea.classList.remove('is-active');
     post.disabled = true;
-    demo.querySelector('.ph-review').hidden = false;
-    demo.querySelector('.ph-done').hidden = true;
+    post.classList.remove('is-nudge');
+    review.hidden = false;
+    done.hidden = true;
     demo.querySelectorAll('.ph-follow').forEach(b => {
       b.setAttribute('aria-pressed', 'false');
       b.textContent = b.dataset.off;
     });
+    demo.querySelectorAll('.ph-like').forEach(b => b.setAttribute('aria-pressed', 'false'));
     showCounts();
     selectTab(demo.querySelector('.ph-tab'));
+    detail.hidden = true;
+    views.forEach(v => { v.scrollTop = 0; });
   }
 
   function reset() {
@@ -825,28 +911,6 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
       }, 180);
     }
     reset();
-  }));
-
-  // Reseña: estrellas y publicar
-  demo.querySelectorAll('.ph-star').forEach((star, i, all) => star.addEventListener('click', () => {
-    all.forEach((s, j) => {
-      s.classList.toggle('is-on', j <= i);
-      s.setAttribute('aria-checked', String(j === i));
-    });
-    post.disabled = false;
-  }));
-  post.addEventListener('click', () => {
-    demo.querySelector('.ph-review').hidden = true;
-    demo.querySelector('.ph-done').hidden = false;
-  });
-
-  // Seguir en Instagram o Facebook: el contador sube uno
-  demo.querySelectorAll('.ph-follow').forEach(btn => btn.addEventListener('click', () => {
-    const on = btn.getAttribute('aria-pressed') !== 'true';
-    btn.setAttribute('aria-pressed', String(on));
-    btn.textContent = on ? btn.dataset.on : btn.dataset.off;
-    const count = btn.closest('.ph-view').querySelector('.ph-count');
-    count.textContent = fmt.format(+count.dataset.count + (on ? 1 : 0));
   }));
 
   // Pista: el móvil se asoma hacia la tarjeta mientras la demo está a la

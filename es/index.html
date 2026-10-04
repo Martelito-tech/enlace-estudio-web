@@ -39,7 +39,7 @@
 <!-- Al tocar el CSS o el JS, sube la fecha del ?v= en todos los HTML. Cloudflare
      los cachea 4 horas: si la ruta no cambia, quien ya visitó la web recibe el
      HTML nuevo con el CSS viejo y la página se ve rota. -->
-<link rel="stylesheet" href="../css/style.css?v=2026-10-04c">
+<link rel="stylesheet" href="../css/style.css?v=2026-10-05">
 
 <script type="application/ld+json">
 {
@@ -279,20 +279,20 @@
 
       <!-- DEMO INTERACTIVA: el visitante arrastra el móvil hasta una tarjeta de
            ejemplo y ve lo que se abre. Toda la lógica está en js/main.js; las
-           pantallas son HTML y CSS (sin imágenes de otras marcas). -->
+           pantallas son HTML y CSS, con fotos de Unsplash en img/demo. -->
       <div class="nfc-demo" data-state="idle" data-card="gintaro">
         <div class="nfc-demo-copy">
           <p class="eyebrow eyebrow-section">PRUÉBALO</p>
           <h3>Mira lo que ve tu cliente.</h3>
           <p class="nfc-demo-lead">Elige una de las tarjetas de ejemplo y arrastra el móvil hasta ella, como haría tu cliente en la mesa.</p>
           <div class="nfc-demo-picker" role="group" aria-label="Elige una tarjeta">
-            <button type="button" class="nfc-demo-pick" data-card="gintaro" aria-pressed="true"><img src="../img/tarjetas/logo-gintaro.webp?v=2026-10-04b" alt="" width="44" height="44" loading="lazy"><span><strong>Reseña en Google</strong><small>Gintaro · barbería</small></span></button>
-            <button type="button" class="nfc-demo-pick" data-card="rasos" aria-pressed="false"><img src="../img/tarjetas/logo-rasos.webp?v=2026-10-04b" alt="" width="44" height="44" loading="lazy"><span><strong>Instagram</strong><small>Rasos · floristería</small></span></button>
-            <button type="button" class="nfc-demo-pick" data-card="kopa" aria-pressed="false"><img src="../img/tarjetas/logo-kopa.webp?v=2026-10-04b" alt="" width="44" height="44" loading="lazy"><span><strong>Facebook</strong><small>Kopa · estudio de yoga</small></span></button>
-            <button type="button" class="nfc-demo-pick" data-card="bangos" aria-pressed="false"><img src="../img/tarjetas/logo-bangos.webp?v=2026-10-04b" alt="" width="44" height="44" loading="lazy"><span><strong>Carta</strong><small>Bangos · bistró</small></span></button>
+            <button type="button" class="nfc-demo-pick" data-card="gintaro" aria-pressed="true"><img src="../img/tarjetas/logo-gintaro.webp?v=2026-10-05" alt="" width="44" height="44" loading="lazy"><span><strong>Reseña en Google</strong><small>Gintaro · barbería</small></span></button>
+            <button type="button" class="nfc-demo-pick" data-card="rasos" aria-pressed="false"><img src="../img/tarjetas/logo-rasos.webp?v=2026-10-05" alt="" width="44" height="44" loading="lazy"><span><strong>Instagram</strong><small>Rasos · floristería</small></span></button>
+            <button type="button" class="nfc-demo-pick" data-card="kopa" aria-pressed="false"><img src="../img/tarjetas/logo-kopa.webp?v=2026-10-05" alt="" width="44" height="44" loading="lazy"><span><strong>Facebook</strong><small>Kopa · estudio de yoga</small></span></button>
+            <button type="button" class="nfc-demo-pick" data-card="bangos" aria-pressed="false"><img src="../img/tarjetas/logo-bangos.webp?v=2026-10-05" alt="" width="44" height="44" loading="lazy"><span><strong>Carta</strong><small>Bangos · bistró</small></span></button>
           </div>
           <div class="nfc-demo-actions">
-            <button type="button" class="btn btn-dark nfc-demo-tap"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8.5 8.5a5 5 0 0 1 0 7M5.5 5.5a9.2 9.2 0 0 1 0 13M11.5 11a1.4 1.4 0 0 1 0 2"/><rect x="14" y="3" width="7" height="18" rx="2"/></svg>Acercar el móvil a la tarjeta</button>
+            <button type="button" class="btn btn-dark nfc-demo-tap"><svg class="nfc-ico nfc-ico-btn" viewBox="38 72 148 110" aria-hidden="true"><path d="M134 83A61 39 0 1 0 127 153"/><path class="nfc-ico-w nfc-ico-w3" d="M89 89A44.1 44.1 0 0 0 92 146"/><path class="nfc-ico-w nfc-ico-w2" d="M100 98A23.5 23.5 0 0 0 100 135"/><path class="nfc-ico-w nfc-ico-w1" d="M108 108A12.4 12.4 0 0 0 108 128"/><g transform="rotate(-5 154 131.5)"><rect x="133.5" y="90" width="41" height="83" rx="10"/><path d="M148 95.5h12"/></g></svg>Acercar el móvil a la tarjeta</button>
             <button type="button" class="nfc-demo-reset" hidden>↺ Probar otra vez</button>
           </div>
         </div>
@@ -304,52 +304,74 @@
             <p class="nfc-demo-drag" aria-hidden="true">Arrástrame a la tarjeta</p>
             <div class="ph-frame"><div class="ph-screen">
               <div class="ph-status" aria-hidden="true"><span>9:41</span><span class="ph-island"></span><span class="ph-bat"></span></div>
-              <div class="ph-banner" aria-live="polite" data-open-gintaro="Abriendo las reseñas de Google…" data-open-rasos="Abriendo Instagram…" data-open-kopa="Abriendo Facebook…" data-open-bangos="Abriendo la carta…"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8.5 8.5a5 5 0 0 1 0 7M5.5 5.5a9.2 9.2 0 0 1 0 13M11.5 11a1.4 1.4 0 0 1 0 2"/><rect x="14" y="3" width="7" height="18" rx="2"/></svg><span><strong>Etiqueta NFC</strong><small></small></span></div>
+              <div class="ph-banner" aria-live="polite" data-open-gintaro="Abriendo las reseñas de Google…" data-open-rasos="Abriendo Instagram…" data-open-kopa="Abriendo Facebook…" data-open-bangos="Abriendo la carta…"><svg class="nfc-ico nfc-ico-banner" viewBox="38 72 148 110" aria-hidden="true"><path d="M134 83A61 39 0 1 0 127 153"/><path class="nfc-ico-w nfc-ico-w3" d="M89 89A44.1 44.1 0 0 0 92 146"/><path class="nfc-ico-w nfc-ico-w2" d="M100 98A23.5 23.5 0 0 0 100 135"/><path class="nfc-ico-w nfc-ico-w1" d="M108 108A12.4 12.4 0 0 0 108 128"/><g transform="rotate(-5 154 131.5)"><rect x="133.5" y="90" width="41" height="83" rx="10"/><path d="M148 95.5h12"/></g></svg><span><strong>Etiqueta NFC</strong><small></small></span></div>
 
               <div class="ph-view ph-idle" data-view="idle">
-                <span class="ph-idle-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8.5 8.5a5 5 0 0 1 0 7M5.5 5.5a9.2 9.2 0 0 1 0 13M11.5 11a1.4 1.4 0 0 1 0 2"/><rect x="14" y="3" width="7" height="18" rx="2"/></svg></span>
+                <span class="ph-idle-icon"><svg class="nfc-ico" viewBox="15 35 193 181" aria-hidden="true"><path class="nfc-ico-frame" d="M23 80V51a8 8 0 0 1 8-8h30M162 43h30a8 8 0 0 1 8 8v29M23 175v25a8 8 0 0 0 8 8h30M162 208h30a8 8 0 0 0 8-8v-25"/><path d="M134 83A61 39 0 1 0 127 153"/><path class="nfc-ico-w nfc-ico-w3" d="M89 89A44.1 44.1 0 0 0 92 146"/><path class="nfc-ico-w nfc-ico-w2" d="M100 98A23.5 23.5 0 0 0 100 135"/><path class="nfc-ico-w nfc-ico-w1" d="M108 108A12.4 12.4 0 0 0 108 128"/><g transform="rotate(-5 154 131.5)"><rect x="133.5" y="90" width="41" height="83" rx="10"/><path d="M148 95.5h12"/></g></svg></span>
                 <p>Acerca el móvil a la tarjeta</p>
               </div>
 
               <div class="ph-view ph-google" data-view="gintaro" hidden>
-                <div class="ph-head"><img src="../img/tarjetas/logo-gintaro.webp?v=2026-10-04b" alt="" width="40" height="40" loading="lazy"><div><strong>Gintaro Barber</strong><small>4,9 ★ · Barbería</small></div></div>
-                <div class="ph-review">
+                <div class="ph-head"><img src="../img/tarjetas/logo-gintaro.webp?v=2026-10-05" alt="" width="40" height="40" loading="lazy"><div><strong>Gintaro Barber</strong><small>4,9 ★ · Barbería</small></div></div>
+                <div class="ph-review" data-m1="No fue mi mejor visita. El corte no era lo que pedí." data-m2="El sitio está bien, pero tuve que esperar bastante." data-m3="Corte correcto y trato amable. Sin más." data-m4="Muy buen corte y un equipo majísimo. ¡Volveré!" data-m5="¡La mejor barbería! Degradado perfecto, buena charla y el local es una pasada. 100 % recomendable.">
                   <p class="ph-title">Valora tu visita</p>
                   <div class="ph-stars" role="radiogroup" aria-label="Valora tu visita"><button type="button" class="ph-star" role="radio" aria-checked="false" aria-label="1 estrella" data-value="1"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2.8 2.8 5.8 6.3.9-4.6 4.4 1.1 6.3L12 17.2l-5.6 3 1.1-6.3L2.9 9.5l6.3-.9Z"/></svg></button><button type="button" class="ph-star" role="radio" aria-checked="false" aria-label="2 estrellas" data-value="2"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2.8 2.8 5.8 6.3.9-4.6 4.4 1.1 6.3L12 17.2l-5.6 3 1.1-6.3L2.9 9.5l6.3-.9Z"/></svg></button><button type="button" class="ph-star" role="radio" aria-checked="false" aria-label="3 estrellas" data-value="3"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2.8 2.8 5.8 6.3.9-4.6 4.4 1.1 6.3L12 17.2l-5.6 3 1.1-6.3L2.9 9.5l6.3-.9Z"/></svg></button><button type="button" class="ph-star" role="radio" aria-checked="false" aria-label="4 estrellas" data-value="4"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2.8 2.8 5.8 6.3.9-4.6 4.4 1.1 6.3L12 17.2l-5.6 3 1.1-6.3L2.9 9.5l6.3-.9Z"/></svg></button><button type="button" class="ph-star" role="radio" aria-checked="false" aria-label="5 estrellas" data-value="5"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2.8 2.8 5.8 6.3.9-4.6 4.4 1.1 6.3L12 17.2l-5.6 3 1.1-6.3L2.9 9.5l6.3-.9Z"/></svg></button></div>
-                  <p class="ph-textarea">Cuenta tu experiencia…</p>
+                  <p class="ph-textarea"><span class="ph-typed" aria-live="polite"></span><span class="ph-placeholder">Toca las estrellas y cuenta tu experiencia…</span></p>
                   <button type="button" class="ph-btn ph-post" disabled>Publicar</button>
                 </div>
-                <div class="ph-done" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m7.5 12.3 3 3 6-6.3"/></svg><strong>¡Gracias por tu reseña!</strong><small>Así de fácil lo tendrán tus clientes.</small></div>
+                <div class="ph-done" hidden>
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m7.5 12.3 3 3 6-6.3"/></svg><strong>¡Gracias por tu reseña!</strong><small>Así de fácil lo tendrán tus clientes.</small>
+                  <div class="ph-my-review"><div class="ph-my-head"><span class="ph-me" aria-hidden="true">T</span><div><strong>Tú</strong><span class="ph-my-stars"></span></div></div><p class="ph-my-text"></p></div>
+                </div>
               </div>
 
               <div class="ph-view ph-insta" data-view="rasos" hidden>
                 <p class="ph-handle">rasos.geles</p>
-                <div class="ph-profile">
-                  <span class="ph-avatar ph-ring"><img src="../img/tarjetas/logo-rasos.webp?v=2026-10-04b" alt="" width="64" height="64" loading="lazy"></span>
-                  <dl class="ph-stats"><div><dt>publicaciones</dt><dd>128</dd></div><div><dt>seguidores</dt><dd class="ph-count" data-count="2431">2431</dd></div><div><dt>seguidos</dt><dd>310</dd></div></dl>
+                <div class="ph-ig-head">
+                  <span class="ph-avatar ph-ring"><img src="../img/tarjetas/logo-rasos.webp?v=2026-10-05" alt="" width="68" height="68" loading="lazy"></span>
+                  <div><p class="ph-name">Rasos gėlės</p><p class="ph-bio">Floristería · Ramos por encargo</p></div>
                 </div>
-                <p class="ph-name">Rasos gėlės</p>
-                <p class="ph-bio">Floristería · Ramos por encargo</p>
-                <button type="button" class="ph-btn ph-follow" aria-pressed="false" data-on="Siguiendo" data-off="Seguir">Seguir</button>
-                <div class="ph-grid" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+                <dl class="ph-stats"><div><dt>publicaciones</dt><dd>128</dd></div><div><dt>seguidores</dt><dd class="ph-followers" data-count="2431">2431</dd></div><div><dt>seguidos</dt><dd>310</dd></div></dl>
+                <div class="ph-ig-actions">
+                  <button type="button" class="ph-btn ph-follow" aria-pressed="false" data-on="Siguiendo" data-off="Seguir" data-target=".ph-followers">Seguir</button>
+                  <span class="ph-btn ph-btn-ghost" aria-hidden="true">Mensaje</span>
+                </div>
+                <div class="ph-highlights" aria-hidden="true"><span><img src="../img/demo/flor-8.webp?v=2026-10-05" alt="" width="48" height="48" loading="lazy"><small>Ramos</small></span><span><img src="../img/demo/flor-3.webp?v=2026-10-05" alt="" width="48" height="48" loading="lazy"><small>Bodas</small></span><span><img src="../img/demo/flor-4.webp?v=2026-10-05" alt="" width="48" height="48" loading="lazy"><small>Tienda</small></span></div>
+                <div class="ph-grid" aria-hidden="true"><img src="../img/demo/flor-1.webp?v=2026-10-05" alt="" width="160" height="160" loading="lazy"><img src="../img/demo/flor-2.webp?v=2026-10-05" alt="" width="160" height="160" loading="lazy"><img src="../img/demo/flor-5.webp?v=2026-10-05" alt="" width="160" height="160" loading="lazy"><img src="../img/demo/flor-6.webp?v=2026-10-05" alt="" width="160" height="160" loading="lazy"><img src="../img/demo/flor-3.webp?v=2026-10-05" alt="" width="160" height="160" loading="lazy"><img src="../img/demo/flor-9.webp?v=2026-10-05" alt="" width="160" height="160" loading="lazy"><img src="../img/demo/flor-7.webp?v=2026-10-05" alt="" width="160" height="160" loading="lazy"><img src="../img/demo/flor-4.webp?v=2026-10-05" alt="" width="160" height="160" loading="lazy"><img src="../img/demo/flor-8.webp?v=2026-10-05" alt="" width="160" height="160" loading="lazy"></div>
               </div>
 
               <div class="ph-view ph-fb" data-view="kopa" hidden>
-                <div class="ph-cover" aria-hidden="true"></div>
-                <span class="ph-avatar ph-avatar-fb"><img src="../img/tarjetas/logo-kopa.webp?v=2026-10-04b" alt="" width="72" height="72" loading="lazy"></span>
+                <img class="ph-cover" src="../img/demo/kopa-portada.webp?v=2026-10-05" alt="" width="720" height="300" loading="lazy">
+                <span class="ph-avatar ph-avatar-fb"><img src="../img/tarjetas/logo-kopa.webp?v=2026-10-05" alt="" width="72" height="72" loading="lazy"></span>
                 <p class="ph-name">Kopa yoga studija</p>
-                <p class="ph-meta">Estudio de yoga · <span class="ph-count" data-count="1284">1284</span> seguidores</p>
+                <p class="ph-meta">Estudio de yoga · <span class="ph-followers" data-count="1284">1284</span> seguidores</p>
                 <div class="ph-fb-actions">
-                  <button type="button" class="ph-btn ph-follow" aria-pressed="false" data-on="Siguiendo" data-off="Seguir">Seguir</button>
+                  <button type="button" class="ph-btn ph-follow" aria-pressed="false" data-on="Siguiendo" data-off="Seguir" data-target=".ph-followers">Seguir</button>
                   <span class="ph-btn ph-btn-ghost" aria-hidden="true">Mensaje</span>
                 </div>
-                <div class="ph-post-card"><p class="ph-post-head"><strong>Kopa yoga studija</strong> · 2 h</p><p>Clase al amanecer en la playa este sábado a las 8:00. ¡Trae tu esterilla!</p></div>
+                <div class="ph-fb-tabs" aria-hidden="true"><span class="is-on">Publicaciones</span><span>Información</span><span>Fotos</span></div>
+                <article class="ph-fb-post">
+                  <header><img src="../img/tarjetas/logo-kopa.webp?v=2026-10-05" alt="" width="34" height="34" loading="lazy"><div><strong>Kopa yoga studija</strong><small>2 h · <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg></small></div></header>
+                  <p>Clase al amanecer en la playa este sábado a las 8:00. Tú trae la esterilla, ¡el té lo ponemos nosotros!</p>
+                  <img class="ph-fb-photo" src="../img/demo/kopa-post.webp?v=2026-10-05" alt="" width="640" height="480" loading="lazy">
+                  <div class="ph-fb-stats"><span class="ph-reacts" aria-hidden="true"><i class="r-like"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10v11H3V10h4Zm2 11h8.5a2 2 0 0 0 2-1.6l1.4-7A2 2 0 0 0 19 10h-5l.8-4.2A2 2 0 0 0 12.8 3L9 10v11Z"/></svg></i><i class="r-love"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10Z"/></svg></i></span><span class="ph-likes" data-count="48">48</span><span class="ph-fb-comments">12 comentarios</span></div>
+                  <div class="ph-fb-bar">
+                    <button type="button" class="ph-like" aria-pressed="false" data-target=".ph-likes"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10v11H3V10h4Zm2 11h8.5a2 2 0 0 0 2-1.6l1.4-7A2 2 0 0 0 19 10h-5l.8-4.2A2 2 0 0 0 12.8 3L9 10v11Z"/></svg>Me gusta</button>
+                    <span aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 15a2 2 0 0 1-2 2H8l-4 4V5a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2Z"/></svg>Comentar</span>
+                    <span aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4l7 7-7 7v-4c-5 0-8 1.5-11 5 1-5 4-9.5 11-10V4Z"/></svg>Compartir</span>
+                  </div>
+                </article>
               </div>
 
               <div class="ph-view ph-menu" data-view="bangos" hidden>
-                <div class="ph-head ph-head-dark"><img src="../img/tarjetas/logo-bangos.webp?v=2026-10-04b" alt="" width="40" height="40" loading="lazy"><div><strong>Bangos bistro</strong><small>Carta</small></div></div>
-                <div class="ph-tabs" role="tablist" aria-label="Carta"><button type="button" class="ph-tab" role="tab" aria-selected="true" data-tab="0">Entrantes</button><button type="button" class="ph-tab" role="tab" aria-selected="false" data-tab="1">Principales</button><button type="button" class="ph-tab" role="tab" aria-selected="false" data-tab="2">Postres</button></div>
-                <ul class="ph-dishes" role="tabpanel" data-panel="0"><li><strong>Sardinas a la brasa</strong><span>Con limón y sal marina</span></li><li><strong>Sopa de pescado</strong><span>La receta de la casa</span></li><li><strong>Paté de caballa ahumada</strong><span>Sobre pan de centeno tostado</span></li></ul><ul class="ph-dishes" role="tabpanel" data-panel="1" hidden><li><strong>Pescado del día</strong><span>A la brasa, con verduras de temporada</span></li><li><strong>Risotto marinero</strong><span>Mejillones, gambas y calamar</span></li><li><strong>Fish & chips</strong><span>Rebozado de cerveza, salsa tártara</span></li></ul><ul class="ph-dishes" role="tabpanel" data-panel="2" hidden><li><strong>Tarta de limón</strong><span>Con merengue</span></li><li><strong>Coulant de chocolate</strong><span>Con helado de vainilla</span></li><li><strong>Fruta del día</strong><span>La que esté de temporada</span></li></ul>
+                <div class="ph-head ph-head-dark"><img src="../img/tarjetas/logo-bangos.webp?v=2026-10-05" alt="" width="40" height="40" loading="lazy"><div><strong>Bangos bistro</strong><small>Pescado y marisco · Abierto</small></div></div>
+                <div class="ph-tabs" role="tablist" aria-label="Carta"><button type="button" class="ph-tab" role="tab" aria-selected="true" data-tab="0">Entrantes</button><button type="button" class="ph-tab" role="tab" aria-selected="false" data-tab="1">Platos</button><button type="button" class="ph-tab" role="tab" aria-selected="false" data-tab="2">Postres</button></div>
+                <ul class="ph-dishes" role="tabpanel" data-panel="0"><li><button type="button" class="ph-dish"><img src="../img/demo/plato-sardinas.webp?v=2026-10-05" alt="" width="56" height="56" loading="lazy"><span><strong>Sardinas a la brasa</strong><small>Con limón y sal marina</small></span><em>8,50 €</em></button></li><li><button type="button" class="ph-dish"><img src="../img/demo/plato-sopa.webp?v=2026-10-05" alt="" width="56" height="56" loading="lazy"><span><strong>Sopa de pescado</strong><small>La receta de la casa</small></span><em>7,00 €</em></button></li><li><button type="button" class="ph-dish"><img src="../img/demo/plato-pate.webp?v=2026-10-05" alt="" width="56" height="56" loading="lazy"><span><strong>Paté de caballa ahumada</strong><small>Sobre pan de centeno tostado</small></span><em>6,50 €</em></button></li></ul><ul class="ph-dishes" role="tabpanel" data-panel="1" hidden><li><button type="button" class="ph-dish"><img src="../img/demo/plato-pescado.webp?v=2026-10-05" alt="" width="56" height="56" loading="lazy"><span><strong>Pescado del día</strong><small>A la brasa, con verduras de temporada</small></span><em>18,00 €</em></button></li><li><button type="button" class="ph-dish"><img src="../img/demo/plato-risotto.webp?v=2026-10-05" alt="" width="56" height="56" loading="lazy"><span><strong>Risotto marinero</strong><small>Mejillones, gambas y calamar</small></span><em>16,50 €</em></button></li><li><button type="button" class="ph-dish"><img src="../img/demo/plato-fishchips.webp?v=2026-10-05" alt="" width="56" height="56" loading="lazy"><span><strong>Fish & chips</strong><small>Rebozado de cerveza, salsa tártara</small></span><em>13,00 €</em></button></li></ul><ul class="ph-dishes" role="tabpanel" data-panel="2" hidden><li><button type="button" class="ph-dish"><img src="../img/demo/plato-tarta.webp?v=2026-10-05" alt="" width="56" height="56" loading="lazy"><span><strong>Tarta de limón</strong><small>Con merengue tostado</small></span><em>6,00 €</em></button></li><li><button type="button" class="ph-dish"><img src="../img/demo/plato-coulant.webp?v=2026-10-05" alt="" width="56" height="56" loading="lazy"><span><strong>Coulant de chocolate</strong><small>Con helado de vainilla</small></span><em>6,50 €</em></button></li><li><button type="button" class="ph-dish"><img src="../img/demo/plato-fruta.webp?v=2026-10-05" alt="" width="56" height="56" loading="lazy"><span><strong>Fruta del día</strong><small>La que esté de temporada</small></span><em>4,50 €</em></button></li></ul>
+                <div class="ph-dish-detail" hidden>
+                  <button type="button" class="ph-back">← Volver</button>
+                  <img class="ph-detail-img" src="" alt="" width="560" height="400">
+                  <div class="ph-detail-body"><p class="ph-detail-name"></p><p class="ph-detail-price"></p><p class="ph-detail-desc"></p></div>
+                </div>
               </div>
             </div></div>
           </div>
@@ -794,6 +816,6 @@
   <svg viewBox="0 0 24 24" class="icon-wa" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.7-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.1-.2.2-.3.2-.6.1-.3-.1-1.2-.5-2.3-1.5-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5C10.1 9 9.6 7.8 9.4 7.3c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.3.3-1 .9-1 2.3s1 2.7 1.2 2.9c.1.2 2 3 4.8 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 1.9-1.3.2-.7.2-1.2.2-1.3-.1-.2-.3-.2-.6-.4z"/><path d="M12 2C6.5 2 2 6.5 2 12c0 1.9.5 3.7 1.5 5.3L2 22l4.8-1.5c1.5.8 3.3 1.3 5.2 1.3 5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18.3c-1.7 0-3.4-.5-4.8-1.4l-.3-.2-3 .9.9-2.9-.2-.3C3.7 15 3.2 13.5 3.2 12c0-4.8 3.9-8.8 8.8-8.8s8.8 3.9 8.8 8.8-3.9 8.8-8.8 8.8z"/></svg>
 </a>
 
-<script src="../js/main.js?v=2026-10-04c"></script>
+<script src="../js/main.js?v=2026-10-05"></script>
 </body>
 </html>
