@@ -416,6 +416,7 @@ em {
 .dot-green { background: var(--green); box-shadow: 0 0 0 4px #dcfce7; }
 .dot-blue { background: var(--blue); box-shadow: 0 0 0 4px var(--blue-soft); }
 .dot-navy { background: var(--navy); box-shadow: 0 0 0 4px #e2e8f5; }
+.dot-sky { background: var(--blue-pale); box-shadow: 0 0 0 4px var(--blue-soft); }
 
 .hero h1 {
   font-size: clamp(2.6rem, 5.4vw, 4.1rem);
@@ -536,9 +537,10 @@ em {
   gap: 24px;
 }
 
-/* Tarjetas de paquetes, sin precio: nombre, una línea que lo resume y lo
-   importante en dos a cuatro puntos. El botón de WhatsApp va fuera, uno por
-   grupo (.plans-cta); en móvil lo sustituye el botón fijo. */
+/* Tarjetas de paquetes: nombre, una línea que lo resume y lo importante en
+   dos a cuatro puntos. Las de las tarjetas NFC llevan además el precio (normal
+   tachado y de lanzamiento); las de las webs, no. El botón de WhatsApp va
+   fuera, uno por grupo (.plans-cta); en móvil lo sustituye el botón fijo. */
 .price-card {
   display: flex;
   flex-direction: column;
@@ -629,6 +631,55 @@ em {
   max-width: 70ch;
 }
 .plan-note { text-align: center; max-width: none; margin-top: 24px; font-size: .95rem; }
+.nfc-pricing + .plan-note { margin-top: 28px; }
+
+/* Packs de tarjetas NFC: cuatro por propósito (una, mostrador, mesas, local),
+   con el precio normal tachado y el de lanzamiento */
+.pricing-grid.nfc-pricing { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; }
+.nfc-pricing .price-card { padding: 30px 24px 24px; }
+.plan-price {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 4px 10px;
+  margin: auto 0 0;
+  padding-top: 24px;
+}
+.plan-price s { color: var(--muted); font-size: 1.02rem; font-weight: 600; }
+.plan-price strong {
+  font-family: var(--font-display);
+  font-size: 2.1rem;
+  line-height: 1;
+  color: var(--navy);
+}
+.plan-launch {
+  margin: 8px 0 0;
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  color: var(--green-dark);
+}
+.price-card-featured .plan-price s { color: #9fb0d3; }
+.price-card-featured .plan-price strong { color: var(--white); }
+.price-card-featured .plan-launch { color: #7ee2a8; }
+@media (max-width: 1100px) {
+  .pricing-grid.nfc-pricing { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px 20px; }
+}
+/* En móvil siguen de dos en dos, más compactas, para no alargar la página */
+@media (max-width: 560px) {
+  .pricing-grid.nfc-pricing { gap: 22px 12px; }
+  .nfc-pricing .price-card { padding: 24px 14px 18px; }
+  .nfc-pricing .price-badge { left: 14px; font-size: .62rem; padding: 5px 10px; }
+  .nfc-pricing .price-tag { font-size: .66rem; letter-spacing: .04em; }
+  .nfc-pricing .plan-sub { font-size: 1.2rem; margin-bottom: 14px; }
+  .nfc-pricing .price-list { gap: 8px; }
+  .nfc-pricing .price-list li { font-size: .8rem; padding-left: 18px; }
+  .nfc-pricing .plan-price { padding-top: 16px; }
+  .nfc-pricing .plan-price s { font-size: .85rem; }
+  .nfc-pricing .plan-price strong { font-size: 1.6rem; }
+  .nfc-pricing .plan-launch { font-size: .6rem; }
+}
 .pricing-note a,
 .faq-answer a {
   color: var(--blue);
