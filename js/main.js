@@ -1018,7 +1018,7 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
 // un correo con «Responder a» puesto en el del cliente.
 // FORM_URL es la URL de la aplicación web publicada (acaba en /exec). Vacía,
 // el formulario enseña el mensaje de error con el correo.
-const FORM_URL = '';
+const FORM_URL = 'https://script.google.com/macros/s/AKfycbxQhCkmrDrWcR-RPVS5mY0M12J-7yCHO-vDmhdtiQnDOQEGSD_C7ezs2ctA5rSAp8Yf/exec';
 (function () {
   const form = document.getElementById('contact-form');
   if (!form) return;
@@ -1067,6 +1067,10 @@ const FORM_URL = '';
       const res = await fetch(FORM_URL, { method: 'POST', body: data, credentials: 'omit' });
       const json = await res.json();
       if (!json.ok) throw new Error('Rechazado');
+      // Cuenta el envío en GoatCounter como evento (sin datos del cliente)
+      if (window.goatcounter && window.goatcounter.count) {
+        window.goatcounter.count({ path: 'formulario-enviado-' + data.get('necesita'), title: 'Formulario enviado', event: true });
+      }
       form.reset();
       syncOther(false);
       status.textContent = form.dataset.ok;
