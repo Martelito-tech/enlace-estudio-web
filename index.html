@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Enlace Estudio · NFC review cards and websites</title>
-<meta name="description" content="NFC cards with your branding that get you reviews on Google, Instagram and Facebook with a tap of the phone. And websites for your business. Message us on WhatsApp.">
+<meta name="description" content="NFC cards with your branding that get you reviews on Google, Instagram and Facebook with a tap of the phone. And websites for your business.">
 
 <link rel="canonical" href="https://enlaceestudio.com/">
 <link rel="alternate" hreflang="en" href="https://enlaceestudio.com/">
@@ -36,10 +36,13 @@
      obligatorio en el preload aunque la fuente sea del mismo dominio. -->
 <link rel="preload" href="fonts/manrope-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/sora-latin.woff2" as="font" type="font/woff2" crossorigin>
-<!-- Al tocar el CSS o el JS, sube la fecha del ?v= en todos los HTML. Cloudflare
-     los cachea 4 horas: si la ruta no cambia, quien ya visitó la web recibe el
-     HTML nuevo con el CSS viejo y la página se ve rota. -->
-<link rel="stylesheet" href="css/style.css?v=2026-10-11">
+<!-- Al tocar el CSS o el JS, sube la fecha del ?v= en todos los HTML. Si la ruta no
+     cambia, el navegador de quien ya visitó la web puede juntar el HTML nuevo
+     con el CSS viejo y la página se ve rota. -->
+<!-- Oferta de lanzamiento: fecha y plazas en js/lanzamiento.js. Va antes del
+     CSS para que, pasada la fecha, no se vean ni un instante los precios rebajados. -->
+<script src="js/lanzamiento.js?v=2026-11-09"></script>
+<link rel="stylesheet" href="css/style.css?v=2026-11-09">
 
 <script type="application/ld+json">
 {
@@ -51,7 +54,7 @@
   "url": "https://enlaceestudio.com/",
   "image": "https://enlaceestudio.com/img/og-en.jpg",
   "logo": "https://enlaceestudio.com/img/Logo_enlace_vectorizado.svg",
-  "telephone": "+34682292137",
+  "email": "enlaceestudioweb@gmail.com",
   "currenciesAccepted": "EUR",
   "sameAs": [
     "https://www.instagram.com/enlaceestudio_/",
@@ -113,7 +116,7 @@
       "name": "What if I need changes after handover?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "If you pay a monthly fee, changes are covered by it according to your plan: just message us and we'll update it. If you bought the website as a one-off payment, each change is charged separately, by the hour. Either way, for big changes, such as complete subpages or new features, we agree a separate price, always made clear in advance."
+        "text": "If you pay a monthly fee, changes are covered by it: just message us and we'll update it. If you bought the website as a one-off payment, each change is charged separately, by the hour. Either way, for big changes, such as complete subpages or new features, we agree a separate price, always made clear in advance."
       }
     },
     {
@@ -155,8 +158,7 @@
       <a href="es/" hreflang="es" lang="es" title="Español"><img src="img/flags/es.svg" alt="" width="20" height="14"><span>ES</span><span class="sr-only"> · Español</span></a>
       <a href="lt/" hreflang="lt" lang="lt" title="Lietuvių"><img src="img/flags/lt.svg" alt="" width="20" height="14"><span>LT</span><span class="sr-only"> · Lietuvių</span></a>
     </nav>
-    <a class="btn btn-dark btn-sm" href="https://wa.me/34682292137?text=Hi!%20I%27d%20like%20to%20talk%20about%20my%20business." target="_blank" rel="noopener">
-      <svg viewBox="0 0 24 24" class="icon-wa" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.7-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.1-.2.2-.3.2-.6.1-.3-.1-1.2-.5-2.3-1.5-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5C10.1 9 9.6 7.8 9.4 7.3c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.3.3-1 .9-1 2.3s1 2.7 1.2 2.9c.1.2 2 3 4.8 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 1.9-1.3.2-.7.2-1.2.2-1.3-.1-.2-.3-.2-.6-.4z"/><path d="M12 2C6.5 2 2 6.5 2 12c0 1.9.5 3.7 1.5 5.3L2 22l4.8-1.5c1.5.8 3.3 1.3 5.2 1.3 5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18.3c-1.7 0-3.4-.5-4.8-1.4l-.3-.2-3 .9.9-2.9-.2-.3C3.7 15 3.2 13.5 3.2 12c0-4.8 3.9-8.8 8.8-8.8s8.8 3.9 8.8 8.8-3.9 8.8-8.8 8.8z"/></svg>
+    <a class="btn btn-dark btn-sm" href="#contacto">
       Let's talk
     </a>
     <button class="nav-toggle" id="nav-toggle" aria-label="Open menu" aria-expanded="false">
@@ -388,7 +390,9 @@
       </div>
 
       <!-- Packs por propósito, no por cantidad: precio normal tachado y precio
-           de lanzamiento (decisión del 11/10/2026) -->
+           de lanzamiento (decisión del 11/10/2026). Lo de .solo-lanzamiento se
+           oculta y lo de .solo-normal aparece cuando js/lanzamiento.js da la
+           oferta por acabada. -->
       <div class="pricing-grid nfc-pricing">
         <article class="price-card">
           <p class="price-tag"><span class="dot dot-sky"></span> ONE</p>
@@ -397,8 +401,8 @@
             <li>The Google review</li>
             <li>For the counter or reception</li>
           </ul>
-          <p class="plan-price"><span class="sr-only">Normal price: </span><s>€29</s> <span class="sr-only">Launch price: </span><strong>€23</strong></p>
-          <p class="plan-launch">Launch price</p>
+          <p class="plan-price"><span class="solo-lanzamiento"><span class="sr-only">Normal price: </span><s>€29</s> <span class="sr-only">Launch price: </span><strong>€23</strong></span><strong class="solo-normal">€29</strong></p>
+          <p class="plan-launch solo-lanzamiento">Launch price</p>
         </article>
 
         <article class="price-card">
@@ -408,8 +412,8 @@
             <li>Google, Instagram and Facebook</li>
             <li>For the till or the counter</li>
           </ul>
-          <p class="plan-price"><span class="sr-only">Normal price: </span><s>€69</s> <span class="sr-only">Launch price: </span><strong>€55</strong></p>
-          <p class="plan-launch">Launch price</p>
+          <p class="plan-price"><span class="solo-lanzamiento"><span class="sr-only">Normal price: </span><s>€69</s> <span class="sr-only">Launch price: </span><strong>€55</strong></span><strong class="solo-normal">€69</strong></p>
+          <p class="plan-launch solo-lanzamiento">Launch price</p>
         </article>
 
         <article class="price-card price-card-featured">
@@ -420,8 +424,8 @@
             <li>One on every table</li>
             <li>Google, Instagram, Facebook or your menu</li>
           </ul>
-          <p class="plan-price"><span class="sr-only">Normal price: </span><s>€169</s> <span class="sr-only">Launch price: </span><strong>€135</strong></p>
-          <p class="plan-launch">Launch price</p>
+          <p class="plan-price"><span class="solo-lanzamiento"><span class="sr-only">Normal price: </span><s>€169</s> <span class="sr-only">Launch price: </span><strong>€135</strong></span><strong class="solo-normal">€169</strong></p>
+          <p class="plan-launch solo-lanzamiento">Launch price</p>
         </article>
 
         <article class="price-card">
@@ -431,16 +435,17 @@
             <li>Tables, bar and terrace</li>
             <li>For larger venues</li>
           </ul>
-          <p class="plan-price"><span class="sr-only">Normal price: </span><s>€290</s> <span class="sr-only">Launch price: </span><strong>€229</strong></p>
-          <p class="plan-launch">Launch price</p>
+          <p class="plan-price"><span class="solo-lanzamiento"><span class="sr-only">Normal price: </span><s>€290</s> <span class="sr-only">Launch price: </span><strong>€229</strong></span><strong class="solo-normal">€290</strong></p>
+          <p class="plan-launch solo-lanzamiento">Launch price</p>
         </article>
       </div>
 
-      <p class="pricing-note plan-note">Launch prices. One-off payment, no subscription. More than 20 cards, for a hotel, a chain or several venues? <a href="https://wa.me/34682292137?text=Hi!%20I%20need%20more%20than%2020%20NFC%20cards%20for%20my%20business." target="_blank" rel="noopener">We'll send you a quote</a>.</p>
+      <p class="pricing-note plan-note plan-offer solo-lanzamiento">20% off for the first 10 businesses or until <span data-lanzamiento="fecha">15 November</span>, whichever comes first. <strong data-lanzamiento="plazas">8 places left.</strong></p>
+      <p class="pricing-note plan-note">One-off payment, no subscription. If a card ever stops working, we replace it free of charge, at any time.</p>
+      <p class="pricing-note plan-note">More than 20 cards, for a hotel, a chain or several venues? From €13 per card: <a href="#contacto" data-need="otro" data-msg="I need more than 20 NFC cards.">we'll send you a quote</a>.</p>
 
       <div class="plans-cta">
-        <a class="btn btn-wa btn-lg" href="https://wa.me/34682292137?text=Hi!%20I%27m%20interested%20in%20NFC%20cards%20for%20my%20business." target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24" class="icon-wa" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.7-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.1-.2.2-.3.2-.6.1-.3-.1-1.2-.5-2.3-1.5-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5C10.1 9 9.6 7.8 9.4 7.3c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.3.3-1 .9-1 2.3s1 2.7 1.2 2.9c.1.2 2 3 4.8 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 1.9-1.3.2-.7.2-1.2.2-1.3-.1-.2-.3-.2-.6-.4z"/><path d="M12 2C6.5 2 2 6.5 2 12c0 1.9.5 3.7 1.5 5.3L2 22l4.8-1.5c1.5.8 3.3 1.3 5.2 1.3 5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18.3c-1.7 0-3.4-.5-4.8-1.4l-.3-.2-3 .9.9-2.9-.2-.3C3.7 15 3.2 13.5 3.2 12c0-4.8 3.9-8.8 8.8-8.8s8.8 3.9 8.8 8.8-3.9 8.8-8.8 8.8z"/></svg>
+        <a class="btn btn-cta btn-lg" href="#contacto" data-need="nfc">
           I want my cards
         </a>
       </div>
@@ -615,16 +620,13 @@
           <p class="plan-sub">With a monthly fee</p>
           <ul class="price-list">
             <li>Everything in Website + Presence</li>
-            <li>Unlimited reasonable changes</li>
-            <li>Priority WhatsApp support</li>
             <li>Monthly report on your website's data</li>
           </ul>
         </article>
       </div>
 
       <div class="plans-cta">
-        <a class="btn btn-wa btn-lg" href="https://wa.me/34682292137?text=Hi!%20I%27d%20like%20to%20talk%20about%20a%20website%20for%20my%20business." target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24" class="icon-wa" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.7-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.1-.2.2-.3.2-.6.1-.3-.1-1.2-.5-2.3-1.5-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5C10.1 9 9.6 7.8 9.4 7.3c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.3.3-1 .9-1 2.3s1 2.7 1.2 2.9c.1.2 2 3 4.8 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 1.9-1.3.2-.7.2-1.2.2-1.3-.1-.2-.3-.2-.6-.4z"/><path d="M12 2C6.5 2 2 6.5 2 12c0 1.9.5 3.7 1.5 5.3L2 22l4.8-1.5c1.5.8 3.3 1.3 5.2 1.3 5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18.3c-1.7 0-3.4-.5-4.8-1.4l-.3-.2-3 .9.9-2.9-.2-.3C3.7 15 3.2 13.5 3.2 12c0-4.8 3.9-8.8 8.8-8.8s8.8 3.9 8.8 8.8-3.9 8.8-8.8 8.8z"/></svg>
+        <a class="btn btn-cta btn-lg" href="#contacto" data-need="web">
           Let's talk about your website
         </a>
       </div>
@@ -645,10 +647,9 @@
         </div>
         <div class="pack-price">
           <p class="pack-lead">Everything together, in one pack.</p>
-          <a class="btn btn-wa" href="https://wa.me/34682292137?text=Hi!%20I%27m%20interested%20in%20the%20Complete%20Business%20Pack%3A%20website%2C%20NFC%20cards%20and%20Google%20Business%20Profile." target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24" class="icon-wa" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.7-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.1-.2.2-.3.2-.6.1-.3-.1-1.2-.5-2.3-1.5-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5C10.1 9 9.6 7.8 9.4 7.3c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.3.3-1 .9-1 2.3s1 2.7 1.2 2.9c.1.2 2 3 4.8 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 1.9-1.3.2-.7.2-1.2.2-1.3-.1-.2-.3-.2-.6-.4z"/><path d="M12 2C6.5 2 2 6.5 2 12c0 1.9.5 3.7 1.5 5.3L2 22l4.8-1.5c1.5.8 3.3 1.3 5.2 1.3 5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18.3c-1.7 0-3.4-.5-4.8-1.4l-.3-.2-3 .9.9-2.9-.2-.3C3.7 15 3.2 13.5 3.2 12c0-4.8 3.9-8.8 8.8-8.8s8.8 3.9 8.8 8.8-3.9 8.8-8.8 8.8z"/></svg>
-            I want the complete pack
-          </a>
+          <a class="btn btn-cta" href="#contacto" data-need="otro" data-msg="I'm interested in the Complete Business Pack.">
+          I want the complete pack
+        </a>
         </div>
       </article>
 
@@ -765,7 +766,7 @@
             <svg viewBox="0 0 24 24" class="faq-chevron"><path d="M6 9l6 6 6-6"/></svg>
           </button>
           <div class="faq-answer">
-            <p>If you pay a monthly fee, changes are covered by it according to your plan: just message us and we'll update it. If you bought the website as a one-off payment, each change is charged separately, by the hour. Either way, for big changes, such as complete subpages or new features, we agree a separate price, always made clear in advance.</p>
+            <p>If you pay a monthly fee, changes are covered by it: just message us and we'll update it. If you bought the website as a one-off payment, each change is charged separately, by the hour. Either way, for big changes, such as complete subpages or new features, we agree a separate price, always made clear in advance.</p>
           </div>
         </div>
         <div class="faq-item">
@@ -790,15 +791,32 @@
     </div>
   </section>
 
-  <!-- CONTACTO / CTA FINAL -->
-  <section class="cta-final">
+  <!-- CONTACTO: formulario. Lo envía js/main.js al Apps Script de
+       herramientas/formulario-web/, que manda un correo a enlaceestudioweb@gmail.com.
+       Solo pide el correo y qué necesita; «Otro» despliega el cuadro de texto. -->
+  <section class="cta-final" id="contacto">
     <div class="wrap cta-final-inner">
       <h2>Shall we talk about your business?</h2>
-      <p>Cards, a website or both: tell us what your business does and we'll get back to you with what you need and a fixed price.</p>
-      <a class="btn btn-wa btn-lg" href="https://wa.me/34682292137?text=Hi!%20Here%27s%20what%20my%20business%20does%2C%20so%20you%20can%20suggest%20a%20plan%20and%20a%20price." target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24" class="icon-wa" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.7-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.1-.2.2-.3.2-.6.1-.3-.1-1.2-.5-2.3-1.5-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5C10.1 9 9.6 7.8 9.4 7.3c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.3.3-1 .9-1 2.3s1 2.7 1.2 2.9c.1.2 2 3 4.8 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 1.9-1.3.2-.7.2-1.2.2-1.3-.1-.2-.3-.2-.6-.4z"/><path d="M12 2C6.5 2 2 6.5 2 12c0 1.9.5 3.7 1.5 5.3L2 22l4.8-1.5c1.5.8 3.3 1.3 5.2 1.3 5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18.3c-1.7 0-3.4-.5-4.8-1.4l-.3-.2-3 .9.9-2.9-.2-.3C3.7 15 3.2 13.5 3.2 12c0-4.8 3.9-8.8 8.8-8.8s8.8 3.9 8.8 8.8-3.9 8.8-8.8 8.8z"/></svg>
-        Message us on 682 292 137
-      </a>
+      <p>Tell us what you need and leave us your email: we'll write back with what fits your business and a fixed price.</p>
+      <form class="contact-form" id="contact-form" data-sending="Sending…" data-ok="Sent. We'll write back to you very soon." data-error="It couldn't be sent. Try again in a moment or email us at enlaceestudioweb@gmail.com.">
+        <fieldset class="cf-need">
+          <legend>What do you need?</legend>
+          <div class="cf-options">
+            <label class="cf-option"><input type="radio" name="necesita" value="web" required><span>A website</span></label>
+            <label class="cf-option"><input type="radio" name="necesita" value="nfc"><span>NFC cards</span></label>
+            <label class="cf-option"><input type="radio" name="necesita" value="otro"><span>Other</span></label>
+          </div>
+          <div class="cf-other" hidden>
+            <label class="sr-only" for="cf-texto">Tell us what you need</label>
+            <textarea id="cf-texto" name="texto" rows="3" maxlength="1500" placeholder="Tell us what you need" disabled></textarea>
+          </div>
+        </fieldset>
+        <label class="cf-field"><span>Your email</span><input type="email" name="email" required maxlength="200" autocomplete="email" placeholder="you@yourbusiness.com"></label>
+        <div class="cf-trap" aria-hidden="true"><label>Leave this field empty<input type="text" name="sitio" tabindex="-1" autocomplete="off"></label></div>
+        <button type="submit" class="btn btn-cta btn-lg">Send</button>
+        <p class="cf-status" role="status" aria-live="polite"></p>
+        <p class="cf-privacy">We'll only use your email to reply to you. <a href="privacy.html">Privacy policy</a>.</p>
+      </form>
     </div>
   </section>
 
@@ -831,7 +849,7 @@
     </div>
     <div class="footer-bottom">
       <div class="footer-meta">
-        <p><a href="mailto:enlaceestudioweb@gmail.com">enlaceestudioweb@gmail.com</a> · <a href="https://wa.me/34682292137?text=Hi!%20I%27m%20writing%20from%20the%20Enlace%20Estudio%20website." target="_blank" rel="noopener">+34 682 292 137</a></p>
+        <p><a href="mailto:enlaceestudioweb@gmail.com">enlaceestudioweb@gmail.com</a></p>
         <p class="footer-legal"><a href="legal-notice.html">Legal notice</a> · <a href="privacy.html">Privacy</a> · <a href="cookies.html">Cookies</a></p>
       </div>
       <p class="footer-copy">© <span id="year"></span> Enlace Estudio. NFC cards and web design.</p>
@@ -839,11 +857,11 @@
   </div>
 </footer>
 
-<!-- Botón fijo de WhatsApp: sólo en móvil (lo muestra el CSS) -->
-<a class="wa-float" href="https://wa.me/34682292137?text=Hi!%20I%27d%20like%20some%20information%20for%20my%20business." target="_blank" rel="noopener" aria-label="Message us on WhatsApp">
-  <svg viewBox="0 0 24 24" class="icon-wa" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.7-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.1-.2.2-.3.2-.6.1-.3-.1-1.2-.5-2.3-1.5-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5C10.1 9 9.6 7.8 9.4 7.3c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.3.3-1 .9-1 2.3s1 2.7 1.2 2.9c.1.2 2 3 4.8 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 1.9-1.3.2-.7.2-1.2.2-1.3-.1-.2-.3-.2-.6-.4z"/><path d="M12 2C6.5 2 2 6.5 2 12c0 1.9.5 3.7 1.5 5.3L2 22l4.8-1.5c1.5.8 3.3 1.3 5.2 1.3 5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18.3c-1.7 0-3.4-.5-4.8-1.4l-.3-.2-3 .9.9-2.9-.2-.3C3.7 15 3.2 13.5 3.2 12c0-4.8 3.9-8.8 8.8-8.8s8.8 3.9 8.8 8.8-3.9 8.8-8.8 8.8z"/></svg>
+<!-- Botón fijo de contacto: sólo en móvil (lo muestra el CSS) -->
+<a class="contact-float" href="#contacto" aria-label="Contact us">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m4 7.5 8 6 8-6"/></svg>
 </a>
 
-<script src="js/main.js?v=2026-10-11"></script>
+<script src="js/main.js?v=2026-11-09"></script>
 </body>
 </html>

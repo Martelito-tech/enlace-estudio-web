@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Enlace Estudio · Tarjetas NFC para reseñas y webs</title>
-<meta name="description" content="Tarjetas NFC con tu marca para conseguir reseñas en Google, Instagram y Facebook con un toque del móvil. Y webs para tu negocio. Escríbenos por WhatsApp.">
+<meta name="description" content="Tarjetas NFC con tu marca para conseguir reseñas en Google, Instagram y Facebook con un toque del móvil. Y webs para tu negocio.">
 
 <link rel="canonical" href="https://enlaceestudio.com/es/">
 <link rel="alternate" hreflang="en" href="https://enlaceestudio.com/">
@@ -36,10 +36,13 @@
      obligatorio en el preload aunque la fuente sea del mismo dominio. -->
 <link rel="preload" href="../fonts/manrope-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="../fonts/sora-latin.woff2" as="font" type="font/woff2" crossorigin>
-<!-- Al tocar el CSS o el JS, sube la fecha del ?v= en todos los HTML. Cloudflare
-     los cachea 4 horas: si la ruta no cambia, quien ya visitó la web recibe el
-     HTML nuevo con el CSS viejo y la página se ve rota. -->
-<link rel="stylesheet" href="../css/style.css?v=2026-10-11">
+<!-- Al tocar el CSS o el JS, sube la fecha del ?v= en todos los HTML. Si la ruta no
+     cambia, el navegador de quien ya visitó la web puede juntar el HTML nuevo
+     con el CSS viejo y la página se ve rota. -->
+<!-- Oferta de lanzamiento: fecha y plazas en js/lanzamiento.js. Va antes del
+     CSS para que, pasada la fecha, no se vean ni un instante los precios rebajados. -->
+<script src="../js/lanzamiento.js?v=2026-11-09"></script>
+<link rel="stylesheet" href="../css/style.css?v=2026-11-09">
 
 <script type="application/ld+json">
 {
@@ -51,7 +54,7 @@
   "url": "https://enlaceestudio.com/es/",
   "image": "https://enlaceestudio.com/img/og-es.jpg",
   "logo": "https://enlaceestudio.com/img/Logo_enlace_vectorizado.svg",
-  "telephone": "+34682292137",
+  "email": "enlaceestudioweb@gmail.com",
   "currenciesAccepted": "EUR",
   "sameAs": [
     "https://www.instagram.com/enlaceestudio_/",
@@ -113,7 +116,7 @@
       "name": "¿Y si necesito cambios después de entregar?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Si tienes cuota mensual, los cambios entran en ella según tu plan: nos escribes y lo actualizamos. Si compraste la web a pago único, cada cambio se cobra aparte, por horas. En los dos casos, para cambios grandes, como subpáginas completas o funcionalidades nuevas, hablamos de un precio aparte, siempre claro de antemano."
+        "text": "Si tienes cuota mensual, los cambios entran en ella: nos escribes y lo actualizamos. Si compraste la web a pago único, cada cambio se cobra aparte, por horas. En los dos casos, para cambios grandes, como subpáginas completas o funcionalidades nuevas, hablamos de un precio aparte, siempre claro de antemano."
       }
     },
     {
@@ -155,8 +158,7 @@
       <a href="../es/" hreflang="es" lang="es" title="Español" aria-current="page"><img src="../img/flags/es.svg" alt="" width="20" height="14"><span>ES</span><span class="sr-only"> · Español</span></a>
       <a href="../lt/" hreflang="lt" lang="lt" title="Lietuvių"><img src="../img/flags/lt.svg" alt="" width="20" height="14"><span>LT</span><span class="sr-only"> · Lietuvių</span></a>
     </nav>
-    <a class="btn btn-dark btn-sm" href="https://wa.me/34682292137?text=%C2%A1Hola!%20Quiero%20hablar%20sobre%20mi%20negocio." target="_blank" rel="noopener">
-      <svg viewBox="0 0 24 24" class="icon-wa" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.7-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.1-.2.2-.3.2-.6.1-.3-.1-1.2-.5-2.3-1.5-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5C10.1 9 9.6 7.8 9.4 7.3c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.3.3-1 .9-1 2.3s1 2.7 1.2 2.9c.1.2 2 3 4.8 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 1.9-1.3.2-.7.2-1.2.2-1.3-.1-.2-.3-.2-.6-.4z"/><path d="M12 2C6.5 2 2 6.5 2 12c0 1.9.5 3.7 1.5 5.3L2 22l4.8-1.5c1.5.8 3.3 1.3 5.2 1.3 5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18.3c-1.7 0-3.4-.5-4.8-1.4l-.3-.2-3 .9.9-2.9-.2-.3C3.7 15 3.2 13.5 3.2 12c0-4.8 3.9-8.8 8.8-8.8s8.8 3.9 8.8 8.8-3.9 8.8-8.8 8.8z"/></svg>
+    <a class="btn btn-dark btn-sm" href="#contacto">
       Hablamos
     </a>
     <button class="nav-toggle" id="nav-toggle" aria-label="Abrir menú" aria-expanded="false">
@@ -388,7 +390,9 @@
       </div>
 
       <!-- Packs por propósito, no por cantidad: precio normal tachado y precio
-           de lanzamiento (decisión del 11/10/2026) -->
+           de lanzamiento (decisión del 11/10/2026). Lo de .solo-lanzamiento se
+           oculta y lo de .solo-normal aparece cuando js/lanzamiento.js da la
+           oferta por acabada. -->
       <div class="pricing-grid nfc-pricing">
         <article class="price-card">
           <p class="price-tag"><span class="dot dot-sky"></span> UNA</p>
@@ -397,8 +401,8 @@
             <li>La reseña de Google</li>
             <li>Para el mostrador o la recepción</li>
           </ul>
-          <p class="plan-price"><span class="sr-only">Precio normal: </span><s>29 €</s> <span class="sr-only">Precio de lanzamiento: </span><strong>23 €</strong></p>
-          <p class="plan-launch">Precio de lanzamiento</p>
+          <p class="plan-price"><span class="solo-lanzamiento"><span class="sr-only">Precio normal: </span><s>29 €</s> <span class="sr-only">Precio de lanzamiento: </span><strong>23 €</strong></span><strong class="solo-normal">29 €</strong></p>
+          <p class="plan-launch solo-lanzamiento">Precio de lanzamiento</p>
         </article>
 
         <article class="price-card">
@@ -408,8 +412,8 @@
             <li>Google, Instagram y Facebook</li>
             <li>Para la caja o el mostrador</li>
           </ul>
-          <p class="plan-price"><span class="sr-only">Precio normal: </span><s>69 €</s> <span class="sr-only">Precio de lanzamiento: </span><strong>55 €</strong></p>
-          <p class="plan-launch">Precio de lanzamiento</p>
+          <p class="plan-price"><span class="solo-lanzamiento"><span class="sr-only">Precio normal: </span><s>69 €</s> <span class="sr-only">Precio de lanzamiento: </span><strong>55 €</strong></span><strong class="solo-normal">69 €</strong></p>
+          <p class="plan-launch solo-lanzamiento">Precio de lanzamiento</p>
         </article>
 
         <article class="price-card price-card-featured">
@@ -420,8 +424,8 @@
             <li>Una en cada mesa</li>
             <li>Google, Instagram, Facebook o tu carta</li>
           </ul>
-          <p class="plan-price"><span class="sr-only">Precio normal: </span><s>169 €</s> <span class="sr-only">Precio de lanzamiento: </span><strong>135 €</strong></p>
-          <p class="plan-launch">Precio de lanzamiento</p>
+          <p class="plan-price"><span class="solo-lanzamiento"><span class="sr-only">Precio normal: </span><s>169 €</s> <span class="sr-only">Precio de lanzamiento: </span><strong>135 €</strong></span><strong class="solo-normal">169 €</strong></p>
+          <p class="plan-launch solo-lanzamiento">Precio de lanzamiento</p>
         </article>
 
         <article class="price-card">
@@ -431,16 +435,17 @@
             <li>Mesas, barra y terraza</li>
             <li>Para locales grandes</li>
           </ul>
-          <p class="plan-price"><span class="sr-only">Precio normal: </span><s>290 €</s> <span class="sr-only">Precio de lanzamiento: </span><strong>229 €</strong></p>
-          <p class="plan-launch">Precio de lanzamiento</p>
+          <p class="plan-price"><span class="solo-lanzamiento"><span class="sr-only">Precio normal: </span><s>290 €</s> <span class="sr-only">Precio de lanzamiento: </span><strong>229 €</strong></span><strong class="solo-normal">290 €</strong></p>
+          <p class="plan-launch solo-lanzamiento">Precio de lanzamiento</p>
         </article>
       </div>
 
-      <p class="pricing-note plan-note">Precios de lanzamiento. Pago único, sin cuotas. ¿Más de 20 tarjetas para un hotel, una cadena o varios locales? <a href="https://wa.me/34682292137?text=%C2%A1Hola!%20Necesito%20m%C3%A1s%20de%2020%20tarjetas%20NFC%20para%20mi%20negocio." target="_blank" rel="noopener">Te hacemos un presupuesto</a>.</p>
+      <p class="pricing-note plan-note plan-offer solo-lanzamiento">20 % de descuento para los 10 primeros negocios o hasta el <span data-lanzamiento="fecha">15 de noviembre</span>, lo que llegue antes. <strong data-lanzamiento="plazas">Quedan 8 plazas.</strong></p>
+      <p class="pricing-note plan-note">Pago único, sin cuotas. Si una tarjeta deja de funcionar, te la cambiamos gratis, sin plazo.</p>
+      <p class="pricing-note plan-note">¿Más de 20 tarjetas para un hotel, una cadena o varios locales? Desde 13 € la tarjeta: <a href="#contacto" data-need="otro" data-msg="Necesito más de 20 tarjetas NFC.">te hacemos un presupuesto</a>.</p>
 
       <div class="plans-cta">
-        <a class="btn btn-wa btn-lg" href="https://wa.me/34682292137?text=%C2%A1Hola!%20Me%20interesan%20las%20tarjetas%20NFC%20para%20mi%20negocio." target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24" class="icon-wa" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.7-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.1-.2.2-.3.2-.6.1-.3-.1-1.2-.5-2.3-1.5-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5C10.1 9 9.6 7.8 9.4 7.3c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.3.3-1 .9-1 2.3s1 2.7 1.2 2.9c.1.2 2 3 4.8 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 1.9-1.3.2-.7.2-1.2.2-1.3-.1-.2-.3-.2-.6-.4z"/><path d="M12 2C6.5 2 2 6.5 2 12c0 1.9.5 3.7 1.5 5.3L2 22l4.8-1.5c1.5.8 3.3 1.3 5.2 1.3 5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18.3c-1.7 0-3.4-.5-4.8-1.4l-.3-.2-3 .9.9-2.9-.2-.3C3.7 15 3.2 13.5 3.2 12c0-4.8 3.9-8.8 8.8-8.8s8.8 3.9 8.8 8.8-3.9 8.8-8.8 8.8z"/></svg>
+        <a class="btn btn-cta btn-lg" href="#contacto" data-need="nfc">
           Quiero mis tarjetas
         </a>
       </div>
@@ -615,16 +620,13 @@
           <p class="plan-sub">Con cuota mensual</p>
           <ul class="price-list">
             <li>Todo lo de Web + Presencia</li>
-            <li>Cambios ilimitados razonables</li>
-            <li>Soporte prioritario por WhatsApp</li>
             <li>Informe mensual con los datos de tu web</li>
           </ul>
         </article>
       </div>
 
       <div class="plans-cta">
-        <a class="btn btn-wa btn-lg" href="https://wa.me/34682292137?text=%C2%A1Hola!%20Quiero%20hablar%20sobre%20una%20web%20para%20mi%20negocio." target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24" class="icon-wa" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.7-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.1-.2.2-.3.2-.6.1-.3-.1-1.2-.5-2.3-1.5-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5C10.1 9 9.6 7.8 9.4 7.3c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.3.3-1 .9-1 2.3s1 2.7 1.2 2.9c.1.2 2 3 4.8 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 1.9-1.3.2-.7.2-1.2.2-1.3-.1-.2-.3-.2-.6-.4z"/><path d="M12 2C6.5 2 2 6.5 2 12c0 1.9.5 3.7 1.5 5.3L2 22l4.8-1.5c1.5.8 3.3 1.3 5.2 1.3 5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18.3c-1.7 0-3.4-.5-4.8-1.4l-.3-.2-3 .9.9-2.9-.2-.3C3.7 15 3.2 13.5 3.2 12c0-4.8 3.9-8.8 8.8-8.8s8.8 3.9 8.8 8.8-3.9 8.8-8.8 8.8z"/></svg>
+        <a class="btn btn-cta btn-lg" href="#contacto" data-need="web">
           Hablemos de tu web
         </a>
       </div>
@@ -645,10 +647,9 @@
         </div>
         <div class="pack-price">
           <p class="pack-lead">Todo junto, en un solo pack.</p>
-          <a class="btn btn-wa" href="https://wa.me/34682292137?text=%C2%A1Hola!%20Me%20interesa%20el%20Pack%20Negocio%20completo%3A%20web%2C%20tarjetas%20NFC%20y%20ficha%20de%20Google." target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24" class="icon-wa" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.7-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.1-.2.2-.3.2-.6.1-.3-.1-1.2-.5-2.3-1.5-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5C10.1 9 9.6 7.8 9.4 7.3c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.3.3-1 .9-1 2.3s1 2.7 1.2 2.9c.1.2 2 3 4.8 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 1.9-1.3.2-.7.2-1.2.2-1.3-.1-.2-.3-.2-.6-.4z"/><path d="M12 2C6.5 2 2 6.5 2 12c0 1.9.5 3.7 1.5 5.3L2 22l4.8-1.5c1.5.8 3.3 1.3 5.2 1.3 5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18.3c-1.7 0-3.4-.5-4.8-1.4l-.3-.2-3 .9.9-2.9-.2-.3C3.7 15 3.2 13.5 3.2 12c0-4.8 3.9-8.8 8.8-8.8s8.8 3.9 8.8 8.8-3.9 8.8-8.8 8.8z"/></svg>
-            Quiero el pack completo
-          </a>
+          <a class="btn btn-cta" href="#contacto" data-need="otro" data-msg="Me interesa el Pack Negocio completo.">
+          Quiero el pack completo
+        </a>
         </div>
       </article>
 
@@ -765,7 +766,7 @@
             <svg viewBox="0 0 24 24" class="faq-chevron"><path d="M6 9l6 6 6-6"/></svg>
           </button>
           <div class="faq-answer">
-            <p>Si tienes cuota mensual, los cambios entran en ella según tu plan: nos escribes y lo actualizamos. Si compraste la web a pago único, cada cambio se cobra aparte, por horas. En los dos casos, para cambios grandes, como subpáginas completas o funcionalidades nuevas, hablamos de un precio aparte, siempre claro de antemano.</p>
+            <p>Si tienes cuota mensual, los cambios entran en ella: nos escribes y lo actualizamos. Si compraste la web a pago único, cada cambio se cobra aparte, por horas. En los dos casos, para cambios grandes, como subpáginas completas o funcionalidades nuevas, hablamos de un precio aparte, siempre claro de antemano.</p>
           </div>
         </div>
         <div class="faq-item">
@@ -790,15 +791,32 @@
     </div>
   </section>
 
-  <!-- CONTACTO / CTA FINAL -->
-  <section class="cta-final">
+  <!-- CONTACTO: formulario. Lo envía js/main.js al Apps Script de
+       herramientas/formulario-web/, que manda un correo a enlaceestudioweb@gmail.com.
+       Solo pide el correo y qué necesita; «Otro» despliega el cuadro de texto. -->
+  <section class="cta-final" id="contacto">
     <div class="wrap cta-final-inner">
       <h2>¿Hablamos de tu negocio?</h2>
-      <p>Tarjetas, web o las dos cosas: cuéntanos en qué consiste tu negocio y te respondemos con lo que te hace falta y un precio cerrado.</p>
-      <a class="btn btn-wa btn-lg" href="https://wa.me/34682292137?text=%C2%A1Hola!%20Os%20cuento%20en%20qu%C3%A9%20consiste%20mi%20negocio%20para%20que%20me%20propong%C3%A1is%20un%20plan%20y%20un%20precio." target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24" class="icon-wa" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.7-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.1-.2.2-.3.2-.6.1-.3-.1-1.2-.5-2.3-1.5-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5C10.1 9 9.6 7.8 9.4 7.3c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.3.3-1 .9-1 2.3s1 2.7 1.2 2.9c.1.2 2 3 4.8 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 1.9-1.3.2-.7.2-1.2.2-1.3-.1-.2-.3-.2-.6-.4z"/><path d="M12 2C6.5 2 2 6.5 2 12c0 1.9.5 3.7 1.5 5.3L2 22l4.8-1.5c1.5.8 3.3 1.3 5.2 1.3 5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18.3c-1.7 0-3.4-.5-4.8-1.4l-.3-.2-3 .9.9-2.9-.2-.3C3.7 15 3.2 13.5 3.2 12c0-4.8 3.9-8.8 8.8-8.8s8.8 3.9 8.8 8.8-3.9 8.8-8.8 8.8z"/></svg>
-        Escríbenos al 682 292 137
-      </a>
+      <p>Dinos qué necesitas y déjanos tu correo: te escribimos con lo que le hace falta a tu negocio y un precio cerrado.</p>
+      <form class="contact-form" id="contact-form" data-sending="Enviando…" data-ok="Enviado. Te escribimos muy pronto." data-error="No se ha podido enviar. Prueba otra vez en un momento o escríbenos a enlaceestudioweb@gmail.com.">
+        <fieldset class="cf-need">
+          <legend>¿Qué necesitas?</legend>
+          <div class="cf-options">
+            <label class="cf-option"><input type="radio" name="necesita" value="web" required><span>Una web</span></label>
+            <label class="cf-option"><input type="radio" name="necesita" value="nfc"><span>Tarjetas NFC</span></label>
+            <label class="cf-option"><input type="radio" name="necesita" value="otro"><span>Otro</span></label>
+          </div>
+          <div class="cf-other" hidden>
+            <label class="sr-only" for="cf-texto">Cuéntanos qué necesitas</label>
+            <textarea id="cf-texto" name="texto" rows="3" maxlength="1500" placeholder="Cuéntanos qué necesitas" disabled></textarea>
+          </div>
+        </fieldset>
+        <label class="cf-field"><span>Tu correo</span><input type="email" name="email" required maxlength="200" autocomplete="email" placeholder="tu@tunegocio.com"></label>
+        <div class="cf-trap" aria-hidden="true"><label>Deja este campo vacío<input type="text" name="sitio" tabindex="-1" autocomplete="off"></label></div>
+        <button type="submit" class="btn btn-cta btn-lg">Enviar</button>
+        <p class="cf-status" role="status" aria-live="polite"></p>
+        <p class="cf-privacy">Solo usamos tu correo para responderte. <a href="privacidad.html">Política de privacidad</a>.</p>
+      </form>
     </div>
   </section>
 
@@ -831,7 +849,7 @@
     </div>
     <div class="footer-bottom">
       <div class="footer-meta">
-        <p><a href="mailto:enlaceestudioweb@gmail.com">enlaceestudioweb@gmail.com</a> · <a href="https://wa.me/34682292137?text=%C2%A1Hola!%20Os%20escribo%20desde%20la%20web%20de%20Enlace%20Estudio." target="_blank" rel="noopener">+34 682 292 137</a></p>
+        <p><a href="mailto:enlaceestudioweb@gmail.com">enlaceestudioweb@gmail.com</a></p>
         <p class="footer-legal"><a href="../es/aviso-legal.html">Aviso legal</a> · <a href="../es/privacidad.html">Privacidad</a> · <a href="../es/cookies.html">Cookies</a></p>
       </div>
       <p class="footer-copy">© <span id="year"></span> Enlace Estudio. Tarjetas NFC y diseño web.</p>
@@ -839,11 +857,11 @@
   </div>
 </footer>
 
-<!-- Botón fijo de WhatsApp: sólo en móvil (lo muestra el CSS) -->
-<a class="wa-float" href="https://wa.me/34682292137?text=%C2%A1Hola!%20Me%20gustar%C3%ADa%20informaci%C3%B3n%20para%20mi%20negocio." target="_blank" rel="noopener" aria-label="Escríbenos por WhatsApp">
-  <svg viewBox="0 0 24 24" class="icon-wa" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.7-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.1-.2.2-.3.2-.6.1-.3-.1-1.2-.5-2.3-1.5-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5C10.1 9 9.6 7.8 9.4 7.3c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.3.3-1 .9-1 2.3s1 2.7 1.2 2.9c.1.2 2 3 4.8 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 1.9-1.3.2-.7.2-1.2.2-1.3-.1-.2-.3-.2-.6-.4z"/><path d="M12 2C6.5 2 2 6.5 2 12c0 1.9.5 3.7 1.5 5.3L2 22l4.8-1.5c1.5.8 3.3 1.3 5.2 1.3 5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18.3c-1.7 0-3.4-.5-4.8-1.4l-.3-.2-3 .9.9-2.9-.2-.3C3.7 15 3.2 13.5 3.2 12c0-4.8 3.9-8.8 8.8-8.8s8.8 3.9 8.8 8.8-3.9 8.8-8.8 8.8z"/></svg>
+<!-- Botón fijo de contacto: sólo en móvil (lo muestra el CSS) -->
+<a class="contact-float" href="#contacto" aria-label="Contáctanos">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m4 7.5 8 6 8-6"/></svg>
 </a>
 
-<script src="../js/main.js?v=2026-10-11"></script>
+<script src="../js/main.js?v=2026-11-09"></script>
 </body>
 </html>

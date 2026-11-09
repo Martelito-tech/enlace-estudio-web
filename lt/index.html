@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Enlace Estudio · NFC kortelės atsiliepimams ir svetainės</title>
-<meta name="description" content="NFC kortelės su jūsų prekės ženklu: vienu telefono prisilietimu gausite daugiau atsiliepimų „Google“ ir sekėjų „Instagram“ bei „Facebook“. Taip pat svetainės jūsų verslui. Parašykite mums per „WhatsApp“.">
+<meta name="description" content="NFC kortelės su jūsų prekės ženklu: vienu telefono prisilietimu gausite daugiau atsiliepimų „Google“ ir sekėjų „Instagram“ bei „Facebook“. Taip pat svetainės jūsų verslui.">
 
 <link rel="canonical" href="https://enlaceestudio.com/lt/">
 <link rel="alternate" hreflang="en" href="https://enlaceestudio.com/">
@@ -36,10 +36,13 @@
      obligatorio en el preload aunque la fuente sea del mismo dominio. -->
 <link rel="preload" href="../fonts/manrope-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="../fonts/sora-latin.woff2" as="font" type="font/woff2" crossorigin>
-<!-- Al tocar el CSS o el JS, sube la fecha del ?v= en todos los HTML. Cloudflare
-     los cachea 4 horas: si la ruta no cambia, quien ya visitó la web recibe el
-     HTML nuevo con el CSS viejo y la página se ve rota. -->
-<link rel="stylesheet" href="../css/style.css?v=2026-10-11">
+<!-- Al tocar el CSS o el JS, sube la fecha del ?v= en todos los HTML. Si la ruta no
+     cambia, el navegador de quien ya visitó la web puede juntar el HTML nuevo
+     con el CSS viejo y la página se ve rota. -->
+<!-- Oferta de lanzamiento: fecha y plazas en js/lanzamiento.js. Va antes del
+     CSS para que, pasada la fecha, no se vean ni un instante los precios rebajados. -->
+<script src="../js/lanzamiento.js?v=2026-11-09"></script>
+<link rel="stylesheet" href="../css/style.css?v=2026-11-09">
 
 <script type="application/ld+json">
 {
@@ -51,7 +54,7 @@
   "url": "https://enlaceestudio.com/",
   "image": "https://enlaceestudio.com/img/og-lt.jpg",
   "logo": "https://enlaceestudio.com/img/Logo_enlace_vectorizado.svg",
-  "telephone": "+34682292137",
+  "email": "enlaceestudioweb@gmail.com",
   "currenciesAccepted": "EUR",
   "sameAs": [
     "https://www.instagram.com/enlaceestudio_/",
@@ -113,7 +116,7 @@
       "name": "O jei po perdavimo prireiks pakeitimų?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Jei mokate mėnesinį mokestį, pakeitimai į jį įeina pagal jūsų planą: parašote, ir mes atnaujiname. Jei svetainę įsigijote vienkartiniu mokėjimu, kiekvienas pakeitimas apmokamas atskirai, pagal valandas. Abiem atvejais dėl didelių pakeitimų, pavyzdžiui, ištisų naujų puslapių ar naujų funkcijų, kainą aptariame atskirai ir visada aiškiai iš anksto."
+        "text": "Jei mokate mėnesinį mokestį, pakeitimai į jį įeina: parašote, ir mes atnaujiname. Jei svetainę įsigijote vienkartiniu mokėjimu, kiekvienas pakeitimas apmokamas atskirai, pagal valandas. Abiem atvejais dėl didelių pakeitimų, pavyzdžiui, ištisų naujų puslapių ar naujų funkcijų, kainą aptariame atskirai ir visada aiškiai iš anksto."
       }
     },
     {
@@ -155,8 +158,7 @@
       <a href="../es/" hreflang="es" lang="es" title="Español"><img src="../img/flags/es.svg" alt="" width="20" height="14"><span>ES</span><span class="sr-only"> · Español</span></a>
       <a href="../lt/" hreflang="lt" lang="lt" title="Lietuvių" aria-current="page"><img src="../img/flags/lt.svg" alt="" width="20" height="14"><span>LT</span><span class="sr-only"> · Lietuvių</span></a>
     </nav>
-    <a class="btn btn-dark btn-sm" href="https://wa.me/34682292137?text=Sveiki!%20Nor%C4%97%C4%8Diau%20pasikalb%C4%97ti%20apie%20savo%20versl%C4%85." target="_blank" rel="noopener">
-      <svg viewBox="0 0 24 24" class="icon-wa" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.7-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.1-.2.2-.3.2-.6.1-.3-.1-1.2-.5-2.3-1.5-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5C10.1 9 9.6 7.8 9.4 7.3c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.3.3-1 .9-1 2.3s1 2.7 1.2 2.9c.1.2 2 3 4.8 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 1.9-1.3.2-.7.2-1.2.2-1.3-.1-.2-.3-.2-.6-.4z"/><path d="M12 2C6.5 2 2 6.5 2 12c0 1.9.5 3.7 1.5 5.3L2 22l4.8-1.5c1.5.8 3.3 1.3 5.2 1.3 5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18.3c-1.7 0-3.4-.5-4.8-1.4l-.3-.2-3 .9.9-2.9-.2-.3C3.7 15 3.2 13.5 3.2 12c0-4.8 3.9-8.8 8.8-8.8s8.8 3.9 8.8 8.8-3.9 8.8-8.8 8.8z"/></svg>
+    <a class="btn btn-dark btn-sm" href="#contacto">
       Pasikalbėkime
     </a>
     <button class="nav-toggle" id="nav-toggle" aria-label="Atidaryti meniu" aria-expanded="false">
@@ -388,7 +390,9 @@
       </div>
 
       <!-- Packs por propósito, no por cantidad: precio normal tachado y precio
-           de lanzamiento (decisión del 11/10/2026) -->
+           de lanzamiento (decisión del 11/10/2026). Lo de .solo-lanzamiento se
+           oculta y lo de .solo-normal aparece cuando js/lanzamiento.js da la
+           oferta por acabada. -->
       <div class="pricing-grid nfc-pricing">
         <article class="price-card">
           <p class="price-tag"><span class="dot dot-sky"></span> VIENA</p>
@@ -397,8 +401,8 @@
             <li>Atsiliepimas „Google“</li>
             <li>Prekystaliui ar registratūrai</li>
           </ul>
-          <p class="plan-price"><span class="sr-only">Įprasta kaina: </span><s>29 €</s> <span class="sr-only">Įžanginė kaina: </span><strong>23 €</strong></p>
-          <p class="plan-launch">Įžanginė kaina</p>
+          <p class="plan-price"><span class="solo-lanzamiento"><span class="sr-only">Įprasta kaina: </span><s>29 €</s> <span class="sr-only">Įžanginė kaina: </span><strong>23 €</strong></span><strong class="solo-normal">29 €</strong></p>
+          <p class="plan-launch solo-lanzamiento">Įžanginė kaina</p>
         </article>
 
         <article class="price-card">
@@ -408,8 +412,8 @@
             <li>„Google“, „Instagram“ ir „Facebook“</li>
             <li>Kasai ar prekystaliui</li>
           </ul>
-          <p class="plan-price"><span class="sr-only">Įprasta kaina: </span><s>69 €</s> <span class="sr-only">Įžanginė kaina: </span><strong>55 €</strong></p>
-          <p class="plan-launch">Įžanginė kaina</p>
+          <p class="plan-price"><span class="solo-lanzamiento"><span class="sr-only">Įprasta kaina: </span><s>69 €</s> <span class="sr-only">Įžanginė kaina: </span><strong>55 €</strong></span><strong class="solo-normal">69 €</strong></p>
+          <p class="plan-launch solo-lanzamiento">Įžanginė kaina</p>
         </article>
 
         <article class="price-card price-card-featured">
@@ -420,8 +424,8 @@
             <li>Po vieną ant kiekvieno stalo</li>
             <li>„Google“, „Instagram“, „Facebook“ arba jūsų meniu</li>
           </ul>
-          <p class="plan-price"><span class="sr-only">Įprasta kaina: </span><s>169 €</s> <span class="sr-only">Įžanginė kaina: </span><strong>135 €</strong></p>
-          <p class="plan-launch">Įžanginė kaina</p>
+          <p class="plan-price"><span class="solo-lanzamiento"><span class="sr-only">Įprasta kaina: </span><s>169 €</s> <span class="sr-only">Įžanginė kaina: </span><strong>135 €</strong></span><strong class="solo-normal">169 €</strong></p>
+          <p class="plan-launch solo-lanzamiento">Įžanginė kaina</p>
         </article>
 
         <article class="price-card">
@@ -431,16 +435,17 @@
             <li>Stalai, baras ir terasa</li>
             <li>Didesnėms erdvėms</li>
           </ul>
-          <p class="plan-price"><span class="sr-only">Įprasta kaina: </span><s>290 €</s> <span class="sr-only">Įžanginė kaina: </span><strong>229 €</strong></p>
-          <p class="plan-launch">Įžanginė kaina</p>
+          <p class="plan-price"><span class="solo-lanzamiento"><span class="sr-only">Įprasta kaina: </span><s>290 €</s> <span class="sr-only">Įžanginė kaina: </span><strong>229 €</strong></span><strong class="solo-normal">290 €</strong></p>
+          <p class="plan-launch solo-lanzamiento">Įžanginė kaina</p>
         </article>
       </div>
 
-      <p class="pricing-note plan-note">Įžanginės kainos. Mokama vieną kartą, be mėnesinių mokesčių. Reikia daugiau nei 20 kortelių viešbučiui, tinklui ar kelioms vietoms? <a href="https://wa.me/34682292137?text=Sveiki!%20Mano%20verslui%20reikia%20daugiau%20nei%2020%20NFC%20korteli%C5%B3." target="_blank" rel="noopener">Paruošime pasiūlymą</a>.</p>
+      <p class="pricing-note plan-note plan-offer solo-lanzamiento">20 % nuolaida pirmiesiems 10 verslų arba iki <span data-lanzamiento="fecha">lapkričio 15 d.</span>, kas įvyks anksčiau. <strong data-lanzamiento="plazas">Liko 8 vietos.</strong></p>
+      <p class="pricing-note plan-note">Mokama vieną kartą, be mėnesinių mokesčių. Jei kortelė nustotų veikti, nemokamai ją pakeisime – bet kada.</p>
+      <p class="pricing-note plan-note">Reikia daugiau nei 20 kortelių viešbučiui, tinklui ar kelioms vietoms? Nuo 13 € už kortelę: <a href="#contacto" data-need="otro" data-msg="Man reikia daugiau nei 20 NFC kortelių.">paruošime pasiūlymą</a>.</p>
 
       <div class="plans-cta">
-        <a class="btn btn-wa btn-lg" href="https://wa.me/34682292137?text=Sveiki!%20Domiuosi%20NFC%20kortel%C4%97mis%20savo%20verslui." target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24" class="icon-wa" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.7-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.1-.2.2-.3.2-.6.1-.3-.1-1.2-.5-2.3-1.5-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5C10.1 9 9.6 7.8 9.4 7.3c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.3.3-1 .9-1 2.3s1 2.7 1.2 2.9c.1.2 2 3 4.8 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 1.9-1.3.2-.7.2-1.2.2-1.3-.1-.2-.3-.2-.6-.4z"/><path d="M12 2C6.5 2 2 6.5 2 12c0 1.9.5 3.7 1.5 5.3L2 22l4.8-1.5c1.5.8 3.3 1.3 5.2 1.3 5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18.3c-1.7 0-3.4-.5-4.8-1.4l-.3-.2-3 .9.9-2.9-.2-.3C3.7 15 3.2 13.5 3.2 12c0-4.8 3.9-8.8 8.8-8.8s8.8 3.9 8.8 8.8-3.9 8.8-8.8 8.8z"/></svg>
+        <a class="btn btn-cta btn-lg" href="#contacto" data-need="nfc">
           Noriu kortelių
         </a>
       </div>
@@ -615,16 +620,13 @@
           <p class="plan-sub">Su mėnesiniu mokesčiu</p>
           <ul class="price-list">
             <li>Viskas, kas įeina į „Svetainė + matomumas“</li>
-            <li>Neriboti protingi pakeitimai</li>
-            <li>Prioritetinė pagalba per „WhatsApp“</li>
             <li>Mėnesio ataskaita apie jūsų svetainės duomenis</li>
           </ul>
         </article>
       </div>
 
       <div class="plans-cta">
-        <a class="btn btn-wa btn-lg" href="https://wa.me/34682292137?text=Sveiki!%20Nor%C4%97%C4%8Diau%20pasikalb%C4%97ti%20apie%20svetain%C4%99%20savo%20verslui." target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24" class="icon-wa" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.7-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.1-.2.2-.3.2-.6.1-.3-.1-1.2-.5-2.3-1.5-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5C10.1 9 9.6 7.8 9.4 7.3c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.3.3-1 .9-1 2.3s1 2.7 1.2 2.9c.1.2 2 3 4.8 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 1.9-1.3.2-.7.2-1.2.2-1.3-.1-.2-.3-.2-.6-.4z"/><path d="M12 2C6.5 2 2 6.5 2 12c0 1.9.5 3.7 1.5 5.3L2 22l4.8-1.5c1.5.8 3.3 1.3 5.2 1.3 5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18.3c-1.7 0-3.4-.5-4.8-1.4l-.3-.2-3 .9.9-2.9-.2-.3C3.7 15 3.2 13.5 3.2 12c0-4.8 3.9-8.8 8.8-8.8s8.8 3.9 8.8 8.8-3.9 8.8-8.8 8.8z"/></svg>
+        <a class="btn btn-cta btn-lg" href="#contacto" data-need="web">
           Pakalbėkime apie jūsų svetainę
         </a>
       </div>
@@ -645,10 +647,9 @@
         </div>
         <div class="pack-price">
           <p class="pack-lead">Viskas kartu, viename pakete.</p>
-          <a class="btn btn-wa" href="https://wa.me/34682292137?text=Sveiki!%20Domiuosi%20verslo%20paketu%20%E2%80%9EViskas%20viename%E2%80%9C%3A%20svetain%C4%97%2C%20NFC%20kortel%C4%97s%20ir%20%E2%80%9EGoogle%E2%80%9C%20verslo%20profilis." target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24" class="icon-wa" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.7-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.1-.2.2-.3.2-.6.1-.3-.1-1.2-.5-2.3-1.5-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5C10.1 9 9.6 7.8 9.4 7.3c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.3.3-1 .9-1 2.3s1 2.7 1.2 2.9c.1.2 2 3 4.8 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 1.9-1.3.2-.7.2-1.2.2-1.3-.1-.2-.3-.2-.6-.4z"/><path d="M12 2C6.5 2 2 6.5 2 12c0 1.9.5 3.7 1.5 5.3L2 22l4.8-1.5c1.5.8 3.3 1.3 5.2 1.3 5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18.3c-1.7 0-3.4-.5-4.8-1.4l-.3-.2-3 .9.9-2.9-.2-.3C3.7 15 3.2 13.5 3.2 12c0-4.8 3.9-8.8 8.8-8.8s8.8 3.9 8.8 8.8-3.9 8.8-8.8 8.8z"/></svg>
-            Noriu viso paketo
-          </a>
+          <a class="btn btn-cta" href="#contacto" data-need="otro" data-msg="Domiuosi verslo paketu „Viskas viename“.">
+          Noriu viso paketo
+        </a>
         </div>
       </article>
 
@@ -765,7 +766,7 @@
             <svg viewBox="0 0 24 24" class="faq-chevron"><path d="M6 9l6 6 6-6"/></svg>
           </button>
           <div class="faq-answer">
-            <p>Jei mokate mėnesinį mokestį, pakeitimai į jį įeina pagal jūsų planą: parašote, ir mes atnaujiname. Jei svetainę įsigijote vienkartiniu mokėjimu, kiekvienas pakeitimas apmokamas atskirai, pagal valandas. Abiem atvejais dėl didelių pakeitimų, pavyzdžiui, ištisų naujų puslapių ar naujų funkcijų, kainą aptariame atskirai ir visada aiškiai iš anksto.</p>
+            <p>Jei mokate mėnesinį mokestį, pakeitimai į jį įeina: parašote, ir mes atnaujiname. Jei svetainę įsigijote vienkartiniu mokėjimu, kiekvienas pakeitimas apmokamas atskirai, pagal valandas. Abiem atvejais dėl didelių pakeitimų, pavyzdžiui, ištisų naujų puslapių ar naujų funkcijų, kainą aptariame atskirai ir visada aiškiai iš anksto.</p>
           </div>
         </div>
         <div class="faq-item">
@@ -790,15 +791,32 @@
     </div>
   </section>
 
-  <!-- CONTACTO / CTA FINAL -->
-  <section class="cta-final">
+  <!-- CONTACTO: formulario. Lo envía js/main.js al Apps Script de
+       herramientas/formulario-web/, que manda un correo a enlaceestudioweb@gmail.com.
+       Solo pide el correo y qué necesita; «Otro» despliega el cuadro de texto. -->
+  <section class="cta-final" id="contacto">
     <div class="wrap cta-final-inner">
       <h2>Pasikalbėkime apie jūsų verslą.</h2>
-      <p>Kortelės, svetainė ar abu: papasakokite, kuo užsiima jūsų verslas, ir atsakysime, ko jums reikia ir kokia bus fiksuota kaina.</p>
-      <a class="btn btn-wa btn-lg" href="https://wa.me/34682292137?text=Sveiki!%20Papasakosiu%2C%20kuo%20u%C5%BEsiima%20mano%20verslas%2C%20kad%20gal%C4%97tum%C4%97te%20pasi%C5%ABlyti%20plan%C4%85%20ir%20kain%C4%85." target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24" class="icon-wa" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.7-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.1-.2.2-.3.2-.6.1-.3-.1-1.2-.5-2.3-1.5-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5C10.1 9 9.6 7.8 9.4 7.3c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.3.3-1 .9-1 2.3s1 2.7 1.2 2.9c.1.2 2 3 4.8 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 1.9-1.3.2-.7.2-1.2.2-1.3-.1-.2-.3-.2-.6-.4z"/><path d="M12 2C6.5 2 2 6.5 2 12c0 1.9.5 3.7 1.5 5.3L2 22l4.8-1.5c1.5.8 3.3 1.3 5.2 1.3 5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18.3c-1.7 0-3.4-.5-4.8-1.4l-.3-.2-3 .9.9-2.9-.2-.3C3.7 15 3.2 13.5 3.2 12c0-4.8 3.9-8.8 8.8-8.8s8.8 3.9 8.8 8.8-3.9 8.8-8.8 8.8z"/></svg>
-        Parašykite numeriu 682 292 137
-      </a>
+      <p>Pasakykite, ko jums reikia, ir palikite savo el. pašto adresą: parašysime, kas tinka jūsų verslui, ir nurodysime fiksuotą kainą.</p>
+      <form class="contact-form" id="contact-form" data-sending="Siunčiama…" data-ok="Išsiųsta. Netrukus jums parašysime." data-error="Nepavyko išsiųsti. Pabandykite dar kartą po akimirkos arba rašykite mums enlaceestudioweb@gmail.com.">
+        <fieldset class="cf-need">
+          <legend>Ko jums reikia?</legend>
+          <div class="cf-options">
+            <label class="cf-option"><input type="radio" name="necesita" value="web" required><span>Svetainė</span></label>
+            <label class="cf-option"><input type="radio" name="necesita" value="nfc"><span>NFC kortelės</span></label>
+            <label class="cf-option"><input type="radio" name="necesita" value="otro"><span>Kita</span></label>
+          </div>
+          <div class="cf-other" hidden>
+            <label class="sr-only" for="cf-texto">Parašykite, ko jums reikia</label>
+            <textarea id="cf-texto" name="texto" rows="3" maxlength="1500" placeholder="Parašykite, ko jums reikia" disabled></textarea>
+          </div>
+        </fieldset>
+        <label class="cf-field"><span>Jūsų el. paštas</span><input type="email" name="email" required maxlength="200" autocomplete="email" placeholder="jusu@verslas.lt"></label>
+        <div class="cf-trap" aria-hidden="true"><label>Šio laukelio nepildykite<input type="text" name="sitio" tabindex="-1" autocomplete="off"></label></div>
+        <button type="submit" class="btn btn-cta btn-lg">Siųsti</button>
+        <p class="cf-status" role="status" aria-live="polite"></p>
+        <p class="cf-privacy">Jūsų el. pašto adresą naudosime tik tam, kad jums atsakytume. <a href="privatumas.html">Privatumo politika</a>.</p>
+      </form>
     </div>
   </section>
 
@@ -831,7 +849,7 @@
     </div>
     <div class="footer-bottom">
       <div class="footer-meta">
-        <p><a href="mailto:enlaceestudioweb@gmail.com">enlaceestudioweb@gmail.com</a> · <a href="https://wa.me/34682292137?text=Sveiki!%20Ra%C5%A1au%20i%C5%A1%20Enlace%20Estudio%20svetain%C4%97s." target="_blank" rel="noopener">+34 682 292 137</a></p>
+        <p><a href="mailto:enlaceestudioweb@gmail.com">enlaceestudioweb@gmail.com</a></p>
         <p class="footer-legal"><a href="../lt/teisine-informacija.html">Teisinė informacija</a> · <a href="../lt/privatumas.html">Privatumas</a> · <a href="../lt/slapukai.html">Slapukai</a></p>
       </div>
       <p class="footer-copy">© <span id="year"></span> Enlace Estudio. NFC kortelės ir svetainių dizainas.</p>
@@ -839,11 +857,11 @@
   </div>
 </footer>
 
-<!-- Botón fijo de WhatsApp: sólo en móvil (lo muestra el CSS) -->
-<a class="wa-float" href="https://wa.me/34682292137?text=Sveiki!%20Nor%C4%97%C4%8Diau%20informacijos%20savo%20verslui." target="_blank" rel="noopener" aria-label="Parašykite mums per „WhatsApp“">
-  <svg viewBox="0 0 24 24" class="icon-wa" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.7-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.1-.2.2-.3.2-.6.1-.3-.1-1.2-.5-2.3-1.5-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5C10.1 9 9.6 7.8 9.4 7.3c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.3.3-1 .9-1 2.3s1 2.7 1.2 2.9c.1.2 2 3 4.8 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 1.9-1.3.2-.7.2-1.2.2-1.3-.1-.2-.3-.2-.6-.4z"/><path d="M12 2C6.5 2 2 6.5 2 12c0 1.9.5 3.7 1.5 5.3L2 22l4.8-1.5c1.5.8 3.3 1.3 5.2 1.3 5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18.3c-1.7 0-3.4-.5-4.8-1.4l-.3-.2-3 .9.9-2.9-.2-.3C3.7 15 3.2 13.5 3.2 12c0-4.8 3.9-8.8 8.8-8.8s8.8 3.9 8.8 8.8-3.9 8.8-8.8 8.8z"/></svg>
+<!-- Botón fijo de contacto: sólo en móvil (lo muestra el CSS) -->
+<a class="contact-float" href="#contacto" aria-label="Susisiekite">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m4 7.5 8 6 8-6"/></svg>
 </a>
 
-<script src="../js/main.js?v=2026-10-11"></script>
+<script src="../js/main.js?v=2026-11-09"></script>
 </body>
 </html>

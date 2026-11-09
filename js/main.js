@@ -1012,3 +1012,80 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
     }, { threshold: 0.4 }).observe(demo);
   }
 })();
+
+// Formulario de contacto. Lo recibe el Apps Script de
+// herramientas/formulario-web/ (cuenta enlaceestudioweb@gmail.com), que manda
+// un correo con «Responder a» puesto en el del cliente.
+// FORM_URL es la URL de la aplicación web publicada (acaba en /exec). Vacía,
+// el formulario enseña el mensaje de error con el correo.
+const FORM_URL = '';
+(function () {
+  const form = document.getElementById('contact-form');
+  if (!form) return;
+  const radios = form.querySelectorAll('input[name="necesita"]');
+  const otherBox = form.querySelector('.cf-other');
+  const texto = form.querySelector('textarea[name="texto"]');
+  const status = form.querySelector('.cf-status');
+  const button = form.querySelector('button[type="submit"]');
+
+  // «Otro» despliega el cuadro de texto, y solo entonces es obligatorio
+  function syncOther(focus) {
+    const checked = form.querySelector('input[name="necesita"]:checked');
+    const isOther = !!checked && checked.value === 'otro';
+    otherBox.hidden = !isOther;
+    texto.disabled = !isOther;
+    texto.required = isOther;
+    if (isOther && focus) texto.focus({ preventScroll: true });
+  }
+  function setNeed(value, msg) {
+    radios.forEach(r => { r.checked = r.value === value; });
+    if (msg && !texto.value) texto.value = msg;
+    syncOther(false);
+  }
+  radios.forEach(r => r.addEventListener('change', () => syncOther(true)));
+
+  // Los botones de cada sección bajan al formulario con la opción ya marcada
+  document.querySelectorAll('a[data-need]').forEach(a => {
+    a.addEventListener('click', () => setNeed(a.dataset.need, a.dataset.msg));
+  });
+  // Desde los casos se llega con ?necesita=web
+  const fromUrl = new URLSearchParams(location.search).get('necesita');
+  if (fromUrl && form.querySelector('input[name="necesita"][value="' + fromUrl + '"]')) setNeed(fromUrl);
+
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
+    const data = new URLSearchParams(new FormData(form));
+    data.set('idioma', document.documentElement.lang || '');
+    data.set('pagina', location.pathname);
+    button.disabled = true;
+    status.className = 'cf-status';
+    status.textContent = form.dataset.sending;
+    try {
+      if (!FORM_URL) throw new Error('Falta FORM_URL');
+      // Cuerpo como formulario y sin cookies: así el navegador no hace
+      // consulta previa (Apps Script no la contesta) ni guarda nada de Google
+      const res = await fetch(FORM_URL, { method: 'POST', body: data, credentials: 'omit' });
+      const json = await res.json();
+      if (!json.ok) throw new Error('Rechazado');
+      form.reset();
+      syncOther(false);
+      status.textContent = form.dataset.ok;
+      status.classList.add('is-ok');
+    } catch (err) {
+      status.textContent = form.dataset.error;
+      status.classList.add('is-error');
+    } finally {
+      button.disabled = false;
+    }
+  });
+})();
+
+// Botón fijo de contacto (móvil): se aparta mientras se ve el formulario
+(function () {
+  const btn = document.querySelector('.contact-float');
+  const contacto = document.getElementById('contacto');
+  if (!btn || !contacto || !('IntersectionObserver' in window)) return;
+  new IntersectionObserver(entries => {
+    btn.classList.toggle('is-hidden', entries[0].isIntersecting);
+  }, { threshold: 0.1 }).observe(contacto);
+})();
