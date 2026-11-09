@@ -1067,9 +1067,10 @@ const FORM_URL = 'https://script.google.com/macros/s/AKfycbxQhCkmrDrWcR-RPVS5mY0
       const res = await fetch(FORM_URL, { method: 'POST', body: data, credentials: 'omit' });
       const json = await res.json();
       if (!json.ok) throw new Error('Rechazado');
-      // Cuenta el envío en GoatCounter como evento (sin datos del cliente)
+      // Cuenta el envío en GoatCounter como evento, sin datos del cliente. La ruta
+      // lleva el dominio a mano: con una ruta propia no se aplica goatcounter.path
       if (window.goatcounter && window.goatcounter.count) {
-        window.goatcounter.count({ path: 'formulario-enviado-' + data.get('necesita'), title: 'Formulario enviado', event: true });
+        window.goatcounter.count({ path: location.host + '/evento/formulario-' + data.get('necesita'), title: 'Formulario enviado', event: true });
       }
       form.reset();
       syncOther(false);

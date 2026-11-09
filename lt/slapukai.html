@@ -32,6 +32,15 @@
 <link rel="stylesheet" href="../css/style.css?v=2026-11-09">
 <!-- Estadísticas: GoatCounter en nuestro servidor (analitica.enlaceestudio.com).
      Sin cookies ni nada guardado en el navegador; lo explican cookies y privacidad. -->
+<!-- La ruta lleva el dominio delante, como en las webs de cliente, porque
+     todas comparten la misma instalación de GoatCounter. -->
+<script>
+  window.goatcounter = {
+    path: function (p) {
+      return location.host + p.replace(/index\.html$/, '').replace(/\.html$/, '');
+    },
+  };
+</script>
 <script data-goatcounter="https://analitica.enlaceestudio.com/count" async src="https://analitica.enlaceestudio.com/count.js"></script>
 </head>
 <body id="top">
@@ -136,6 +145,6 @@
   <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m4 7.5 8 6 8-6"/></svg>
 </a>
 
-<script src="../js/main.js?v=2026-11-09b"></script>
+<script src="../js/main.js?v=2026-11-09c"></script>
 </body>
 </html>
