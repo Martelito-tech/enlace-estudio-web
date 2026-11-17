@@ -11,7 +11,7 @@
 // HTML: lo de .solo-lanzamiento se oculta y lo de .solo-normal aparece.
 // Se carga en el <head>, antes del CSS, para que no se vean ni un instante
 // los precios rebajados una vez acabada.
-var LANZAMIENTO = { ULTIMO_DIA: '2026-11-15', PLAZAS: 8 };
+var LANZAMIENTO = { ULTIMO_DIA: '2026-11-25', PLAZAS: 8 };
 
 (function () {
   var dia = new Date(LANZAMIENTO.ULTIMO_DIA + 'T00:00:00+02:00').getTime();
